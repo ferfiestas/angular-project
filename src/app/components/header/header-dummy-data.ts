@@ -1,0 +1,36 @@
+export const languages = [
+    {
+        language: 'Español',
+        flag: 'mx'
+    },
+    {
+        language: 'English',
+        flag: 'us'
+    },
+];
+
+export const notifications = [
+    {
+        icon: 'far fa-cloud-download',
+        subject: 'Download complete',
+        description: 'bla bla bla bla',
+    },
+];
+
+export const userItems = [
+    {
+        icon: 'fal fa-user',
+        label: 'Mi Perfil',
+        routeLink: 'profile',
+    },
+    {
+        routeLink: 'settings/passwordreset',
+        label: 'Cambiar contraseña',
+        icon: 'fal fa-key',
+    },
+    {
+        routeLink: 'settings/signout',
+        label: 'Salir',
+        icon: 'fal fa-sign-out',
+    },
+];
