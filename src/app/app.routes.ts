@@ -5,12 +5,12 @@ import { CoursesNewsComponent } from './pages/courses-news/courses-news.componen
 import { HolidaysComponent } from './pages/holidays/holidays.component';
 import { CheckinComponent } from './pages/checkin/checkin.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { ProfileComponent } from './pages/profile/profile.component';
+import { profileComponent } from './pages/profile/profile.component';
 
 
 export const routes: Routes = [
     {path: '', redirectTo: 'profile', pathMatch: 'full'},
-    {path: 'profile', component: ProfileComponent},
+    {path: 'profile', component: profileComponent},
     {path: 'people', component: PeopleComponent},
     {path: 'courses', component: CoursesNewsComponent},
     {path: 'holidays', component: HolidaysComponent},

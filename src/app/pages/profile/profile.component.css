@@ -1,0 +1,67 @@
+.credential-form {
+    background-color: rgba(255, 255, 255, 0.350); /* Fondo translúcido */
+    border: 2px solid #9d2449; /* Borde sólido con color #9d2449 */
+    width: 80%; /* Ancho del formulario */
+    padding: 20px; /* Espacio interno */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: left; /* Alinear texto a la izquierda */
+    margin: auto; /* Centrar horizontalmente */
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-column {
+    flex: 1;
+    margin-right: 20px; /* Espacio entre columnas */
+  }
+  
+  .photo-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .photo-frame {
+    background-color: rgba(255, 255, 255, 0.400); /* Fondo translúcido */
+    border: 2px solid #9d2449; /* Borde sólido con color #9d2449 */
+    padding: 4px; /* Espacio interno */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: center; /* Alinear contenido al centro */
+  }
+  
+  .photo {
+    max-width: 100%; /* Ajustar la imagen al ancho del contenedor */
+    max-height: 100%; /* Ajustar la imagen al alto del contenedor */
+    display: block; /* Mostrar como bloque */
+    margin: auto; /* Centrar la imagen dentro del marco */
+    border-radius: 8px; /* Esquinas redondeadas */
+  }
+  
+  .credential-form label {
+    display: block; /* Mostrar los labels como bloques */
+    margin-bottom: 2px; /* Espacio inferior entre labels */
+  }
+  
+  .credential-form input[type=text],
+  .credential-form input[type=email],
+  .credential-form input[type=date] {
+    width: calc(100% - 20px); /* Ancho del input menos el padding */
+    padding: 8px; /* Espacio interno */
+    margin-bottom: 4px; /* Espacio inferior entre inputs */
+    border: 1px solid #9d2449; /* Borde del input con color #9d2449 */
+    border-radius: 8px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluir padding en el ancho */
+  }
+  
+  .credential-form button {
+    margin-top: 20px; /* Espacio superior al botón */
+    padding: 10px 20px; /* Espacio interno del botón */
+    background-color: #9d2449; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+  }
