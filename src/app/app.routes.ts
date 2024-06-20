@@ -6,7 +6,7 @@ import { HolidaysComponent } from './pages/holidays/holidays.component';
 import { CheckinComponent } from './pages/checkin/checkin.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { profileComponent } from './pages/profile/profile.component';
-/**import { passwordComponent } from './pages/settings/passwordreset/password.component';      **/
+/**import { passwordComponent } from './pages/settings/passwordreset/password.component'; **/
 
 export const routes: Routes = [
     {path: '', redirectTo: 'profile', pathMatch: 'full'},
