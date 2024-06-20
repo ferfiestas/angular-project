@@ -1,8 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, NgModule, OnInit } from '@angular/core';
-import { INavbarData, fadeInOut } from './helper';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+
+import { INavbarData, fadeInOut } from './helper';
+
 
 @NgModule({
   declarations: [],

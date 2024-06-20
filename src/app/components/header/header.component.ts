@@ -2,13 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, Input } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkMenuModule } from '@angular/cdk/menu';
+import { RouterModule, RouterOutlet } from '@angular/router';
+
 import { languages, notifications, userItems } from './header-dummy-data';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, OverlayModule, CdkMenuModule],
+  imports: [CommonModule, OverlayModule, CdkMenuModule, RouterModule, RouterOutlet],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

@@ -105,7 +105,7 @@
     <div class="overlay overlay-user overlay-fall" cdkMenu>
         <ul>
             <li *ngFor="let item of userItems" cdkMenuItem>
-                <a>
+                <a [routerLink]="[item.routeLink]">
                     <i class="icon" [ngClass]="item.icon"></i>
                     <span class="label"> {{ item.label }} </span>
                 </a>
