@@ -28,12 +28,12 @@ export const navbarData: INavbarData[] = [
         routeLink: 'reports',
         items: [
           {
-            routeLink: 'reports/unusualities',
+            routeLink: 'unusualities',
             Label: 'Inusualidades',
             icon: 'fal fa-exclamation',
           },
           {
-            routeLink: 'reports/attendance',
+            routeLink: 'attendance',
             Label: 'Asistencias',
             icon: 'fal fa-check-square',
           }
@@ -50,12 +50,12 @@ export const navbarData: INavbarData[] = [
         routeLink: 'settings',
         items: [
           {
-            routeLink: 'settings/passwordreset',
+            routeLink: 'passwordreset',
             Label: 'Cambiar contraseña',
             icon: 'fal fa-key',
           },
           {
-            routeLink: 'settings/signout',
+            routeLink: 'signout',
             Label: 'Salir',
             icon: 'fal fa-sign-out',
           }

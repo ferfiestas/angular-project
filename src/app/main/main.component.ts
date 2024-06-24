@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LayoutComponent } from "../pages/layout/layout.component";
+import { LayoutComponent } from "./layout.component";
 import { CustomAdminSidenavComponent } from "../components/sidenav/custom-admin-sidenav.component";
 import { HeaderComponent } from "../components/header/header.component";
 
