@@ -9,6 +9,7 @@ import { HolidaysComponent } from '../pages/holidays/holidays.component';
 import { CheckinComponent } from '../pages/checkin/checkin.component';
 import { AttendanceComponent } from '../pages/reports/attendance/attendance.component';
 import { unusualitiesComponent } from '../pages/reports/unusualities/unusualities.component';
+import { passwordComponent } from '../pages/settings/passwordreset/password.component';
 
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
       {path: 'checkin', component: CheckinComponent},
       {path: 'unusualities', component: unusualitiesComponent},
       {path: 'attendance', component: AttendanceComponent},
+      {path: 'passwordreset', component: passwordComponent},
 
     ]
   }

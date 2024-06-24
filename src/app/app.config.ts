@@ -10,14 +10,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { routes } from './app.routes';
 import { profileComponent } from './pages/profile/profile.component';
-
-/**import { passwordComponent } from './pages/settings/passwordreset/password.component';**/
+import { passwordComponent } from './pages/settings/passwordreset/password.component';
 
 
 @NgModule({
   declarations: [
     profileComponent,
-    /**passwordComponent**/
+    passwordComponent,
   ],
   imports: [
     BrowserModule,
