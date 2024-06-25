@@ -21,15 +21,15 @@ export const userItems = [
     {
         icon: 'fal fa-user',
         label: 'Mi Perfil',
-        routeLink: 'layout/profile',
+        routeLink: 'profile',
     },
     {
-        routeLink: 'layout/passwordreset',
+        routeLink: 'passwordreset',
         label: 'Cambiar contraseña',
         icon: 'fal fa-key',
     },
     {
-        routeLink: 'layout/signout',
+        routeLink: 'signout',
         label: 'Salir',
         icon: 'fal fa-sign-out',
     },
