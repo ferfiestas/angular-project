@@ -6,14 +6,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
-body {
+html, body {
     position: relative;
     font-family: 'Roboto', sans-serif;
-    background-image: url(./assets/background.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
+    margin: 0;
+    height: 100%;
+
 }

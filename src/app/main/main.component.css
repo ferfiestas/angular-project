@@ -1,0 +1,22 @@
+.d-flex {
+    display: flex;
+    align-items: center;
+    
+}
+
+.bg-image {
+    background-image: url(../../assets/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0;
+    height: 100%;
+
+}
+
+body {
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+
+}

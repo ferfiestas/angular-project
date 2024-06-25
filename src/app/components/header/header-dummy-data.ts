@@ -24,12 +24,12 @@ export const userItems = [
         routeLink: 'profile',
     },
     {
-        routeLink: 'settings/passwordreset',
+        routeLink: 'passwordreset',
         label: 'Cambiar contraseña',
         icon: 'fal fa-key',
     },
     {
-        routeLink: 'settings/signout',
+        routeLink: 'signout',
         label: 'Salir',
         icon: 'fal fa-sign-out',
     },
