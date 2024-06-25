@@ -24,14 +24,6 @@ export class passwordComponent implements OnInit {
     }, { validator: this.passwordMatchValidator });
   }
 
- /* passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
-    if (password !== confirmPassword) {
-      return { mismatch: true };
-    }
-    return null;
-  } */
 
   onSubmit() {
     if (this.cambiarContrasenaForm.valid) {
