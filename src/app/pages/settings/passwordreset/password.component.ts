@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, /*AbstractControl, ValidationErrors*/ } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-cambiar-contrasena',
@@ -8,9 +8,8 @@ import { FormBuilder, FormGroup, Validators, /*AbstractControl, ValidationErrors
 })
 export class passwordComponent implements OnInit {
   cambiarContrasenaForm!: FormGroup;
-  passwordMatchValidator: any;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.cambiarContrasenaForm = this.fb.group({
@@ -24,6 +23,14 @@ export class passwordComponent implements OnInit {
     }, { validator: this.passwordMatchValidator });
   }
 
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const newPassword = control.get('newPassword')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    if (newPassword !== confirmPassword) {
+      return { mismatch: true };
+    }
+    return null;
+  }
 
   onSubmit() {
     if (this.cambiarContrasenaForm.valid) {
