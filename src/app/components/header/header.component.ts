@@ -26,6 +26,13 @@ export class HeaderComponent {
   notifications = notifications;
   userItems = userItems;
 
+  tickerWidth: string = '100'; 
+  messages: string[] = [
+    'Ejemplo de mensaje 1',
+    'Ejemplo de mensaje 2',
+    'Ejemplo de mensaje 3'
+  ];
+
   @HostListener('window:resize', ['$event'])
   onResize(_event: any) {
     this.checkCanShowSearchAsOverlay(window.innerWidth);
@@ -43,6 +50,16 @@ export class HeaderComponent {
       styleClass = 'head-trimmed';
     } else {
       styleClass = 'head-md-screen';
+    }
+    return styleClass;
+  }
+
+  gettrickerClass(): string {
+    let styleClass = '';
+    if(this.screenWidth > 768) {
+      styleClass = 'ticker-trimmed';
+    } else {
+      styleClass = 'ticker-md-screen';
     }
     return styleClass;
   }

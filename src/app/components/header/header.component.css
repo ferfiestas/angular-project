@@ -19,7 +19,35 @@
         justify-content: space-between;
 
         .head-content-left {
-            .search-container {
+            
+                .ticker-container {
+                    overflow: hidden;
+                    background: transparent;
+                    white-space: nowrap;
+                    border-radius: 10px;
+                    
+                }
+                
+                .ticker-text {
+                    display: inline-block;
+                    font-weight: bold;
+                    animation: ticker 40s ease-in-out infinite;                    
+                    
+                }
+
+                .ticker-text:hover {
+                    animation-play-state: paused;
+                }
+                
+                .ticker-item {
+                    display: inline-block;
+                    padding: 0 600px;
+                    color: #9D449;
+                    
+                    
+                }
+            
+            /* .search-container {
                 position: relative;
 
                 .normal-search {
@@ -60,7 +88,7 @@
                         color: #699dfa;
                     }
                 }
-            }
+            } */
         }
 
         .head-content-right {
@@ -135,6 +163,18 @@
     }
 }
 
+
+
+.ticker-trimmed {
+    width: 300px;
+    
+}
+
+.ticker-md-screen {
+    width: calc(100% - 220px);
+    
+}
+
 .head-trimmed {
     width: calc(100% - 265px);
     margin-left: 265px;
@@ -143,6 +183,12 @@
 .head-md-screen {
     width: calc(100% - 80px);
     margin-left: 80px;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    99% { transform: translateX(-100%); }
+    100% { transform: translateX(-100%); }
 }
 
 @keyframes pulse-animation {
