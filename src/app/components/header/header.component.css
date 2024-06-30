@@ -22,29 +22,40 @@
             
                 .ticker-container {
                     overflow: hidden;
-                    background: transparent;
+                    background: rgba(255, 255, 255, 0.150);
                     white-space: nowrap;
-                    border-radius: 10px;
-                    
+                    display: flex;
+                    align-items: center;
+                    border-radius: 30px;
+                    padding: 13.008px 25.008px;
                 }
                 
                 .ticker-text {
                     display: inline-block;
                     font-weight: bold;
-                    animation: ticker 40s ease-in-out infinite;                    
+                    animation: ticker 60s ease-in-out infinite;                    
                     
                 }
 
                 .ticker-text:hover {
                     animation-play-state: paused;
+                
                 }
                 
                 .ticker-item {
                     display: inline-block;
-                    padding: 0 600px;
+                    padding: 0 2rem;
                     color: #9D449;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                    transition: transform 0.3s ease, color 0.3s ease;
+                    font-size: 1.2rem;
                     
                     
+                }
+
+                .ticker-item:hover {
+                    transform: scale(1.2);
+                    color: #ff5733; /* Cambia el color al pasar el ratón */
                 }
             
             /* .search-container {

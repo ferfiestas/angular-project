@@ -1,0 +1,6 @@
+<div class="ticker-container">
+    <div class="ticker-text" [style.width]="tickerWidth">
+      <span *ngFor="let message of messages" class="ticker-item">{{ message }}</span>
+    </div>
+  </div>
+  

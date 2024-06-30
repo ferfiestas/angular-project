@@ -28,9 +28,9 @@ export class HeaderComponent {
 
   tickerWidth: string = '100'; 
   messages: string[] = [
-    'Ejemplo de mensaje 1',
-    'Ejemplo de mensaje 2',
-    'Ejemplo de mensaje 3'
+    'Aqui puede ir una noticia con respecto al Sindicato',
+    'Aqui puede ir otra noticia, quizá con respecto a algún día feriado',
+    'Aqui podría ir una noticia más de algo relevante con respecto a algún curso o noticia de menor importancia'
   ];
 
   @HostListener('window:resize', ['$event'])
