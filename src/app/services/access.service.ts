@@ -19,4 +19,12 @@ export class AccessService {
   login(object:login): Observable<responseAccess> {
     return this.http.post<responseAccess>(`${this.baseUrl}Access/login`, object)
   }
+
+  getUser() {
+    // Aquí obtendrás la información del usuario logeado.
+    // Esto es solo un ejemplo, deberás implementar esto basado en tu lógica de autenticación.
+    return { id: 1, name: 'Juan Pérez' };
+  }
+
+
 }

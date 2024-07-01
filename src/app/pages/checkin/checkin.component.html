@@ -1,1 +1,24 @@
-<h1>checkin works!</h1>
+<div class="checkin-container">
+    <button (click)="registerAttendance()" [disabled]="!isCheckInTime()">
+      Registrar Asistencia
+    </button>
+    <div *ngIf="message">{{ message }}</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Hora</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of attendanceRecords">
+          <td>{{ record.name }}</td>
+          <td>{{ record.time }}</td>
+          <td>{{ record.date }}</td>
+          <td>{{ record.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

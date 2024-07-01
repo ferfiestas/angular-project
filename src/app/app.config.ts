@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { routes } from './app.routes';
 import { profileComponent } from './pages/profile/profile.component';
 import { passwordComponent } from './pages/settings/passwordreset/password.component';
+import { AccessService } from './services/access.service';
+import { AttendanceService } from './services/attendance.service';
 
 
 @NgModule({
@@ -23,7 +25,7 @@ import { passwordComponent } from './pages/settings/passwordreset/password.compo
     ReactiveFormsModule,
     CommonModule,
   ],
-  providers: [],
+  providers: [AccessService, AttendanceService],
 })
 export class AppModule { }
 
