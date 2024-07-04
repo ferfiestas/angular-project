@@ -7,6 +7,7 @@
     width: 80px;
     height: 100vh;
     box-shadow: 1.008px 0 20px 0 #8690a3;
+    
 
     .logo-container {
         display: flex;
@@ -152,7 +153,7 @@
 
 .scrollwrap {
     overflow-y: auto;
-    visibility: hidden;
+    /* visibility: hidden; */
     height: calc(100% - 58.4px);
 }
 

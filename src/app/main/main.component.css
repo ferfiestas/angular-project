@@ -1,22 +1,23 @@
-.d-flex {
+.join-company-container {
     display: flex;
-    align-items: center;
-    
-}
-
-.bg-image {
+    flex-direction: row;
+    height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+  }
+  
+  .bg-image {
     background-image: url(../../assets/background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    margin: 0;
-    height: 100%;
-
-}
-
-body {
+    width: 100%; /* Asegura que ocupe toda la anchura disponible */
+    height: 100%; /* Asegura que ocupe toda la altura disponible */
+  }
+  
+  /* Ajuste de altura del contenedor central */
+  body {
     position: relative;
     font-family: 'Roboto', sans-serif;
-
-}
+    margin: 0;
+    height: 100%;
+  }

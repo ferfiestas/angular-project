@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 
 import { AccessService } from '../../services/access.service';
 import { AttendanceService } from '../../services/attendance.service';
@@ -7,7 +10,7 @@ import { AttendanceService } from '../../services/attendance.service';
 @Component({
   selector: 'app-checkin',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatTableModule],
   templateUrl: './checkin.component.html',
   styleUrl: './checkin.component.css'
 })

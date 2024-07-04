@@ -8,6 +8,8 @@
 
     position: fixed;
     top: 0;
+    left: 0;
+    box-sizing: border-box; /* Asegura que padding se incluya en el tamaño del elemento */
 
     .head-content {
         background-color: #9d2449;
@@ -17,6 +19,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        width: 100%; /* Asegura que ocupe toda la anchura del contenedor */
 
         .head-content-left {
             
