@@ -56,7 +56,7 @@ export class HeaderComponent {
 
   gettrickerClass(): string {
     let styleClass = '';
-    if(this.screenWidth > 768) {
+    if(this.collapsed && this.screenWidth > 768) {
       styleClass = 'ticker-trimmed';
     } else {
       styleClass = 'ticker-md-screen';

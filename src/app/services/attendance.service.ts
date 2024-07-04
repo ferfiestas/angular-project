@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { Observable, catchError } from 'rxjs';
 
 @Injectable({
@@ -38,4 +39,29 @@ export class AttendanceService {
       })
     );
   }
+
+  autoRegisterFalta(user: any, ip: string): void {
+    const now = new Date();
+    const checkInTime = new Date();
+    checkInTime.setHours(20, 0, 0); // 8 PM
+
+    const timeUntilCheckIn = checkInTime.getTime() - now.getTime();
+    if (timeUntilCheckIn > 0) {
+      setTimeout(() => {
+        const record = {
+          userId: user.id,
+          name: user.name,
+          time: checkInTime.toTimeString().split(' ')[0],
+          date: checkInTime.toDateString(),
+          status: 'Falta',
+          ip: ip
+        };
+        this.saveAttendanceRecord(record).subscribe(
+          _result => console.log('Asistencia registrada como falta automáticamente'),
+          _error => console.error('Error al registrar la falta automáticamente')
+        );
+      }, timeUntilCheckIn);
+    }
+  }
+
 }

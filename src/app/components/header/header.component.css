@@ -177,12 +177,12 @@
 
 
 .ticker-trimmed {
-    width: 300px;
+    width: calc(100% - 210px);
     
 }
 
 .ticker-md-screen {
-    width: calc(100% - 220px);
+    width: calc(100% - 210px);
     
 }
 

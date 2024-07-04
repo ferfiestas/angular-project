@@ -14,24 +14,27 @@ import { AttendanceService } from '../../services/attendance.service';
 export class CheckinComponent implements OnInit {
   attendanceRecords: any[] = [];
   message: string | null = null;
+  userIp: string = '';
 
   constructor(
     private authService: AccessService,
     private attendanceService: AttendanceService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loadAttendanceRecords();
+    const user = this.authService.getUser();
+    const response = await this.attendanceService.getPublicIp();
+    this.userIp = response!.ip;
+    this.attendanceService.autoRegisterFalta(user, this.userIp);
   }
 
-  isCheckInTime(): boolean {
-    const now = new Date();
-    const start = new Date();
-    start.setHours(10, 0, 0);
-    const end = new Date();
-    end.setHours(10, 30, 0);
-    return now >= start && now <= end;
+  getAttendanceMessage(status: string): string {
+    if (status === 'Puntual') return '!Asistencia registrada con éxito!';
+    if (status === 'Retardo') return '!Asistencia registrada como retardo!';
+    return '!Asistencia registrada como falta!';
   }
+
 
   async registerAttendance() {
     const user = this.authService.getUser(); // Obtener la información del usuario logeado
@@ -39,24 +42,22 @@ export class CheckinComponent implements OnInit {
     const status = this.attendanceService.getAttendanceStatus(now);
 
     try {
-      const response = await this.attendanceService.getPublicIp();
-      const ip = response?.ip;
-
+      
       const newRecord = {
         userId: user.id, // ID del usuario logeado
         name: user.name,
         time: now.toTimeString().split(' ')[0],
         date: now.toDateString(),
         status: status,
-        ip: ip
+        ip: this.userIp
       };
 
       this.attendanceService.saveAttendanceRecord(newRecord).subscribe(
         (result: any) => {
           this.attendanceRecords.push(result);
-          this.message = 'Asistencia registrada con éxito';
+          this.message = this.getAttendanceMessage(status);
         },
-        (_error: any) => {
+        (_error) => {
           this.message = 'Error al registrar la asistencia';
         }
       );
