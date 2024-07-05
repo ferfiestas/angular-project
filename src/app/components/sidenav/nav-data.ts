@@ -14,8 +14,25 @@ export const navbarData: INavbarData[] = [
       },
       {
         icon: 'fal fa-tasks',
-        Label: 'Cursos y Noticias',
+        Label: 'Cursos',
         routeLink: 'courses',
+      },
+      {
+        icon: 'fal fa-tasks',
+        Label: 'Noticias',
+        routeLink: 'noticias',
+        items: [
+          {
+            routeLink: 'ticker',
+            Label: 'Noticias Generales',
+            icon: 'fal fa-newspaper',
+          },
+          {
+            routeLink: 'News',
+            Label: 'Notificaciones',
+            icon: 'fal fa-bell',
+          }
+        ]
       },
       {
         icon: 'fal fa-calendar',

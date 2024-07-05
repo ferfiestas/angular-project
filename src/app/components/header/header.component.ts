@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
 import { languages, notifications, userItems } from './header-dummy-data';
+import { TickerService } from '../../services/ticker.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { languages, notifications, userItems } from './header-dummy-data';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   @Input() collapsed = false;
   @Input() screenWidth = 0;
@@ -27,11 +28,9 @@ export class HeaderComponent {
   userItems = userItems;
 
   tickerWidth: string = '100'; 
-  messages: string[] = [
-    'Aqui puede ir una noticia con respecto al Sindicato',
-    'Aqui puede ir otra noticia, quizá con respecto a algún día feriado',
-    'Aqui podría ir una noticia más de algo relevante con respecto a algún curso o noticia de menor importancia'
-  ];
+  messages: string[] = [];
+
+  constructor(private tickerService: TickerService) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(_event: any) {
@@ -41,6 +40,13 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.checkCanShowSearchAsOverlay(window.innerWidth);
     this.selectedLanguage = this.languages[0];
+    this.loadMessages();
+  }
+
+  loadMessages() {
+    this.tickerService.getMessages().subscribe((messages) => {
+      this.messages = messages;
+    });
   }
 
 

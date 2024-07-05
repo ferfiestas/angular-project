@@ -10,6 +10,7 @@ import { CheckinComponent } from '../pages/checkin/checkin.component';
 import { AttendanceComponent } from '../pages/reports/attendance/attendance.component';
 import { unusualitiesComponent } from '../pages/reports/unusualities/unusualities.component';
 import { passwordComponent } from '../pages/settings/passwordreset/password.component';
+import { TickerAdminComponent } from '../pages/notifications/ticker-admin/ticker-admin.component';
 
 
 
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path: 'profile', component: profileComponent},
       {path: 'people', component: PeopleComponent},
       {path: 'courses', component: CoursesNewsComponent},
+      {path: 'ticker', component: TickerAdminComponent},
       {path: 'holidays', component: HolidaysComponent},
       {path: 'checkin', component: CheckinComponent},
       {path: 'unusualities', component: unusualitiesComponent},

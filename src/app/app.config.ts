@@ -1,29 +1,58 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { routes } from './app.routes';
 import { profileComponent } from './pages/profile/profile.component';
 import { passwordComponent } from './pages/settings/passwordreset/password.component';
 import { AccessService } from './services/access.service';
 import { AttendanceService } from './services/attendance.service';
+import { TickerAdminComponent, EditDialog } from './pages/notifications/ticker-admin/ticker-admin.component';
+
 
 
 @NgModule({
   declarations: [
     profileComponent,
     passwordComponent,
+    EditDialog,
+    TickerAdminComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    FormsModule, 
+    CommonModule, 
+    BrowserModule, 
+    BrowserAnimationsModule, 
+    MatButtonModule, 
+    MatCardModule, 
+    MatInputModule, 
+    MatListModule, 
+    MatIconModule, 
+    MatToolbarModule, 
+    MatDialogModule, 
+    MatFormFieldModule,
+    FlexLayoutModule
   ],
   providers: [AccessService, AttendanceService],
 })
