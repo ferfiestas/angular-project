@@ -13,19 +13,19 @@ export const navbarData: INavbarData[] = [
         routeLink: 'people',
       },
       {
-        icon: 'fal fa-tasks',
+        icon: 'fal fa-graduation-cap',
         Label: 'Cursos',
         routeLink: 'courses',
       },
       {
-        icon: 'fal fa-tasks',
+        icon: 'fal fa-newspaper',
         Label: 'Noticias',
         routeLink: 'noticias',
         items: [
           {
             routeLink: 'ticker',
             Label: 'Noticias Generales',
-            icon: 'fal fa-newspaper',
+            icon: 'fal fa-comments',
           },
           {
             routeLink: 'News',
