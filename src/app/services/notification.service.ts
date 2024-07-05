@@ -14,7 +14,7 @@ export interface Notification {
   providedIn: 'root'
 })
 export class NotificationService {
-  private apiUrl = 'https://your-api-url.com/notifications';
+  private apiUrl = 'https://6687f9330bc7155dc019f9d1.mockapi.io/api/sep/notifications';
 
   constructor(private http: HttpClient) { }
 
