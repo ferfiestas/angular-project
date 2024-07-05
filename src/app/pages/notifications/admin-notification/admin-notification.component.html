@@ -1,0 +1,17 @@
+<div>
+    <h2>Administrar Notificaciones</h2>
+    <div>
+    <input [(ngModel)]="newNotification.subject" placeholder="Asunto">
+    <textarea [(ngModel)]="newNotification.body" placeholder="Cuerpo"></textarea>
+    <button (click)="createNotification()">Crear Notificación</button>
+    </div>
+    <ul>
+      <li *ngFor="let notification of notifications">
+        <div>
+        <strong>{{ notification.subject }}</strong>
+        <p>{{ notification.body }}</p>
+        <button (click)="deleteNotification(notification.id)">Eliminar</button>
+        </div>
+    </li>
+    </ul>
+</div>

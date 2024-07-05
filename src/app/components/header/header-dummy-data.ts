@@ -11,7 +11,7 @@ export const languages = [
 
 export const notifications = [
     {
-        icon: 'far fa-cloud-download',
+        icon: 'far fa-bell',
         subject: 'Download complete',
         description: 'bla bla bla bla',
     },

@@ -385,3 +385,14 @@
     background-size: 100%;
     transition: background 0s;
 }
+
+.notification-counter {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.5em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.75em;
+}

@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
+
 import { TickerService } from '../../../services/ticker.service';
 
 
@@ -13,60 +14,78 @@ import { TickerService } from '../../../services/ticker.service';
 export class TickerAdminComponent {
 [x: string]: any;
   
-  messages: string[] = [];
+  messages: { id: number; message: string }[] = [];
   newMessage: string = '';
 
   constructor(private tickerService: TickerService, public dialog: MatDialog) {
     this.loadMessages();
   }
 
-  loadMessages() {
-    this.tickerService.getMessages().subscribe((messages) => {
-      this.messages = messages;
-    });
-  }
+  loadMessages(): void {
+    this.tickerService.getMessages().subscribe(
+        (messages) => {
+          this.messages = messages;
+        },
+        (error) => {
+          console.error('Error fetching messages:', error);
+        }
+    );
+}
 
-  addMessage(_newMessage?: string) {
-    this.tickerService.addMessage(this.newMessage).subscribe(() => {
-      this.loadMessages();
-      this.newMessage = '';
-    });
-  }
-
-  deleteMessage(index: number) {
-    this.tickerService.deleteMessage(index).subscribe(() => {
-      this.loadMessages();
-    });
-  }
-
-  editMessage(index: number) {
-    const dialogRef = this.dialog.open(EditDialog, {
-      width: '250px',
-      data: { index, message: this.messages[index] }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.updateMessage(result.index, result.message);
+addMessage(): void {
+  if (this.newMessage.trim()) {
+    this.tickerService.createMessage(this.newMessage).subscribe(
+      (message) => {
+        this.messages.push(message);
+        this.newMessage = '';
+      },
+      (error) => {
+        console.error('Error adding message:', error);
       }
-    });
-  }
-
-  updateMessage(index: number, newMessage: string) {
-    this.tickerService.updateMessage(index, newMessage).subscribe(() => {
-      this.loadMessages();
-    });
+    );
   }
 }
 
+deleteMessage(id: number): void {
+  this.tickerService.deleteMessage(id).subscribe(
+    () => {
+      this.messages = this.messages.filter(message => message.id !== id);
+    },
+    (error) => {
+      console.error('Error deleting message:', error);
+    }
+  );
+}
+
+editMessage(index: number) {
+  const message = this.messages[index];
+  const dialogRef = this.dialog.open(EditDialog, {
+    width: '350px',
+    data: { id: message.id, message: message.message }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.updateMessage(result.id, result.message);
+    }
+  });
+}
+
+updateMessage(id: number, newMessage: string) {
+  this.tickerService.updateMessage(id, newMessage).subscribe(() => {
+    this.loadMessages();
+  });
+}
+}
+
 @Component({
-  selector: 'edit-dialog',
-  templateUrl: 'edit-dialog.html',
+selector: 'edit-dialog',
+templateUrl: 'edit-dialog.html',
 })
 export class EditDialog {
   constructor(
     public dialogRef: MatDialogRef<EditDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: { id: number; message: string }
   ) {}
 
   closeDialog(): void {

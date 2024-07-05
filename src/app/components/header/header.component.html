@@ -3,10 +3,10 @@
         <div class="head-content-left"[ngClass]="gettrickerClass()">
             <div class="ticker-container">
                 <div class="ticker-text" [style.width]="tickerWidth">
-                  <span *ngFor="let message of messages" class="ticker-item">{{ messages }}</span>
+                  <span *ngFor="let message of messages" class="ticker-item">{{ message.message }}</span>
                 </div>
             </div>
-            <!-- <div class="search-container">
+            <!-- <div class="search-container"> 
                 <div *ngIf="!canShowSearchAsOverlay" class="normal-search">
                     <input type="search" 
                         class="search" name="" id=""
@@ -40,9 +40,10 @@
                 <div class="head-menu-item">
                     <button class="head-menu-item-btn ripple" [cdkMenuTriggerFor]="notificationOverlay">
                         <i class="far fa-bell menu-icon"></i>
+                        <span *ngIf="unreadNotificationsCount > 0" class="notification-count">{{ unreadNotificationsCount }}</span> <!-- Mostrar el contador -->
                     </button>
                 </div>
-                <div class="head-menu-item">
+                <div class="head-menu-item">    
                     <button class="head-menu-item-btn ripple">
                         <i class="far fa-comment-alt menu-icon"></i>
                     </button>
@@ -90,6 +91,7 @@
             </li>
             <li class="notification-message-container"
                 *ngFor="let notification of notifications"
+                (click)="markAsRead(notification.id)"
                 cdkMenuItem
             >
                 <i [class]="notification.icon"></i>
@@ -97,9 +99,6 @@
                     <div class="notification-subject">
                         {{ notification.subject }}
                     </div>
-                    <p class="notification-desc">
-                        {{ notification.description }}
-                    </p>
                 </div>
             </li>
         </ul>

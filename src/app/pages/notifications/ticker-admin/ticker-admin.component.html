@@ -1,14 +1,14 @@
 <mat-toolbar fxLayoutAlign="center center">
-  <span class="mat-toolbar-text">Administrar Mensajes</span>
+  <span class="mat-toolbar-text">Administrar Noticias</span>
 </mat-toolbar>
 
 <div class="container">
   <mat-card>
-    <mat-card-title>Agregar Nuevo Mensaje</mat-card-title>
+    <mat-card-title>Agregar Nueva Noticia</mat-card-title>
     <mat-card-content>
       <form (ngSubmit)="addMessage()">
         <mat-form-field appearance="fill">
-          <mat-label>Nuevo Mensaje</mat-label>
+          <mat-label>Nueva Noticia</mat-label>
           <input matInput [(ngModel)]="newMessage" name="message" required>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Agregar</button>
@@ -17,17 +17,17 @@
   </mat-card>
 
   <mat-card>
-    <mat-card-title>Mensajes Existentes</mat-card-title>
+    <mat-card-title>Noticias Existentes</mat-card-title>
     <mat-card-content>
       <mat-list>
         <mat-list-item *ngFor="let message of messages; let i = index">
           <div class="message-content">
-            <p>{{ message }}</p>
+            <p>{{ message.message }}</p>
             <div class="actions">
               <button mat-icon-button color="accent" (click)="editMessage(i)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="deleteMessage(i)">
+              <button mat-icon-button color="warn" (click)="deleteMessage(message.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
@@ -39,10 +39,10 @@
 </div>
 
 <ng-template #editDialog let-data>
-  <h1 mat-dialog-title>Editar Mensaje</h1>
+  <h1 mat-dialog-title>Editar Noticia</h1>
   <div mat-dialog-content>
     <mat-form-field appearance="fill">
-      <mat-label>Mensaje</mat-label>
+      <mat-label>Noticia</mat-label>
       <input matInput [(ngModel)]="data.message" name="message">
     </mat-form-field>
   </div>

@@ -1,0 +1,9 @@
+<div>
+    <h2>Notificaciones</h2>
+    <ul>
+      <li *ngFor="let notification of notifications" (click)="markAsRead(notification.id)" [class.unread]="!notification.read">
+        <strong>{{ notification.subject }}</strong>
+        <p>{{ notification.body }}</p>
+    </li>
+    </ul>
+</div>

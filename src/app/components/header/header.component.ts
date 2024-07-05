@@ -4,8 +4,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
-import { languages, notifications, userItems } from './header-dummy-data';
+import { languages, userItems } from './header-dummy-data';
 import { TickerService } from '../../services/ticker.service';
+import { NotificationService, Notification } from '../../services/notification.service';
 
 
 @Component({
@@ -24,13 +25,17 @@ export class HeaderComponent implements OnInit {
   selectedLanguage: any;
 
   languages = languages;
-  notifications = notifications;
   userItems = userItems;
+  public notifications: Notification[] = [];
+  public unreadNotificationsCount: number = 0;
 
   tickerWidth: string = '100'; 
-  messages: string[] = [];
+  messages: { id: number; message: string }[] = [];
 
-  constructor(private tickerService: TickerService) {}
+  constructor(
+    private tickerService: TickerService, 
+    private notificationService: NotificationService
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(_event: any) {
@@ -41,11 +46,35 @@ export class HeaderComponent implements OnInit {
     this.checkCanShowSearchAsOverlay(window.innerWidth);
     this.selectedLanguage = this.languages[0];
     this.loadMessages();
+    this.loadNotifications();
   }
 
-  loadMessages() {
-    this.tickerService.getMessages().subscribe((messages) => {
-      this.messages = messages;
+  loadMessages(): void {
+    this.tickerService.getMessages().subscribe(
+        (messages) => {
+          this.messages = messages;
+        },
+        (error) => {
+          console.error('Error fetching messages:', error);
+        }
+    );
+  }
+
+  loadNotifications(): void {
+    this.notificationService.getNotifications().subscribe(
+      (notifications) => {
+        this.notifications = notifications;
+        this.unreadNotificationsCount = this.notifications.filter(n => !n.read).length; // Calcular notificaciones no leídas
+      },
+      (error) => {
+        console.error('Error fetching notifications:', error);
+      }
+    );
+  }
+
+  markAsRead(id: number): void {
+    this.notificationService.markAsRead(id).subscribe(() => {
+      this.loadNotifications();
     });
   }
 
