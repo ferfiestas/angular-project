@@ -1,7 +1,7 @@
 .body {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alineación vertical en la parte superior */
+    align-items: center;
     width: calc(100% - 80px);
     margin-top: 92px;
     margin-left: 80px;
