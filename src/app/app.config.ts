@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { routes } from './app.routes';
 import { profileComponent } from './pages/profile/profile.component';
@@ -24,6 +26,7 @@ import { passwordComponent } from './pages/settings/passwordreset/password.compo
 import { AccessService } from './services/access.service';
 import { AttendanceService } from './services/attendance.service';
 import { TickerAdminComponent, EditDialog } from './pages/notifications/ticker-admin/ticker-admin.component';
+import { AdminNotificationComponent } from './pages/notifications/admin-notification/admin-notification.component';
 
 
 
@@ -32,7 +35,8 @@ import { TickerAdminComponent, EditDialog } from './pages/notifications/ticker-a
     profileComponent,
     passwordComponent,
     EditDialog,
-    TickerAdminComponent
+    TickerAdminComponent,
+    AdminNotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import { TickerAdminComponent, EditDialog } from './pages/notifications/ticker-a
     MatToolbarModule, 
     MatDialogModule, 
     MatFormFieldModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSnackBarModule,
+    MatGridListModule
   ],
   providers: [AccessService, AttendanceService],
 })

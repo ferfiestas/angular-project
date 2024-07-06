@@ -11,6 +11,7 @@ import { AttendanceComponent } from '../pages/reports/attendance/attendance.comp
 import { unusualitiesComponent } from '../pages/reports/unusualities/unusualities.component';
 import { passwordComponent } from '../pages/settings/passwordreset/password.component';
 import { TickerAdminComponent } from '../pages/notifications/ticker-admin/ticker-admin.component';
+import { AdminNotificationComponent } from '../pages/notifications/admin-notification/admin-notification.component';
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
       {path: 'people', component: PeopleComponent},
       {path: 'courses', component: CoursesNewsComponent},
       {path: 'ticker', component: TickerAdminComponent},
+      {path: 'News', component: AdminNotificationComponent},
       {path: 'holidays', component: HolidaysComponent},
       {path: 'checkin', component: CheckinComponent},
       {path: 'unusualities', component: unusualitiesComponent},

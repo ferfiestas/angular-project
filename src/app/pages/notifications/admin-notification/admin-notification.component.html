@@ -1,17 +1,39 @@
-<div>
-    <h2>Administrar Notificaciones</h2>
-    <div>
-    <input [(ngModel)]="newNotification.subject" placeholder="Asunto">
-    <textarea [(ngModel)]="newNotification.body" placeholder="Cuerpo"></textarea>
-    <button (click)="createNotification()">Crear Notificación</button>
-    </div>
-    <ul>
-      <li *ngFor="let notification of notifications">
-        <div>
-        <strong>{{ notification.subject }}</strong>
-        <p>{{ notification.body }}</p>
-        <button (click)="deleteNotification(notification.id)">Eliminar</button>
-        </div>
-    </li>
-    </ul>
+<div class="admin-notification-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Administrar Notificaciones</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="createNotification()">
+        <mat-form-field appearance="outline">
+          <mat-label>Asunto</mat-label>
+          <input matInput [(ngModel)]="newNotification.subject" name="subject" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cuerpo</mat-label>
+          <textarea matInput [(ngModel)]="newNotification.body" name="description" required></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Crear Notificación</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Notificaciones Existentes</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let notification of notifications">
+          <div class="notification-content">
+            <p>{{ notification.subject }}</p>
+            <p>{{ notification.body }}</p>
+            <div class="actions">
+              <button mat-icon-button color="warn" (click)="deleteNotification(notification.id)" class="delete-button">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </div>
