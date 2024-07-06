@@ -7,6 +7,7 @@
     width: 80px;
     height: 100vh;
     box-shadow: 1.008px 0 20px 0 #8690a3;
+    transition: width 0.3s;
     
 
     .logo-container {
