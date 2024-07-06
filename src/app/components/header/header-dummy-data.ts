@@ -13,7 +13,6 @@ export const notifications = [
     {
         icon: 'far fa-bell',
         subject: 'Download complete',
-        description: 'bla bla bla bla',
     },
 ];
 

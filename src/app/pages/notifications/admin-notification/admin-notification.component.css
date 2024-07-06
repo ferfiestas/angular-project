@@ -1,0 +1,44 @@
+
+.admin-notification-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+mat-card {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(105, 158, 250, 0.822); /* Sombra sutil */
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+mat-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+
+
+mat-card-title {
+    text-align: center;
+}
+
+.notification-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
