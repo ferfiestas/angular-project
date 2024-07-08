@@ -24,21 +24,29 @@ mat-list-item {
     border-bottom: 1px solid #e0e0e0;
 }
 
-
-
 mat-card-title {
-    text-align: center;
+    align-items: center;
 }
 
 .notification-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
     width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+}
+
+.subject {
+    font-weight: bold;
+}
+
+.body {
+    margin-top: 5px; /* Agrega un margen superior para separar el body del subject */
 }
 
 .actions {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    margin-left: 20px; /* Agrega un margen izquierdo para separar las acciones del texto */
 }

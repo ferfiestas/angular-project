@@ -24,8 +24,10 @@
       <mat-list>
         <mat-list-item *ngFor="let notification of notifications">
           <div class="notification-content">
-            <p>{{ notification.subject }}</p>
-            <p>{{ notification.body }}</p>
+            <div>
+              <p class="subject">{{ notification.subject }}</p>
+              <p class="body">{{ notification.body }}</p>
+            </div>
             <div class="actions">
               <button mat-icon-button color="warn" (click)="deleteNotification(notification.id)" class="delete-button">
                 <mat-icon>delete</mat-icon>
@@ -36,4 +38,3 @@
       </mat-list>
     </mat-card-content>
   </mat-card>
-</div>
