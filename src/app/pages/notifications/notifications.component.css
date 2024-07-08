@@ -11,6 +11,10 @@
     cursor: pointer;
 }
 
+mat-card-title {
+    text-align: center;
+}
+
 mat-list-item {
     display: flex;
     justify-content: space-between;
@@ -31,6 +35,3 @@ mat-card {
     box-shadow: 0 4px 8px rgba(105, 158, 250, 0.822); /* Sombra sutil */
 }
 
-mat-card-title {
-    text-align: center;
-}
