@@ -18,18 +18,23 @@ export const navbarData: INavbarData[] = [
         routeLink: 'courses',
       },
       {
+        icon: 'fal fa-envelope',
+        Label: 'Notificaciones',
+        routeLink: 'news',
+      },
+      {
         icon: 'fal fa-newspaper',
-        Label: 'Noticias',
+        Label: 'Noticias Admin',
         routeLink: 'noticias',
         items: [
           {
             routeLink: 'ticker',
-            Label: 'Noticias Generales',
+            Label: 'Noticias Admin',
             icon: 'fal fa-comments',
           },
           {
-            routeLink: 'News',
-            Label: 'Notificaciones',
+            routeLink: 'adminnews',
+            Label: 'Notificaciones Admin',
             icon: 'fal fa-bell',
           }
         ]

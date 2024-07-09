@@ -1,9 +1,13 @@
-<div>
-    <h2>Notificaciones</h2>
-    <ul>
-      <li *ngFor="let notification of notifications" (click)="markAsRead(notification.id)" [class.unread]="!notification.read">
-        <strong>{{ notification.subject }}</strong>
-        <p>{{ notification.body }}</p>
-    </li>
-    </ul>
+<div class="notifications-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Notificaciones</mat-card-title>
+    </mat-card-header>
+  <mat-list>
+    <mat-list-item *ngFor="let notification of notifications" (click)="openNotification(notification)" [class.unread]="!notification.read">
+      <div class="notification-subject">{{ notification.subject }}</div>
+      <div>{{ notification.body }}</div>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
 </div>

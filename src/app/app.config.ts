@@ -27,6 +27,8 @@ import { AccessService } from './services/access.service';
 import { AttendanceService } from './services/attendance.service';
 import { TickerAdminComponent, EditDialog } from './pages/notifications/ticker-admin/ticker-admin.component';
 import { AdminNotificationComponent } from './pages/notifications/admin-notification/admin-notification.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { NotificationDialogComponent } from './pages/notifications/notification-dialog/notification-dialog.component';
 
 
 
@@ -36,7 +38,9 @@ import { AdminNotificationComponent } from './pages/notifications/admin-notifica
     passwordComponent,
     EditDialog,
     TickerAdminComponent,
-    AdminNotificationComponent
+    AdminNotificationComponent,
+    NotificationsComponent,
+    NotificationDialogComponent
   ],
   imports: [
     BrowserModule,

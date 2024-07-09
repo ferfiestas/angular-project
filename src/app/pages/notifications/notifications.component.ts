@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NotificationService, Notification } from '../../services/notification.service';
+import { NotificationDialogComponent } from '../notifications/notification-dialog/notification-dialog.component';
 
 @Component({
   selector: 'app-notifications',
@@ -9,7 +11,7 @@ import { NotificationService, Notification } from '../../services/notification.s
 export class NotificationsComponent implements OnInit {
   notifications: Notification[] = [];
 
-  constructor(private notificationService: NotificationService) { }
+  constructor(private notificationService: NotificationService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadNotifications();
@@ -21,9 +23,18 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  markAsRead(id: number): void {
-    this.notificationService.markAsRead(id).subscribe(() => {
-      this.loadNotifications();
+  openNotification(notification: Notification): void {
+    const dialogRef = this.dialog.open(NotificationDialogComponent, {
+      width: '400px',
+      data: notification
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.notificationService.markAsRead(notification.id).subscribe(() => {
+          this.loadNotifications();
+        });
+      }
     });
   }
 }
