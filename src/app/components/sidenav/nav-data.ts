@@ -2,10 +2,16 @@ import { INavbarData } from "./helper";
 
 
 export const navbarData: INavbarData[] = [
+
       {
-    icon: 'fal fa-user',
-    Label: 'Mi Perfil',
-    routeLink: 'profile',
+        icon: 'fal fa-user',
+        Label: 'Mi Perfil',
+        routeLink: 'profile',
+      },  
+      {
+        icon: 'fal fa-clipboard-user',
+        Label: 'Pasar Lista',
+        routeLink: 'checkin',
       },
       {
         icon: 'fal fa-users',
@@ -60,11 +66,6 @@ export const navbarData: INavbarData[] = [
             icon: 'fal fa-check-square',
           }
         ]
-      },
-      {
-        icon: 'fal fa-clipboard-user',
-        Label: 'Pasar Lista',
-        routeLink: 'checkin',
       },
       {
         icon: 'fal fa-cog',
