@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-courses-news',
   standalone: true,
   imports: [],
-  templateUrl: './courses-news.component.html',
-  styleUrl: './courses-news.component.css'
+  templateUrl: './courses.component.html',
+  styleUrl: './courses.component.css'
 })
-export class CoursesNewsComponent {
+export class CoursesComponent {
 
 }
