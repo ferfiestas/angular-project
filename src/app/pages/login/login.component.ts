@@ -1,6 +1,13 @@
 import { Component, Inject, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 
 import { AccessService } from '../../services/access.service';
 import { login } from '../../components/interfaces/login';
@@ -8,11 +15,17 @@ import { login } from '../../components/interfaces/login';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatToolbarModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+hide() {
+throw new Error('Method not implemented.');
+}
+clickEvent(_$event: MouseEvent) {
+throw new Error('Method not implemented.');
+}
 
   private accessService = inject(AccessService);
   private router = inject(Router);
@@ -23,7 +36,7 @@ export class LoginComponent {
     password: ['', Validators.required],
   })
 
-  LogIn () {
+  LogIn() {
     if(this.formLogin.invalid) return;
 
     const object:login = {
@@ -37,7 +50,7 @@ export class LoginComponent {
           localStorage.setItem("token", data.token)
           this.router.navigate(['profile'])
         }else{
-          alert("Credenciales incorrectas")
+          alert("Credenciales son incorrectas")
         }
       },
       error:(error) => {

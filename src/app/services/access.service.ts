@@ -13,7 +13,7 @@ export class AccessService {
 
   private http = inject(HttpClient);
   private baseUrl: string = appsettings.apiUrl;
- 
+
   constructor() { }
 
   login(object:login): Observable<responseAccess> {

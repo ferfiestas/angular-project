@@ -69,6 +69,6 @@ import { NotificationDialogComponent } from './pages/notifications/notification-
 export class AppModule { }
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync(), provideAnimations(), importProvidersFrom(HttpClientModule)]
+  providers: [provideRouter(routes), provideAnimationsAsync(), provideAnimations(), importProvidersFrom(HttpClientModule), provideAnimationsAsync()]
 };
 
