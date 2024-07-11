@@ -1,0 +1,203 @@
+/* Aplica la fuente Roboto a toda la aplicación */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.login-background {
+    display: flex;
+    height: 100vh;
+    /* Asegurar que ocupe toda la altura de la vista */
+    overflow: hidden;
+    /* Asegura que el contenido no se desborde */
+
+}
+
+.left-half {
+    flex: 2;
+    /* Un poco más grande que la mitad */
+    background-color: #ffffff;
+    /* Fondo blanco */
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    /* Padding ajustado para más espacio en pantallas grandes */
+    position: relative;
+}
+
+.top-half-left {
+    flex: 2;
+    /* Parte superior más grande */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Centrar verticalmente el contenido */
+    align-items: center;
+    /* Centrar horizontalmente el contenido */
+    position: relative;
+}
+
+.bottom-center-text {
+    color: #6eacbb;
+    /* Color del texto */
+    font-size: 1.5rem;
+    /* Tamaño de fuente */
+    text-align: center;
+    /* Centrar el texto horizontalmente */
+    position: absolute;
+    bottom: 1rem;
+    /* Ubicado en la parte inferior */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Centrar horizontalmente */
+}
+
+.right-half {
+    flex: 1;
+    /* La otra parte de la pantalla */
+    display: flex;
+    flex-direction: column;
+}
+
+.top-half {
+    flex: 1;
+    background-color: #6eacbb;
+    /* Primer color #6eacbb */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centered-text {
+    color: #ffffff;
+    /* Texto blanco */
+    font-weight: bold;
+    /* Negrita */
+    text-align: center;
+    line-height: 1.2;
+}
+
+.bottom-half {
+    flex: 1;
+    background-color: #5bbfc1;
+    /* Segundo color #5bbfc1 */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* Alinear imagen al fondo */
+}
+
+.login-image {
+    width: 80%;
+    /* Ajustar el tamaño de la imagen */
+    max-width: 360px;
+    /* Tamaño máximo de la imagen */
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    /* Limitar el ancho máximo */
+    background: rgba(255, 255, 255, 0.8);
+    /* Fondo blanco con opacidad */
+    box-shadow: 0 4px 8px rgba(105, 158, 250, 0.822);
+    /* Sombra sutil */
+    /* Sombra para dar profundidad */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    /* Bordes redondeados */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Centrar verticalmente */
+    align-items: center;
+    /* Centrar horizontalmente */
+    padding: 2rem;
+    /* Espaciado interno */
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    .login-background {
+        flex-direction: column;
+        /* Cambiar a columna en pantallas más pequeñas */
+    }
+
+    .left-half {
+        flex: 1;
+        /* La mitad será igual en pantallas pequeñas */
+        padding: 1rem;
+        /* Ajustar padding */
+    }
+
+    .right-half {
+        display: none;
+        /* Ocultar la mitad derecha en pantallas pequeñas */
+    }
+
+    .login-card {
+        max-width: 100%;
+        /* Ajustar el ancho máximo */
+        padding: 1.5rem;
+        /* Ajustar el padding */
+    }
+
+
+    .login-image {
+        display: none;
+        /* Ocultar la imagen en pantallas pequeñas */
+    }
+}
+
+/* Ajuste dinámico del tamaño del texto */
+@media (min-width: 1200px) {
+    .centered-text {
+        font-size: 4rem;
+        /* Tamaño grande en pantallas grandes */
+    }
+
+    .bottom-center-text {
+        font-size: 4rem;
+        /* Tamaño grande en pantallas grandes */
+    }
+}
+
+@media (max-width: 1200px) {
+    .centered-text {
+        font-size: 3rem;
+        /* Tamaño medio en pantallas medianas */
+    }
+
+    .bottom-center-text {
+        font-size: 1.25rem;
+        /* Tamaño medio en pantallas medianas */
+    }
+}
+
+@media (max-width: 768px) {
+    .centered-text {
+        font-size: 2.5rem;
+        /* Tamaño pequeño en pantallas pequeñas */
+    }
+
+    .bottom-center-text {
+        font-size: 1rem;
+        /* Tamaño pequeño en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .centered-text {
+        font-size: 1.5rem;
+        /* Tamaño aún más pequeño en pantallas más pequeñas */
+    }
+
+    .bottom-center-text {
+        font-size: 0.875rem;
+        /* Tamaño aún más pequeño en pantallas más pequeñas */
+    }
+
+    .login-image {
+        max-width: 150px;
+        /* Reducir el tamaño máximo de la imagen */
+    }
+}
