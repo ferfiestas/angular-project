@@ -29,6 +29,9 @@ import { TickerAdminComponent, EditDialog } from './pages/notifications/ticker-a
 import { AdminNotificationComponent } from './pages/notifications/admin-notification/admin-notification.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { NotificationDialogComponent } from './pages/notifications/notification-dialog/notification-dialog.component';
+import { PeopleComponent } from './pages/people/people.component';
+import { EditPersonDialogComponent } from './pages/people/edit-person-dialog/edit-person-dialog.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -40,7 +43,9 @@ import { NotificationDialogComponent } from './pages/notifications/notification-
     TickerAdminComponent,
     AdminNotificationComponent,
     NotificationsComponent,
-    NotificationDialogComponent
+    NotificationDialogComponent,
+    PeopleComponent,
+    EditPersonDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +67,8 @@ import { NotificationDialogComponent } from './pages/notifications/notification-
     MatFormFieldModule,
     FlexLayoutModule,
     MatSnackBarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatPaginatorModule
   ],
   providers: [AccessService, AttendanceService],
 })
