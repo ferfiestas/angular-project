@@ -1,5 +1,5 @@
 .sidenav {
-    background: #661132;
+    background: #621132;
     transition: all .5s ease;
     position: fixed;
     z-index: 2;
@@ -12,8 +12,8 @@
     .logo-container {
         display: flex;
         align-items: center;
-        padding: 15.008px 15.008px 0 15.008px;
-        margin-bottom: 30px;
+        padding: 15px 15px 0 15px;
+        margin-bottom: 1px;
         width: 100%;
         max-width: 500px;
         
@@ -21,7 +21,7 @@
         >img {
             border-radius: 10%;
             object-fit: cover;
-            margin-bottom: 10px;
+            margin-bottom: 1px;
             width: 130px;
             height: auto;
         }
@@ -59,13 +59,13 @@
 
     .sidenav-nav-item {
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
 
         .sidenav-nav-link {
             display: flex;
             align-items: center;
             height: 48px;
-            color: #f3f3f3;
+            color: #ffffff;
             text-decoration: none;
             border-radius: 10px;
             transition: all .3s ease;
@@ -85,26 +85,26 @@
         }
 
         .sidenav-nav-link:hover {
-            background-color: #fff;
-            color: #000;
+            background-color: #4E232E;
+            color: #ffffff;
             .menu-collapse-icon {
-                color: #000;
+                color: #ffffff;
             }
         }
     }
 }
 
 .active {
-    background-color: #fff;
+    background-color: #9D2449;
     .menu-collapse-icon,
     .sidenav-link-icon,
     .sidenav-link-text {
-        color: #000;
+        color: #ffffff;
     }
 }
 
 .active-sublevel {
-    color: #f3f3f3 !important;
+    color: #ffffff !important;
     opacity: 1 !important;
 }
 
@@ -114,7 +114,7 @@
     min-width: 32px;
     margin: auto 8px auto auto;
     text-align: center;
-    color: #f3f3f3;
+    color: #ffffff;
 }
 
 .sublevel-nav {
@@ -144,7 +144,7 @@
         }
         }
         .sublevel-nav-link:hover {
-            color: #f3f3f3;
+            color: #ffffff;
         }
     }
 }
@@ -181,12 +181,12 @@
 }
 
 .scrollwrap::-webkit-scrollbar-thumb {
-    background-color: #556268;
+    background-color: #56242A;
     border-radius: 20px;
 }
 
 /* works with firefox */
 .scrollwrap {
     scrollbar-width: thin;
-    scrollbar-color: #556268 transparent;
+    scrollbar-color: #56242A transparent;
 }
