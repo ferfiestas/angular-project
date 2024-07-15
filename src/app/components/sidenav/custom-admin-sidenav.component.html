@@ -1,4 +1,6 @@
-<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+<div class="sidenav" [ngClass]="{'expanded': isExpanded}" 
+(mouseenter)="isExpanded = true" 
+(mouseleave)="isExpanded = false": ''">
     <div class="logo-container">
         <img [height]="profilePicSize()" [width]="profilePicSize()" style="max-width: 100%;" src="/assets/SICP.jpg" (click)="toggleCollapse()"/>
         @if (collapsed) {
