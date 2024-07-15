@@ -3,8 +3,8 @@
     margin-left: 80px;
     z-index: 1;
     transition: all .5s ease;
-    background: transparent;
-    padding: 16px 24px 0 24px;
+    background: #9d2448f5;
+    padding: 1px;
 
     position: fixed;
     top: 0;
@@ -12,7 +12,7 @@
     box-sizing: border-box; /* Asegura que padding se incluya en el tamaño del elemento */
 
     .head-content {
-        background-color: #9d2449;
+        background-color: transparent;
         border-radius: 10px;
         box-shadow: 0px 0px 10px 0 rgb(34 41 47 / 10%);
         padding: 13.008px 25.008px;
@@ -166,7 +166,7 @@
                     position: absolute;
                     top: -2px;
                     right: -3px;
-                    background: #699dfa;
+                    background: #02cf46;
 
                     &.pulse {
                         animation: pulse-animation 1.2s infinite;
@@ -207,7 +207,7 @@
 
 @keyframes pulse-animation {
     0% {
-        box-shadow: 0 0 0 0 rgba(26, 104, 206, 0.6);
+        box-shadow: 0 0 0 0 rgba(26, 206, 80, 0.6);
     }
     100% {
         box-shadow: 0 0 0 13px rgba(17, 64, 126, 0);
@@ -224,7 +224,7 @@
 }
 
 .overlay {
-    background: #9d2449;
+    background: #9d2448f5;
     margin-top: 10px;
     box-shadow: 0 16px 48px rgb(0 0 0 / 13%);
     border-radius: 4px;

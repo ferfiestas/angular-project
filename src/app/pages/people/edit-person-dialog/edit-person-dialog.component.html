@@ -1,0 +1,14 @@
+<h2>Editar Usuario</h2>
+<div class="edit-form">
+    <label>ID:</label>
+    <input [(ngModel)]="person.id" disabled />
+    <label>ID Empleado:</label>
+    <input [(ngModel)]="person.idEmpleado" />
+    <label>Usuario:</label>
+    <input [(ngModel)]="person.usuario" />
+    <label>Nombre:</label>
+    <input [(ngModel)]="person.nombre" />
+    <!-- Continúa con los demás campos -->
+    <button mat-button (click)="save()">Guardar Cambios</button>
+    <button mat-button (click)="delete()">Eliminar Usuario</button>
+</div>
