@@ -34,3 +34,7 @@
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 8px #9d2449(105, 158, 250, 0.822); /* Sombra sutil */
 }
+
+.custom-button {
+    background-color: #9d2449;
+}
