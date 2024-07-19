@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { INavbarData, fadeInOut } from './helper';
+import { AccessService } from '../../services/access.service';
 
 
 @NgModule({
@@ -41,13 +42,12 @@ export class SublevelMenuModule {}
         [routerLink]="[data.routeLink]"
         routerLinkActive="active-sublevel"
         [routerLinkActiveOptions]="{exact: true}"
-      >
+        (click)="data.Label === 'Salir' ? onLogout() : null">
       <i class="sublevel-link-icon" [class]="data.icon"></i>
       <span class="sublevel-link-text" @fadeInOut *ngIf="collapsed">{{data.Label}}</span>
       </a>
       <div *ngIf="data.items && data.items.length > 0">
         <app-sublevel-menu
-          
           [collapsed]="collapsed"
           [multiple]="multiple"
           [expanded]="data.expanded"
@@ -60,17 +60,14 @@ export class SublevelMenuModule {}
   animations: [
     fadeInOut,
     trigger('submenu', [
-      state('hidden', style({
-        height: '0',
-        overflow: 'hidden'
-      })),
-      state('visible', style({
-        height: '*'
-      })),
-      transition('visible <=> hidden', [style({overflow: 'hidden'}),
-        animate('{{transitionParams}}')]),
+      state('hidden', style({ height: '0', overflow: 'hidden' })),
+      state('visible', style({ height: '*' })),
+      transition('visible <=> hidden', [
+        style({ overflow: 'hidden' }),
+        animate('{{transitionParams}}')
+      ]),
       transition('void => *', animate(0))
-      ])
+    ])
   ]
 })
 export class SublevelMenuComponent implements OnInit {
@@ -86,7 +83,7 @@ export class SublevelMenuComponent implements OnInit {
   @Input() expanded: boolean | undefined;
   @Input() multiple: boolean = false;
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, private accessService: AccessService) {}
 
   ngOnInit(): void {
       
@@ -104,6 +101,11 @@ export class SublevelMenuComponent implements OnInit {
     }
     data.expanded = !data.expanded;
   }
+
+  onLogout(): void {
+    this.accessService.logout();
+  }
+
   
   getActiveClass(data: INavbarData): string {
     return data.expanded && this.router.url.includes(data.routeLink)

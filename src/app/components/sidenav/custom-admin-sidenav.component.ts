@@ -1,5 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, computed, signal} from '@angular/core';
-import { navbarData } from './nav-data';
+import { Component, EventEmitter, HostListener, OnInit, Output, computed} from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon'
 import { CommonModule } from '@angular/common';
@@ -7,6 +6,8 @@ import { style, transition, trigger, animate, keyframes } from '@angular/animati
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { navbarData } from './nav-data';
 import { SublevelMenuComponent } from './sublevel-menu.component';
 import { INavbarData, fadeInOut } from './helper';
 
@@ -55,6 +56,8 @@ export class CustomAdminSidenavComponent implements OnInit {
   navData = navbarData;
   multiple: boolean = false;
 
+
+
   @HostListener('window:resize', ['$event'])
   onResize(_event: any) {
     this.screenWidth = window.innerWidth;
@@ -95,8 +98,11 @@ export class CustomAdminSidenavComponent implements OnInit {
     return this.router.url.includes(data.routeLink) ? 'active' : '';
   }
 
-  
+
+
 
   profilePicSize = computed(() => this.collapsed ? '100' : '50');
+
+  
   
 }

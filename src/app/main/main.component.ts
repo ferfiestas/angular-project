@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
 import { LayoutComponent } from "./layout.component";
 import { CustomAdminSidenavComponent } from "../components/sidenav/custom-admin-sidenav.component";
 import { HeaderComponent } from "../components/header/header.component";
+
 
 
 interface SideNavToggle {
@@ -19,6 +21,8 @@ interface SideNavToggle {
 })
 export class MainComponent {
 
+  
+
   isSideNavCollapsed = false;
   screenWidth = 0;
   
@@ -26,5 +30,7 @@ export class MainComponent {
     this.screenWidth = data.screenWidth;
     this.isSideNavCollapsed = data.collapsed;
   }
+
+  
 
 }

@@ -1,10 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, computed, inject, signal } from '@angular/core';
 
 import { appsettings } from '../components/api/appsetting';
-import { login } from '../components/interfaces/login';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { responseAccess } from '../components/interfaces/responseaccess';
+import { user } from '../components/interfaces/user';
+import { AuthStatus } from '../components/interfaces/auth-status.enum';
+import { CheckTokenResponse } from '../components/interfaces/check-token.response';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +14,70 @@ import { responseAccess } from '../components/interfaces/responseaccess';
 export class AccessService {
 
   private http = inject(HttpClient);
-  private baseUrl: string = appsettings.apiUrl;
+  private readonly baseUrl: string = appsettings.apiUrl;
 
-  constructor() { }
+  private _currentUser = signal<user|null>(null);
+  private _authStatus = signal<AuthStatus>( AuthStatus.checking );
+  
+  //! Exterior
 
-  login(object:login): Observable<responseAccess> {
-    return this.http.post<responseAccess>(`${this.baseUrl}Access/login`, object)
+  public currentUser = computed( () => this._currentUser);
+  public authStatus = computed( () => this._authStatus);
+
+  constructor() {
+    this.checkAuthStatus().subscribe();
   }
+
+  private setAuthentication(user: user, token:string): boolean {
+    
+    this._currentUser.set( user );
+    this._authStatus.set( AuthStatus.authenticated );
+    localStorage.setItem('token', token);
+
+    return true;
+  }
+
+  login( idEmpleado: number, Password: string ): Observable<boolean> {
+
+    const url = `${ this.baseUrl }/auth/login`;
+    const body = { idEmpleado, Password };
+
+    return this.http.post<responseAccess>( url, body )
+      .pipe(
+        map(({ user, token }) => this.setAuthentication( user, token )),
+        catchError( err => throwError( () => err.error.message ))
+      );
+  }
+
+  checkAuthStatus():Observable<boolean> {
+
+    const url = `${ this.baseUrl }/auth/check-token`;
+    const token = localStorage.getItem('token');
+
+    if ( !token ) {
+      this.logout();
+      return of(false);
+    }
+
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${ token }`);
+
+      return this.http.get<CheckTokenResponse>(url, { headers })
+      .pipe (
+        map(({ user, token }) => this.setAuthentication( user, token )),
+        catchError(() => {
+          this._authStatus.set( AuthStatus.notAuthenticated );
+          return of(false);
+        })
+      );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this._currentUser.set(null);
+    this._authStatus.set( AuthStatus.notAuthenticated);
+  }
+
 
   getUser() {
     // Aquí obtendrás la información del usuario logeado.

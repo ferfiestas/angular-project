@@ -10,17 +10,17 @@
             ¡Bienvenido a nuestra plataforma integral! Accede con tus credenciales para registrar asistencias y explorar
             una amplia gama de cursos disponibles. Tu portal para el crecimiento y la gestión eficiente del personal.
           </p>
-          <form class="form-horizontal" role="form" [formGroup]="formLogin">
+          <form class="form-horizontal" role="form" [formGroup]="formLogin" (ngSubmit)="LogIn()">
             <mat-form-field appearance="fill" class="full-width">
               <mat-label>Usuario</mat-label>
-              <input matInput placeholder="Nombre" type="text" formControlName="userid">
+              <input matInput placeholder="Nombre" type="text" formControlName="idEmpleado">
             </mat-form-field>
             <mat-form-field appearance="fill" class="full-width">
               <mat-label>Contraseña</mat-label>
-              <input matInput placeholder="Contraseña" type="password" formControlName="password">
+              <input matInput placeholder="Contraseña" type="password" formControlName="Password">
             </mat-form-field>
             <div class="button-container">
-              <button mat-raised-button color="primary" type="button" (click)="LogIn()">Iniciar Sesion</button>
+              <button mat-raised-button color="primary" type="submit" [disabled]="formLogin.invalid">Iniciar Sesion</button>
             </div>
           </form>
         </mat-card-content>

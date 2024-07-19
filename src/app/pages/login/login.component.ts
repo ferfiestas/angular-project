@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -8,9 +8,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import Swal from 'sweetalert2'
+
 
 import { AccessService } from '../../services/access.service';
-import { login } from '../../components/interfaces/login';
+
 
 @Component({
   selector: 'app-login',
@@ -20,43 +22,29 @@ import { login } from '../../components/interfaces/login';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-hide() {
-throw new Error('Method not implemented.');
-}
-clickEvent(_$event: MouseEvent) {
-throw new Error('Method not implemented.');
-}
+
 
   private accessService = inject(AccessService);
+  private formBuild = inject(FormBuilder);
   private router = inject(Router);
-  public formBuild = inject(FormBuilder);
 
   public formLogin: FormGroup = this.formBuild.group({
-    userid: ['', Validators.required],
-    password: ['', Validators.required],
-  })
+    idEmpleado: ['', [Validators.required]],
+    Password: ['', [Validators.required, Validators.minLength(6)]],
+  });
 
   LogIn() {
-    if(this.formLogin.invalid) return;
 
-    const object:login = {
-      userid:this.formLogin.value.userid,
-      password:this.formLogin.value.password,
-    }
+    const { idEmpleado, Password } = this.formLogin.value;
 
-    this.accessService.login(object).subscribe({
-      next:(data) => {
-        if(data.isSuccess){
-          localStorage.setItem("token", data.token)
-          this.router.navigate(['profile'])
-        }else{
-          alert("Credenciales son incorrectas")
+    this.accessService.login( idEmpleado, Password )
+      .subscribe({
+        next: () => this.router.navigate(['main']),
+        error: (message) => {
+          Swal.fire( 'Error', message, 'error')
         }
-      },
-      error:(error) => {
-        console.log(error.message);
-      }
-    })
+      })
+    
   }
 
 }

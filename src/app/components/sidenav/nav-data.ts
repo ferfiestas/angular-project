@@ -1,6 +1,7 @@
 import { INavbarData } from "./helper";
 
 
+
 export const navbarData: INavbarData[] = [
 
       {
@@ -78,10 +79,12 @@ export const navbarData: INavbarData[] = [
             icon: 'fal fa-key',
           },
           {
-            routeLink: 'signout',
+            routeLink: 'logout',
             Label: 'Salir',
             icon: 'fal fa-sign-out',
           }
         ]
       },
 ];
+
+

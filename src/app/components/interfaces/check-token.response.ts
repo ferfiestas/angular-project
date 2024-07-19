@@ -1,7 +1,7 @@
 import { user } from "./user";
 
-export interface responseAccess {
-    
+
+export interface CheckTokenResponse {
     user: user;
     token: string;
 }
