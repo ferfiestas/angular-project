@@ -29,15 +29,15 @@ export class LoginComponent {
   private router = inject(Router);
 
   public formLogin: FormGroup = this.formBuild.group({
-    idEmpleado: ['', [Validators.required]],
-    Password: ['', [Validators.required, Validators.minLength(6)]],
+    usuario1: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   LogIn() {
 
-    const { idEmpleado, Password } = this.formLogin.value;
+    const { usuario1, password } = this.formLogin.value;
 
-    this.accessService.login( idEmpleado, Password )
+    this.accessService.login( usuario1, password )
       .subscribe({
         next: () => this.router.navigate(['main']),
         error: (message) => {

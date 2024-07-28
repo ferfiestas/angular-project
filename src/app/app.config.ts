@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { routes } from './app.routes';
 import { profileComponent } from './pages/profile/profile.component';
@@ -31,7 +32,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { NotificationDialogComponent } from './pages/notifications/notification-dialog/notification-dialog.component';
 import { PeopleComponent } from './pages/people/people.component';
 import { EditPersonDialogComponent } from './pages/people/edit-person-dialog/edit-person-dialog.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 

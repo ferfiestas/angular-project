@@ -13,6 +13,7 @@ import { passwordComponent } from '../pages/settings/passwordreset/password.comp
 import { TickerAdminComponent } from '../pages/notifications/ticker-admin/ticker-admin.component';
 import { AdminNotificationComponent } from '../pages/notifications/admin-notification/admin-notification.component';
 import { NotificationsComponent } from '../pages/notifications/notifications.component';
+import { RoleGuard } from '../components/guards/role.guard';
 
 
 
@@ -22,17 +23,17 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      {path: 'checkin', component: CheckinComponent},
-      {path: 'profile', component: profileComponent},
-      {path: 'people', component: PeopleComponent},
-      {path: 'courses', component: CoursesComponent},
-      {path: 'news', component: NotificationsComponent},
-      {path: 'ticker', component: TickerAdminComponent},
-      {path: 'adminnews', component: AdminNotificationComponent},
-      {path: 'holidays', component: HolidaysComponent},
-      {path: 'unusualities', component: unusualitiesComponent},
-      {path: 'attendance', component: AttendanceComponent},
-      {path: 'passwordreset', component: passwordComponent},
+      {path: 'checkin', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: CheckinComponent},
+      {path: 'profile', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: profileComponent},
+      {path: 'people', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3] }, component: PeopleComponent},
+      {path: 'courses', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: CoursesComponent},
+      {path: 'news', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: NotificationsComponent},
+      {path: 'ticker', canActivate: [RoleGuard], data: { expectedRole: [1, 2] }, component: TickerAdminComponent},
+      {path: 'adminnews', canActivate: [RoleGuard], data: { expectedRole: [1, 2] }, component: AdminNotificationComponent},
+      {path: 'holidays', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: HolidaysComponent},
+      {path: 'unusualities', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 5] }, component: unusualitiesComponent},
+      {path: 'attendance', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 5] }, component: AttendanceComponent},
+      {path: 'passwordreset', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: passwordComponent},
 
     ]
   }

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 
 import { appsettings } from '../components/api/appsetting';
-import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { responseAccess } from '../components/interfaces/responseaccess';
 import { user } from '../components/interfaces/user';
 import { AuthStatus } from '../components/interfaces/auth-status.enum';
@@ -29,29 +29,31 @@ export class AccessService {
   }
 
   private setAuthentication(user: user, token:string): boolean {
-    
+    console.log('Setting authentication for user:', user);
+    console.log('Storing token:', token);    
     this._currentUser.set( user );
     this._authStatus.set( AuthStatus.authenticated );
     localStorage.setItem('token', token);
+    localStorage.setItem('userRole', user.idRol.toString());
 
     return true;
   }
 
-  login( idEmpleado: number, Password: string ): Observable<boolean> {
+  login( usuario1: number, password: string ): Observable<boolean> {
 
-    const url = `${ this.baseUrl }/auth/login`;
-    const body = { idEmpleado, Password };
+    const url = `${ this.baseUrl }/api/usuario/login`;
+    const body = { usuario1, password };
 
     return this.http.post<responseAccess>( url, body )
       .pipe(
-        map(({ user, token }) => this.setAuthentication( user, token )),
+        map(({ usuario, token }) => this.setAuthentication( usuario, token )),
         catchError( err => throwError( () => err.error.message ))
       );
   }
 
   checkAuthStatus():Observable<boolean> {
 
-    const url = `${ this.baseUrl }/auth/check-token`;
+    const url = `${ this.baseUrl }/api/usuario`;
     const token = localStorage.getItem('token');
 
     if ( !token ) {
@@ -74,6 +76,7 @@ export class AccessService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
     this._currentUser.set(null);
     this._authStatus.set( AuthStatus.notAuthenticated);
   }
@@ -83,6 +86,16 @@ export class AccessService {
     // Aquí obtendrás la información del usuario logeado.
     // Esto es solo un ejemplo, deberás implementar esto basado en tu lógica de autenticación.
     return { id: 1, name: 'Juan Pérez' };
+  }
+
+  getUserRole(): number | null {
+    const currentUser = this._currentUser();
+    if (currentUser) {
+      return currentUser.idRol;
+    }
+  
+    const role = localStorage.getItem('userRole');
+    return role ? parseInt(role, 10) : null;
   }
 
 

@@ -1,7 +1,7 @@
 export interface user {
+    idUsuario: number;
     idEmpleado: number;
-    IdUsuario: number;
-    name: string;
-    Password: string;
-    roles: string [];
+    idRol: number;
+    usuario1: string;
+    activo: boolean;
 }

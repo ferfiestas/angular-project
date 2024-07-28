@@ -13,11 +13,11 @@
           <form class="form-horizontal" role="form" [formGroup]="formLogin" (ngSubmit)="LogIn()">
             <mat-form-field appearance="fill" class="full-width">
               <mat-label>Usuario</mat-label>
-              <input matInput placeholder="Nombre" type="text" formControlName="idEmpleado">
+              <input matInput placeholder="Nombre" type="text" formControlName="usuario1">
             </mat-form-field>
             <mat-form-field appearance="fill" class="full-width">
               <mat-label>Contraseña</mat-label>
-              <input matInput placeholder="Contraseña" type="password" formControlName="Password">
+              <input matInput placeholder="Contraseña" type="password" formControlName="password">
             </mat-form-field>
             <div class="button-container">
               <button mat-raised-button color="primary" type="submit" [disabled]="formLogin.invalid">Iniciar Sesion</button>

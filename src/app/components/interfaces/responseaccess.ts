@@ -2,6 +2,6 @@ import { user } from "./user";
 
 export interface responseAccess {
     
-    user: user;
+    usuario: user;
     token: string;
 }

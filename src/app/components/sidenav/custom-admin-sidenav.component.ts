@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, OnInit, Output, computed} from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output, computed, inject} from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon'
 import { CommonModule } from '@angular/common';
@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { navbarData } from './nav-data';
 import { SublevelMenuComponent } from './sublevel-menu.component';
 import { INavbarData, fadeInOut } from './helper';
+import { AccessService } from '../../services/access.service';
+
 
 @NgModule({
   imports: [BrowserModule, BrowserAnimationsModule],
@@ -54,8 +56,10 @@ export class CustomAdminSidenavComponent implements OnInit {
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
+  filteredNavData = navbarData;
   multiple: boolean = false;
 
+  private accessService = inject(AccessService);  
 
 
   @HostListener('window:resize', ['$event'])
@@ -71,6 +75,7 @@ export class CustomAdminSidenavComponent implements OnInit {
 
   ngOnInit(): void {
       this.screenWidth = window.innerWidth;
+      this.filterMenuByRole();
   }
 
   toggleCollapse(): void {
@@ -98,11 +103,16 @@ export class CustomAdminSidenavComponent implements OnInit {
     return this.router.url.includes(data.routeLink) ? 'active' : '';
   }
 
-
-
-
   profilePicSize = computed(() => this.collapsed ? '100' : '50');
 
-  
+  filterMenuByRole(): void {
+    const userRole = this.accessService.getUserRole() ?? -1;
+    console.log('User role:', userRole);
+    this.filteredNavData = this.navData.filter(item => item.allowedRoles.includes(userRole));
+  }
+
+  trackByLabel(_index: number, item: any): string {
+    return item.Label;
+  }
   
 }

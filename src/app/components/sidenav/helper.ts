@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from "@angular/animations";
 
 export interface INavbarData {
+    allowedRoles: number[];
     routeLink: string;
     icon?: string;
     Label: string;
