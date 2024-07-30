@@ -1,44 +1,43 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
-  selector: 'app-credential-form',
+  selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+export class profileComponent implements OnInit {
+  profileForm!: FormGroup;
 
+  constructor(private fb: FormBuilder, private profileService: ProfileService) {}
 
-export class profileComponent {
-  credentialForm: FormGroup;
+  ngOnInit(): void {
+    this.profileForm = this.fb.group({
+      usuario: [{ value: '', disabled: true }],
+      nombre: [{ value: '', disabled: true }],
+      rfc: [{ value: '', disabled: true }],
+      curp: [{ value: '', disabled: true }],
+      email: [{ value: '', disabled: true }],
+      estado: [{ value: '', disabled: true }],
+      municipio: [{ value: '', disabled: true }],
+      estatus: [{ value: '', disabled: true }],
+      folio: [{ value: '', disabled: true }],
+      tipoContratacion: [{ value: '', disabled: true }],
+      fechaContratacion: [{ value: '', disabled: true }],
+      domicilio: [{ value: '', disabled: true }],
+      cuadrante: [{ value: '', disabled: true }],
+      puesto: [{ value: '', disabled: true }],
+      referente: [{ value: '', disabled: true }]
+    });
 
-  constructor(private fb: FormBuilder) {
-    this.credentialForm = this.fb.group({
-      usuario: ['', Validators.required],
-      nombre: ['', Validators.required],
-      rfc: ['', Validators.required],
-      curp: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      estado: ['', Validators.required],
-      municipio: ['', Validators.required],
-      estatus: ['', Validators.required],
-      folio: ['', Validators.required],
-      tipoContratacion: ['', Validators.required],
-      fechaContratacion: ['', Validators.required],
-      alcaldia: ['', Validators.required],
-      cuadrante: ['', Validators.required],
-      puesto: ['', Validators.required],
-      referente: ['', Validators.required]
+    this.loadUserData();
+  }
+
+  loadUserData(): void {
+    this.profileService.getProfileData().subscribe(data => {
+      this.profileForm.patchValue(data);
     });
   }
-
-  onSubmit(): void {
-    if (this.credentialForm.valid) {
-      console.log(this.credentialForm.value);
-      // Aquí puedes manejar el envío del formulario, por ejemplo enviando los datos a un servidor
-    } else {
-      console.log('Formulario inválido');
-    }
-  }
 }
-
-export class AppComponent { }

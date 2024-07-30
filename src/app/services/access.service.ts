@@ -35,6 +35,7 @@ export class AccessService {
     this._authStatus.set( AuthStatus.authenticated );
     localStorage.setItem('token', token);
     localStorage.setItem('userRole', user.idRol.toString());
+    localStorage.setItem('idPersona', user.idPersona.toString());
 
     return true;
   }
@@ -77,6 +78,7 @@ export class AccessService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('idPersona');
     this._currentUser.set(null);
     this._authStatus.set( AuthStatus.notAuthenticated);
   }
