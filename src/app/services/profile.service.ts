@@ -72,6 +72,7 @@ export class ProfileService {
           cuadrante: response.empleado.idCuadrante,
           puesto: response.empleado.puesto,
           referente: response.persona.referencia,
+          imageUrl: response.persona.urlImagen,
         };
       })
     );

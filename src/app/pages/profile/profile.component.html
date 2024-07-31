@@ -33,7 +33,7 @@
       </div>
       <div class="form-column photo-column">
         <div class="photo-frame">
-          <img src="../../../assets/Capture.JPG" alt="Foto" class="photo">
+          <img [src]="imageUrl" alt="Foto" class="photo">
         </div>
       </div>
       <div class="form-column">
@@ -55,7 +55,7 @@
         </div>
         <div>
           <label for="domicilio">Domicilio:</label>
-          <input type="text" id="domicilio" formControlName="domicilio" readonly>
+          <textarea id="domicilio" formControlName="domicilio" readonly></textarea>
         </div>
         <div>
           <label for="cuadrante">Cuadrante:</label>

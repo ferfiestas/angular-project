@@ -75,3 +75,12 @@
     border-radius: 4px; 
     cursor: pointer;
   }
+
+  textarea[formControlName="domicilio"] {
+    width: calc(100% - 20px);
+    resize: none;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid #9d2449;
+    border-radius: 8px;
+  }

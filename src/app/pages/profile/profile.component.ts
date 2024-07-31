@@ -10,6 +10,7 @@ import { ProfileService } from '../../services/profile.service';
 })
 export class profileComponent implements OnInit {
   profileForm!: FormGroup;
+  imageUrl: string = '';
 
   constructor(private fb: FormBuilder, private profileService: ProfileService) {}
 
@@ -38,6 +39,7 @@ export class profileComponent implements OnInit {
   loadUserData(): void {
     this.profileService.getProfileData().subscribe(data => {
       this.profileForm.patchValue(data);
+      this.imageUrl = data.persona.urlImagen;
     });
   }
 }
