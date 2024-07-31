@@ -7,6 +7,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { languages, userItems } from './header-dummy-data';
 import { TickerService } from '../../services/ticker.service';
 import { NotificationService, Notification } from '../../services/notification.service';
+import { AccessService } from '../../services/access.service';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private tickerService: TickerService, 
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public accessService: AccessService
   ) {}
 
   @HostListener('window:resize', ['$event'])
@@ -58,6 +60,10 @@ export class HeaderComponent implements OnInit {
           console.error('Error fetching messages:', error);
         }
     );
+  }
+
+  onLogout(): void {
+    this.accessService.logout();
   }
 
   loadNotifications(): void {

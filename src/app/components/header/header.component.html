@@ -1,9 +1,9 @@
 <div class="head" [ngClass]="getHeadClass()">
     <div class="head-content">
-        <div class="head-content-left"[ngClass]="gettrickerClass()">
+        <div class="head-content-left" [ngClass]="gettrickerClass()">
             <div class="ticker-container">
                 <div class="ticker-text" [style.width]="tickerWidth">
-                  <span *ngFor="let message of messages" class="ticker-item">{{ message.message }}</span>
+                    <span *ngFor="let message of messages" class="ticker-item">{{ message.message }}</span>
                 </div>
             </div>
             <!-- <div class="search-container"> 
@@ -25,30 +25,30 @@
             </div> -->
         </div>
         <div class="head-content-right">
-            <div class="head-menu">
+            <!-- <div class="head-menu">
                 <div class="head-menu-item">
                     <button class="head-menu-item-btn ripple" [cdkMenuTriggerFor]="languageOverlay">
-                        <img [src]="'assets/flags/' + selectedLanguage.flag + '.jpg'" 
-                            class="flag" alt="flag">
+                        <img [src]="'assets/flags/' + selectedLanguage.flag + '.jpg'" class="flag" alt="flag">
                     </button>
                 </div>
-                <!-- <div class="head-menu-item">
+                <div class="head-menu-item">
                     <button class="head-menu-item-btn ripple">
                         <i class="far fa-expand menu-icon"></i>
                     </button>
-                </div> -->
+                </div>
                 <div class="head-menu-item">
                     <button class="head-menu-item-btn ripple" [cdkMenuTriggerFor]="notificationOverlay">
                         <i class="far fa-bell menu-icon"></i>
-                        <span *ngIf="unreadNotificationsCount > 0" class="notification-count">{{ unreadNotificationsCount }}</span> <!-- Mostrar el contador -->
+                        <span *ngIf="unreadNotificationsCount > 0" class="notification-count">{{
+                            unreadNotificationsCount }}</span>
                     </button>
                 </div>
-                <div class="head-menu-item">    
+                <div class="head-menu-item">
                     <button class="head-menu-item-btn ripple">
                         <i class="far fa-comment-alt menu-icon"></i>
                     </button>
                 </div>
-            </div>
+            </div> -->
             <div class="head-user-avatar-container">
                 <div class="head-user-avatar" [cdkMenuTriggerFor]="userOverlay">
                     <img src="../../../assets/Capture.JPG" alt="user" class="user-avatar">
@@ -68,7 +68,7 @@
     </div>
 </ng-template> -->
 
-<ng-template #languageOverlay>
+<!-- <ng-template #languageOverlay>
     <div class="overlay overlay-language overlay-fall" cdkMenu>
         <ul>
             <li *ngFor="let lang of languages" cdkMenuItem>
@@ -78,9 +78,9 @@
         </ul>
     </div>
 
-</ng-template>
+</ng-template> -->
 
-<ng-template #notificationOverlay>
+<!-- <ng-template #notificationOverlay>
     <div class="overlay overlay-notification overlay-fall" cdkMenu>
         <ul>
             <li class="notification-head-container">
@@ -89,11 +89,8 @@
                     <a>View All</a>
                 </span>
             </li>
-            <li class="notification-message-container"
-                *ngFor="let notification of notifications"
-                (click)="markAsRead(notification.id)"
-                cdkMenuItem
-            >
+            <li class="notification-message-container" *ngFor="let notification of notifications"
+                (click)="markAsRead(notification.id)" cdkMenuItem>
                 <i class="far fa-bell menu-icon"></i>
                 <div>
                     <div class="notification-subject">
@@ -103,13 +100,13 @@
             </li>
         </ul>
     </div>
-</ng-template>
+</ng-template> -->
 
 <ng-template #userOverlay>
     <div class="overlay overlay-user overlay-fall" cdkMenu>
         <ul>
             <li *ngFor="let item of userItems" cdkMenuItem>
-                <a [routerLink]="[item.routeLink]">
+                <a [routerLink]="[item.routeLink]" (click)="item.label === 'Salir' ? onLogout() : null">
                     <i class="icon" [ngClass]="item.icon"></i>
                     <span class="label"> {{ item.label }} </span>
                 </a>
