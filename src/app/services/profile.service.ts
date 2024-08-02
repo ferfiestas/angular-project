@@ -27,7 +27,7 @@ export class ProfileService {
   }
 
   getPersonaData(userId: number): Observable<any> {
-    const url = `${this.baseUrl}/api/persona/${userId}`;
+    const url = `${this.baseUrl}/api/persona/byid/${userId}`;
     return this.http.get(url, { headers: this.getHeaders() });
   }
 

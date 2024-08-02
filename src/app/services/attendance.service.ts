@@ -1,67 +1,67 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { Observable, catchError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
-  private apiUrl = '/api/attendance'; // URL de la API del servidor
+  private apiUrl = 'http://209.38.48.98:8080/api/asistencia'; // URL de la API del servidor
+  private userIp: string = '';
 
   constructor(private http: HttpClient) {}
 
-  async getPublicIp(): Promise<{ ip: string }| undefined> {
+  async getPublicIp(): Promise<{ ip: string } | undefined> {
     try {
-      return await this.http.get<{ ip: string; }>('https://api.ipify.org?format=json').toPromise();
+      return await this.http.get<{ ip: string }>('https://api.ipify.org?format=json').toPromise();
     } catch (error) {
       console.error('Error al obtener la IP pública:', error);
       return { ip: '0.0.0.0' };
     }
   }
 
-  getAttendanceStatus(date: Date): string {
-    const checkInTime = new Date(date).getHours() * 60 + new Date(date).getMinutes();
-    if (checkInTime <= 614) return 'Puntual';
-    if (checkInTime <= 630) return 'Retardo';
-    return 'Falta';
+  setUserIp(ip: string) {
+    this.userIp = ip;
   }
 
-  saveAttendanceRecord(record: any): Observable<any> {
-    return this.http.post(this.apiUrl, record);
-  }
+  saveAttendanceRecord(): Observable<any> {
+    const idEmpleado = localStorage.getItem('idEmpleado');
+    const token = localStorage.getItem('token'); // Obtener el token del localStorage
 
-  loadAttendanceRecords(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl).pipe(
-      catchError((error: any) => {
-        console.error('Error al cargar los registros de asistencia:', error);
-        return [[]]; // Devolver un array vacío en caso de error
-      })
+    const record = {
+      idEmpleado: idEmpleado,
+      ip: this.userIp
+    };
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`, // Incluir el token en las cabeceras
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post(this.apiUrl, record, { headers, responseType: 'text' }).pipe(
+      catchError(this.handleError)
     );
   }
 
-  autoRegisterFalta(user: any, ip: string): void {
-    const now = new Date();
-    const checkInTime = new Date();
-    checkInTime.setHours(20, 0, 0); // 8 PM
-
-    const timeUntilCheckIn = checkInTime.getTime() - now.getTime();
-    if (timeUntilCheckIn > 0) {
-      setTimeout(() => {
-        const record = {
-          userId: user.id,
-          name: user.name,
-          time: checkInTime.toTimeString().split(' ')[0],
-          date: checkInTime.toDateString(),
-          status: 'Falta',
-          ip: ip
-        };
-        this.saveAttendanceRecord(record).subscribe(
-          _result => console.log('Asistencia registrada como falta automáticamente'),
-          _error => console.error('Error al registrar la falta automáticamente')
-        );
-      }, timeUntilCheckIn);
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Unknown error!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side errors
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}\nServer Message: ${this.getServerMessage(error)}`;
     }
+    console.error(errorMessage);
+    return throwError(errorMessage);
   }
 
+  private getServerMessage(error: HttpErrorResponse): string {
+    try {
+      return error.error ? JSON.stringify(error.error) : 'No message from server';
+    } catch (e) {
+      return 'Error parsing server message';
+    }
+  }
 }

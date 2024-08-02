@@ -2,28 +2,4 @@
   <button mat-fab extended (click)="registerAttendance()">
     Registrar Asistencia
   </button>
-  <br>
-  <br>
-  <div *ngIf="message" class="message">{{ message }}</div>
-  <h2>Historial de Asistencias</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Hora</th>
-        <th>Fecha</th>
-        <th>Estado</th>
-        <th>IP</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let record of attendanceRecords">
-        <td>{{ record.name }}</td>
-        <td>{{ record.time }}</td>
-        <td>{{ record.date }}</td>
-        <td>{{ record.status }}</td>
-        <td>{{ record.ip }}</td>
-      </tr>
-    </tbody>
-  </table>
 </div>

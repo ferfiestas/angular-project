@@ -32,6 +32,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { NotificationDialogComponent } from './pages/notifications/notification-dialog/notification-dialog.component';
 import { PeopleComponent } from './pages/people/people.component';
 import { EditPersonDialogComponent } from './pages/people/edit-person-dialog/edit-person-dialog.component';
+import { MessageDialogComponent } from './pages/checkin/message-dialog/message-dialog.component';
 
 
 
@@ -46,7 +47,8 @@ import { EditPersonDialogComponent } from './pages/people/edit-person-dialog/edi
     NotificationsComponent,
     NotificationDialogComponent,
     PeopleComponent,
-    EditPersonDialogComponent
+    EditPersonDialogComponent,
+    MessageDialogComponent
   ],
   imports: [
     BrowserModule,
