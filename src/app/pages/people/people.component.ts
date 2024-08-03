@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+
 import { PeopleService } from '../../services/people.service';
 import { EditPersonDialogComponent } from './edit-person-dialog/edit-person-dialog.component';
 
@@ -10,58 +11,37 @@ import { EditPersonDialogComponent } from './edit-person-dialog/edit-person-dial
   styleUrls: ['./people.component.css']
 })
 export class PeopleComponent implements OnInit {
-  people: any[] = [];
-  searchQuery: string = '';
-  filters: any = {};
-  page: number = 1;
-  pageSize: number = 10;
-  totalItems: number = 0;
+  searchRFC: string = '';
+  person: any = null;
 
   constructor(private peopleService: PeopleService, private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    this.loadPeople();
-  }
+  ngOnInit(): void {}
 
-  loadPeople(): void {
-    const params = {
-      search: this.searchQuery,
-      ...this.filters,
-      page: this.page,
-      pageSize: this.pageSize
-    };
-
-    this.peopleService.getPeople(params).subscribe(response => {
-      this.people = response;
-      this.totalItems = response.length;
-    });
-  }
-
-  onSearch(): void {
-    this.page = 1;
-    this.loadPeople();
-  }
-
-  onFilterChange(): void {
-    this.page = 1;
-    this.loadPeople();
-  }
-
-  onPageChange(page: number): void {
-    this.page = page;
-    this.loadPeople();
-  }
-
-  openEditDialog(person: any): void {
-    const dialogRef = this.dialog.open(EditPersonDialogComponent, {
-      width: '400px',
-      data: { person }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loadPeople();
+  search(): void {
+    this.peopleService.searchPersonByRFC(this.searchRFC).subscribe(response => {
+      if (response) {
+        this.peopleService.getPersonById(localStorage.getItem('idPersonaUsuario')!).subscribe(person => {
+          this.person = person;
+        });
       }
     });
+  }
+
+  openEditDialog(): void {
+    if (this.person) {
+      const dialogRef = this.dialog.open(EditPersonDialogComponent, {
+        width: '600px',
+        data: { person: this.person }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.person = result;
+        }
+        localStorage.removeItem('idPersonaUsuario');
+        this.searchRFC = '';
+      });
+    }
   }
 }

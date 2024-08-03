@@ -20,6 +20,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { routes } from './app.routes';
 import { profileComponent } from './pages/profile/profile.component';
@@ -71,7 +72,8 @@ import { MessageDialogComponent } from './pages/checkin/message-dialog/message-d
     FlexLayoutModule,
     MatSnackBarModule,
     MatGridListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule
   ],
   providers: [AccessService, AttendanceService],
 })

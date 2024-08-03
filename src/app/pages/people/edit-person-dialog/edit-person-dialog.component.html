@@ -1,14 +1,154 @@
-<h2>Editar Usuario</h2>
-<div class="edit-form">
-    <label>ID:</label>
-    <input [(ngModel)]="person.id" disabled />
-    <label>ID Empleado:</label>
-    <input [(ngModel)]="person.idEmpleado" />
-    <label>Usuario:</label>
-    <input [(ngModel)]="person.usuario" />
-    <label>Nombre:</label>
-    <input [(ngModel)]="person.nombre" />
-    <!-- Continúa con los demás campos -->
-    <button mat-button (click)="save()">Guardar Cambios</button>
-    <button mat-button (click)="delete()">Eliminar Usuario</button>
+<mat-tab-group>
+    <mat-tab label="Info. Personal">
+        <form [formGroup]="personalInfoForm" (ngSubmit)="savePersonalInfo()">
+            <mat-form-field appearance="fill">
+                <mat-label>ID Persona</mat-label>
+                <input matInput formControlName="idPersona">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Nombre completo</mat-label>
+                <input matInput formControlName="nombreCompleto">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>RFC</mat-label>
+                <input matInput formControlName="rfc">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>CURP</mat-label>
+                <input matInput formControlName="curp">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Referencia</mat-label>
+                <input matInput formControlName="referencia">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Teléfono</mat-label>
+                <input matInput formControlName="telefono">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Teléfono Emergencia</mat-label>
+                <input matInput formControlName="telEmergencia">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Dependencia</mat-label>
+                <input matInput formControlName="dependencia">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Grado Estudio</mat-label>
+                <input matInput formControlName="gradoEstudio">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Estudio</mat-label>
+                <input matInput formControlName="estudio">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>URL Imagen</mat-label>
+                <input matInput formControlName="urlImagen">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit">Guardar</button>
+        </form>
+    </mat-tab>
+
+    <mat-tab label="Domicilio Personal">
+        <form [formGroup]="personalAddressForm" (ngSubmit)="savePersonalAddress()">
+            <mat-form-field appearance="fill">
+                <mat-label>Estado</mat-label>
+                <input matInput formControlName="estado">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Municipio</mat-label>
+                <input matInput formControlName="municipio">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Domicilio</mat-label>
+                <textarea matInput formControlName="domicilio"></textarea>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit">Guardar</button>
+        </form>
+    </mat-tab>
+
+    <mat-tab label="Info. Trabajo">
+        <form [formGroup]="workInfoForm" (ngSubmit)="saveWorkInfo()">
+            <mat-form-field appearance="fill">
+                <mat-label>ID Usuario</mat-label>
+                <input matInput formControlName="idInterno">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Contratación</mat-label>
+                <input matInput formControlName="contratacion">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Área</mat-label>
+                <input matInput formControlName="area">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Puesto</mat-label>
+                <input matInput formControlName="puesto">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>ID Cuadrante</mat-label>
+                <input matInput formControlName="idCuadrante">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Sueldo</mat-label>
+                <input matInput formControlName="sueldo" type="number">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Fecha de Contratación</mat-label>
+                <input matInput formControlName="fechaContratacion" type="date">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit">Guardar</button>
+        </form>
+    </mat-tab>
+
+    <mat-tab label="Domicilio Trabajo">
+        <form [formGroup]="workAddressForm" (ngSubmit)="saveWorkAddress()">
+            <mat-form-field appearance="fill">
+                <mat-label>Estado</mat-label>
+                <input matInput formControlName="estado">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Municipio</mat-label>
+                <input matInput formControlName="municipio">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Domicilio</mat-label>
+                <textarea matInput formControlName="domicilio"></textarea>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit">Guardar</button>
+        </form>
+    </mat-tab>
+</mat-tab-group>
+
+<div class="form-actions">
+    <button mat-raised-button color="warn" (click)="closeDialog()">Cerrar</button>
 </div>

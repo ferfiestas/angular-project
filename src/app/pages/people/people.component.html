@@ -1,44 +1,12 @@
-<div class="search-filter">
-    <input [(ngModel)]="searchQuery" placeholder="Buscar..." (input)="onSearch()" />
-    <select [(ngModel)]="filters.area" (change)="onFilterChange()">
-        <option value="">Área</option>
-        <!-- Opciones de Área -->
-    </select>
-    <select [(ngModel)]="filters.puesto" (change)="onFilterChange()">
-        <option value="">Puesto</option>
-        <!-- Opciones de Puesto -->
-    </select>
-    <input type="date" [(ngModel)]="filters.fechaContratacion" (change)="onFilterChange()" />
+<div class="search-container">
+    <mat-form-field appearance="fill">
+        <mat-label>Buscar por RFC</mat-label>
+        <input matInput [(ngModel)]="searchRFC" placeholder="RFC" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="search()">Buscar</button>
 </div>
 
-<div class="people-list">
-    <div *ngFor="let person of people" class="person-card">
-        <div class="person-info">
-            <p><strong>ID:</strong> {{ person.id }}</p>
-            <p><strong>ID Empleado:</strong> {{ person.idEmpleado }}</p>
-            <p><strong>Usuario:</strong> {{ person.usuario }}</p>
-            <p><strong>Nombre:</strong> {{ person.nombre }}</p>
-            <p><strong>RFC:</strong> {{ person.rfc }}</p>
-            <p><strong>CURP:</strong> {{ person.curp }}</p>
-            <p><strong>E-mail:</strong> {{ person.email }}</p>
-            <p><strong>Estado:</strong> {{ person.estado }}</p>
-            <p><strong>Municipio:</strong> {{ person.municipio }}</p>
-            <p><strong>Domicilio:</strong> {{ person.domicilio }}</p>
-            <p><strong>Estatus:</strong> {{ person.estatus }}</p>
-            <p><strong>Folio:</strong> {{ person.folio }}</p>
-            <p><strong>Tipo de Contratación:</strong> {{ person.tipoContratacion }}</p>
-            <p><strong>Fecha de Contratación:</strong> {{ person.fechaContratacion }}</p>
-            <p><strong>Alcaldía:</strong> {{ person.alcaldia }}</p>
-            <p><strong>Cuadrante:</strong> {{ person.cuadrante }}</p>
-            <p><strong>Puesto:</strong> {{ person.puesto }}</p>
-            <p><strong>Referente:</strong> {{ person.referente }}</p>
-            <p><strong>Área:</strong> {{ person.area }}</p>
-            <p><strong>Teléfono:</strong> {{ person.telefono }}</p>
-            <p><strong>Teléfono de Emergencia:</strong> {{ person.telefonoEmergencia }}</p>
-            <p><strong>Estudios:</strong> {{ person.estudios }}</p>
-        </div>
-        <button mat-button (click)="openEditDialog(person)">Editar</button>
-    </div>
+<div *ngIf="person" class="person-details">
+    <p><strong>Nombre Completo:</strong> {{ person.nombreCompleto }}</p>
+    <button mat-raised-button color="primary" (click)="openEditDialog()">Editar</button>
 </div>
-
-<mat-paginator [length]="totalItems" [pageSize]="pageSize" (page)="onPageChange($event.pageIndex + 1)"></mat-paginator>
