@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -10,6 +10,9 @@ import { PeopleService } from '../../../services/people.service';
   styleUrls: ['./edit-person-dialog.component.css']
 })
 export class EditPersonDialogComponent implements OnInit {
+
+  @Output() dialogClosed: EventEmitter<void> = new EventEmitter<void>();
+
   personalInfoForm!: FormGroup;
   personalAddressForm!: FormGroup;
   workInfoForm!: FormGroup;
@@ -84,6 +87,21 @@ export class EditPersonDialogComponent implements OnInit {
   loadPersonData(idPersona: string): void {
     this.peopleService.getPersonalInfo(idPersona).subscribe(data => {
       this.personalInfoForm.patchValue(data);
+      this.peopleService.getDependencias().subscribe(dependencias => {
+        this.dependencias = dependencias;
+        const selectedDependencia = this.dependencias.find(d => d.descripcion === data.dependencia);
+        if (selectedDependencia) {
+          this.personalInfoForm.get('idDependencia')!.setValue(selectedDependencia.idDependencia);
+        }
+      });
+  
+      this.peopleService.getEstudios().subscribe(estudios => {
+        this.estudios = estudios;
+        const selectedEstudio = this.estudios.find(e => e.descripcion === data.gradoEstudio);
+        if (selectedEstudio) {
+          this.personalInfoForm.get('idEstudio')!.setValue(selectedEstudio.idEstudio);
+        }
+      });
     });
 
     this.peopleService.getPersonalAddress(idPersona).subscribe(data => {
@@ -160,5 +178,6 @@ export class EditPersonDialogComponent implements OnInit {
   closeDialog(): void {
     localStorage.removeItem('idPersonaUsuario');
     this.dialogRef.close();
+    this.dialogClosed.emit();
   }
 }

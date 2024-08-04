@@ -31,14 +31,13 @@ export class PeopleComponent implements OnInit {
   openEditDialog(): void {
     if (this.person) {
       const dialogRef = this.dialog.open(EditPersonDialogComponent, {
-        width: '600px',
+        width: '700px',
         data: { person: this.person }
       });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.person = result;
-        }
+      dialogRef.afterClosed().subscribe(_result => {
+        // Limpiar la persona después de cerrar el diálogo
+        this.person = null;
         localStorage.removeItem('idPersonaUsuario');
         this.searchRFC = '';
       });
