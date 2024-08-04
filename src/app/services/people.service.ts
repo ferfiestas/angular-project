@@ -12,11 +12,39 @@ export class PeopleService {
 
   private httpOptions = {
     headers: new HttpHeaders({
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token}`
     })
   };
 
-  constructor(private http: HttpClient) {}
+  private dependenciaList: any[] = [];
+  private estudioList: any[] = [];
+
+  constructor(private http: HttpClient) {
+    this.loadDependencias();
+    this.loadEstudios();  
+  }
+
+  private loadDependencias(): void {
+    this.http.get<any[]>(`${this.apiUrl}/dependencia`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadDependencias', []))
+    ).subscribe(dependencias => this.dependenciaList = dependencias);
+  }
+
+  private loadEstudios(): void {
+    this.http.get<any[]>(`${this.apiUrl}/estudio`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadEstudios', []))
+    ).subscribe(gradoEstudio => this.estudioList = gradoEstudio);
+  }
+
+  // Métodos públicos para obtener las listas de dependencias y estudios
+  getDependencias(): Observable<any[]> {
+    return of(this.dependenciaList);
+  }
+
+  getEstudios(): Observable<any[]> {
+    return of(this.estudioList);
+  }
 
   searchPersonByRFC(rfc: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/persona/byrfc/${rfc}`, this.httpOptions).pipe(
@@ -34,6 +62,15 @@ export class PeopleService {
 
   getPersonById(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/persona/byid/${id}`, this.httpOptions).pipe(
+      map((persona: any) => {
+        const dependencia = this.dependenciaList.find(d => d.descripcion === persona.dependencia);
+        const gradoEstudio = this.estudioList.find(e => e.descripcion === persona.gradoEstudio);
+        return {
+          ...persona,
+          idDependencia: dependencia ? dependencia.idDependencia : null,
+          idEstudio: gradoEstudio ? gradoEstudio.idEstudio : null
+        };
+      }),
       catchError(this.handleError<any>('getPersonById', {}))
     );
   }
@@ -62,11 +99,31 @@ export class PeopleService {
     );
   }
 
-  updatePersonalInfo(id: string, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/persona`, data, this.httpOptions).pipe(
+  updatePersonalInfo(data: any): Observable<any> {
+    console.log('data:', data);  // Verifica el contenido de data
+
+    const updateData = {
+      idPersona: data.idPersona,
+      nombreCompleto: data.nombreCompleto,
+      rfc: data.rfc,
+      curp: data.curp,
+      referencia: data.referencia,
+      telefono: data.telefono,
+      telEmergencia: data.telEmergencia,
+      email: data.email,
+      idDependencia: data.idDependencia,
+      idEstudio: data.idEstudio,
+      estudio: data.estudio,
+      urlImagen: data.urlImagen
+  };
+
+    // Imprime el objeto updateData en la consola para verificar su contenido
+    console.log('updateData:', updateData);
+
+    return this.http.put(`${this.apiUrl}/persona`, updateData, this.httpOptions).pipe(
       catchError(this.handleError<any>('updatePersonalInfo'))
-    );
-  }
+  );
+}
 
   updatePersonalAddress(id: string, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/personadomicilio/${id}`, data, this.httpOptions).pipe(

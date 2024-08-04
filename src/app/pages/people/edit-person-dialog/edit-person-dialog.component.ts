@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { PeopleService } from '../../../services/people.service';
 
 @Component({
@@ -13,6 +14,9 @@ export class EditPersonDialogComponent implements OnInit {
   personalAddressForm!: FormGroup;
   workInfoForm!: FormGroup;
   workAddressForm!: FormGroup;
+
+  dependencias: any[] = [];
+  estudios: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -34,8 +38,8 @@ export class EditPersonDialogComponent implements OnInit {
         telefono: [''],
         telEmergencia: [''],
         email: [''],
-        dependencia: [''],
-        gradoEstudio: [''],
+        idDependencia: [''],
+        idEstudio: [''],
         estudio: [''],
         urlImagen: ['']
       });
@@ -62,34 +66,63 @@ export class EditPersonDialogComponent implements OnInit {
         domicilio: ['']
       });
 
-      this.peopleService.getPersonalInfo(idPersonaUsuario).subscribe(data => {
-        this.personalInfoForm.patchValue(data);
-      });
-
-      this.peopleService.getPersonalAddress(idPersonaUsuario).subscribe(data => {
-        this.personalAddressForm.patchValue(data);
-      });
-
-      this.peopleService.getWorkInfo(idPersonaUsuario).subscribe(data => {
-        this.workInfoForm.patchValue(data);
-      });
-
-      this.peopleService.getWorkAddress(idPersonaUsuario).subscribe(data => {
-        this.workAddressForm.patchValue(data);
-      });
+      this.loadDependenciesAndStudies();
+      this.loadPersonData(idPersonaUsuario);
     }
+  }
+
+  loadDependenciesAndStudies(): void {
+    this.peopleService.getDependencias().subscribe(dependencias => {
+      this.dependencias = dependencias;
+    });
+
+    this.peopleService.getEstudios().subscribe(estudios => {
+      this.estudios = estudios;
+    });
+  }
+
+  loadPersonData(idPersona: string): void {
+    this.peopleService.getPersonalInfo(idPersona).subscribe(data => {
+      this.personalInfoForm.patchValue(data);
+    });
+
+    this.peopleService.getPersonalAddress(idPersona).subscribe(data => {
+      this.personalAddressForm.patchValue(data);
+    });
+
+    this.peopleService.getWorkInfo(idPersona).subscribe(data => {
+      this.workInfoForm.patchValue(data);
+    });
+
+    this.peopleService.getWorkAddress(idPersona).subscribe(data => {
+      this.workAddressForm.patchValue(data);
+    });
   }
 
   savePersonalInfo(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     if (idPersonaUsuario) {
-      this.peopleService.updatePersonalInfo(idPersonaUsuario, this.personalInfoForm.value).subscribe(_response => {
-        alert('Información personal guardada exitosamente.');
-      }, _error => {
-        alert('Error al guardar información personal.');
-      });
+        const formData = this.personalInfoForm.value;
+        formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
+        
+        this.peopleService.updatePersonalInfo(formData).subscribe(
+            _response => {
+                alert('Información personal guardada exitosamente.');
+            },
+            error => {
+                console.error('Error al guardar información personal:', error);
+                if (error.status === 400 && error.error.errors) {
+                    const errorMessages = Object.values(error.error.errors).flat().join('\n');
+                    alert('Errores de validación: \n' + errorMessages);
+                } else {
+                    alert('Error al guardar información personal. Por favor, intenta nuevamente.');
+                }
+            }
+        );
+    } else {
+        alert('ID de Persona no encontrado en el almacenamiento local.');
     }
-  }
+}
 
   savePersonalAddress(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');

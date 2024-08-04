@@ -43,12 +43,20 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>Dependencia</mat-label>
-                <input matInput formControlName="dependencia">
+                <mat-select formControlName="idDependencia">
+                    <mat-option *ngFor="let dependencia of dependencias" [value]="dependencia.idDependencia">
+                        {{ dependencia.descripcion }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Grado Estudio</mat-label>
-                <input matInput formControlName="gradoEstudio">
+                <mat-select formControlName="idEstudio">
+                    <mat-option *ngFor="let gradoEstudio of estudios" [value]="gradoEstudio.idEstudio">
+                        {{ gradoEstudio.descripcion }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">

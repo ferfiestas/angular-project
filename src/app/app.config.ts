@@ -21,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 
 import { routes } from './app.routes';
 import { profileComponent } from './pages/profile/profile.component';
@@ -56,10 +57,7 @@ import { MessageDialogComponent } from './pages/checkin/message-dialog/message-d
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
-    MatFormFieldModule,
-    FormsModule, 
-    CommonModule, 
-    BrowserModule, 
+    MatFormFieldModule, 
     BrowserAnimationsModule, 
     MatButtonModule, 
     MatCardModule, 
@@ -73,7 +71,8 @@ import { MessageDialogComponent } from './pages/checkin/message-dialog/message-d
     MatSnackBarModule,
     MatGridListModule,
     MatPaginatorModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule
   ],
   providers: [AccessService, AttendanceService],
 })
