@@ -19,10 +19,14 @@ export class PeopleService {
 
   private dependenciaList: any[] = [];
   private estudioList: any[] = [];
+  private estadosList: any[] = [];
+  private municipiosList: any[] = [];
 
   constructor(private http: HttpClient) {
     this.loadDependencias();
-    this.loadEstudios();  
+    this.loadEstudios();
+    this.loadEstados();
+    this.loadMunicipios();
   }
 
   private loadDependencias(): void {
@@ -37,6 +41,18 @@ export class PeopleService {
     ).subscribe(gradoEstudio => this.estudioList = gradoEstudio);
   }
 
+  private loadEstados(): void {
+    this.http.get<any[]>(`${this.apiUrl}/estado`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadEstados', []))
+    ).subscribe(estado => this.estadosList = estado);
+  }
+
+  private loadMunicipios(): void {
+    this.http.get<any[]>(`${this.apiUrl}/municipio`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadMunicipios', []))
+    ).subscribe(municipio => this.municipiosList = municipio);
+  }
+
   // Métodos públicos para obtener las listas de dependencias y estudios
   getDependencias(): Observable<any[]> {
     return of(this.dependenciaList);
@@ -44,6 +60,14 @@ export class PeopleService {
 
   getEstudios(): Observable<any[]> {
     return of(this.estudioList);
+  }
+
+  getEstados(): Observable<any[]> {
+    return of(this.estadosList);
+  }
+
+  getMunicipios(): Observable<any[]> {
+    return of(this.municipiosList);
   }
 
   searchPersonByRFC(rfc: string): Observable<any> {
@@ -81,6 +105,21 @@ export class PeopleService {
     );
   }
 
+  getPersonAddressById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/personadomicilio/${id}`, this.httpOptions).pipe(
+      map((personadomicilio: any) => {
+        const estado = this.estadosList.find(e => e.descripcion === personadomicilio.estado);
+        const municipio = this.municipiosList.find(m => m.nombre === personadomicilio.municipio);
+        return {
+          ...personadomicilio,
+          idEstado: estado ? estado.idEstado : null,
+          idMunicipio: municipio ? municipio.idMunicipio : null
+        };
+      }),
+      catchError(this.handleError<any>('getPersonAddressById', {}))
+    );
+  }
+
   getPersonalAddress(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/personadomicilio/${id}`, this.httpOptions).pipe(
       catchError(this.handleError<any>('getPersonalAddress', {}))
@@ -115,18 +154,31 @@ export class PeopleService {
       idEstudio: data.idEstudio,
       estudio: data.estudio,
       urlImagen: data.urlImagen
-  };
+    };
 
     // Imprime el objeto updateData en la consola para verificar su contenido
     console.log('updateData:', updateData);
 
     return this.http.put(`${this.apiUrl}/persona`, updateData, this.httpOptions).pipe(
       catchError(this.handleError<any>('updatePersonalInfo'))
-  );
-}
+    );
+  }
 
-  updatePersonalAddress(id: string, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/personadomicilio/${id}`, data, this.httpOptions).pipe(
+  updatePersonalAddress(data: any): Observable<any> {
+    console.log('data:', data);  // Verifica el contenido de PersonalAddress
+
+    const updatePerAddData = {
+      idPersonaDomicilio: data.idPersonaDomicilio,
+      idPersona: data.idPersona,
+      idEstado: data.idEstado,
+      idMunicipio: data.idMunicipio,
+      domicilio: data.domicilio
+    };
+
+    // Imprime el objeto updatePerAddData en la consola para verificar su contenido
+    console.log('updatePerAddData:', updatePerAddData);
+
+    return this.http.put(`${this.apiUrl}/PersonaDomicilio`, updatePerAddData, this.httpOptions).pipe(
       catchError(this.handleError<any>('updatePersonalAddress'))
     );
   }

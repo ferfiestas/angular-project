@@ -20,13 +20,15 @@ export class EditPersonDialogComponent implements OnInit {
 
   dependencias: any[] = [];
   estudios: any[] = [];
+  estados: any[] = [];
+  municipios: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private peopleService: PeopleService,
     public dialogRef: MatDialogRef<EditPersonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
@@ -48,8 +50,10 @@ export class EditPersonDialogComponent implements OnInit {
       });
 
       this.personalAddressForm = this.fb.group({
-        estado: [''],
-        municipio: [''],
+        idPersonaDomicilio: [''],
+        idPersona: [''],
+        idEstado: [''],
+        idMunicipio: [''],
         domicilio: ['']
       });
 
@@ -70,6 +74,7 @@ export class EditPersonDialogComponent implements OnInit {
       });
 
       this.loadDependenciesAndStudies();
+      this.loadEstadosAndMunicipios();
       this.loadPersonData(idPersonaUsuario);
     }
   }
@@ -84,6 +89,16 @@ export class EditPersonDialogComponent implements OnInit {
     });
   }
 
+  loadEstadosAndMunicipios(): void {
+    this.peopleService.getEstados().subscribe(estados => {
+      this.estados = estados;
+    });
+
+    this.peopleService.getMunicipios().subscribe(municipios => {
+      this.municipios = municipios;
+    });
+  }
+
   loadPersonData(idPersona: string): void {
     this.peopleService.getPersonalInfo(idPersona).subscribe(data => {
       this.personalInfoForm.patchValue(data);
@@ -94,7 +109,7 @@ export class EditPersonDialogComponent implements OnInit {
           this.personalInfoForm.get('idDependencia')!.setValue(selectedDependencia.idDependencia);
         }
       });
-  
+
       this.peopleService.getEstudios().subscribe(estudios => {
         this.estudios = estudios;
         const selectedEstudio = this.estudios.find(e => e.descripcion === data.gradoEstudio);
@@ -106,6 +121,21 @@ export class EditPersonDialogComponent implements OnInit {
 
     this.peopleService.getPersonalAddress(idPersona).subscribe(data => {
       this.personalAddressForm.patchValue(data);
+      this.peopleService.getEstados().subscribe(estados => {
+        this.estados = estados;
+        const selectedEstados = this.estados.find(e => e.descripcion === data.estado);
+        if (selectedEstados) {
+          this.personalAddressForm.get('idEstado')!.setValue(selectedEstados.idEstado);
+        }
+      });
+
+      this.peopleService.getMunicipios().subscribe(municipios => {
+        this.municipios = municipios;
+        const selectedMunicipios = this.municipios.find(m => m.nombre === data.municipio);
+        if (selectedMunicipios) {
+          this.personalAddressForm.get('idMunicipio')!.setValue(selectedMunicipios.idMunicipio);
+        }
+      });
     });
 
     this.peopleService.getWorkInfo(idPersona).subscribe(data => {
@@ -120,36 +150,50 @@ export class EditPersonDialogComponent implements OnInit {
   savePersonalInfo(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     if (idPersonaUsuario) {
-        const formData = this.personalInfoForm.value;
-        formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
-        
-        this.peopleService.updatePersonalInfo(formData).subscribe(
-            _response => {
-                alert('Información personal guardada exitosamente.');
-            },
-            error => {
-                console.error('Error al guardar información personal:', error);
-                if (error.status === 400 && error.error.errors) {
-                    const errorMessages = Object.values(error.error.errors).flat().join('\n');
-                    alert('Errores de validación: \n' + errorMessages);
-                } else {
-                    alert('Error al guardar información personal. Por favor, intenta nuevamente.');
-                }
-            }
-        );
+      const formData = this.personalInfoForm.value;
+      formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
+
+      this.peopleService.updatePersonalInfo(formData).subscribe(
+        _response => {
+          alert('Información personal guardada exitosamente.');
+        },
+        error => {
+          console.error('Error al guardar información personal:', error);
+          if (error.status === 400 && error.error.errors) {
+            const errorMessages = Object.values(error.error.errors).flat().join('\n');
+            alert('Errores de validación: \n' + errorMessages);
+          } else {
+            alert('Error al guardar información personal. Por favor, intenta nuevamente.');
+          }
+        }
+      );
     } else {
-        alert('ID de Persona no encontrado en el almacenamiento local.');
+      alert('ID de Persona no encontrado en el almacenamiento local.');
     }
-}
+  }
 
   savePersonalAddress(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     if (idPersonaUsuario) {
-      this.peopleService.updatePersonalAddress(idPersonaUsuario, this.personalAddressForm.value).subscribe(_response => {
-        alert('Domicilio personal guardado exitosamente.');
-      }, _error => {
-        alert('Error al guardar domicilio personal.');
-      });
+      const formData = this.personalAddressForm.value;
+      formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
+
+      this.peopleService.updatePersonalAddress(formData).subscribe(
+        _response => {
+          alert('Información personal guardada exitosamente.');
+        },
+        error => {
+          console.error('Error al guardar información personal:', error);
+          if (error.status === 400 && error.error.errors) {
+            const errorMessages = Object.values(error.error.errors).flat().join('\n');
+            alert('Errores de validación: \n' + errorMessages);
+          } else {
+            alert('Error al guardar información personal. Por favor, intenta nuevamente.');
+          }
+        }
+      );
+    } else {
+      alert('ID de Persona no encontrado en el almacenamiento local.');
     }
   }
 
