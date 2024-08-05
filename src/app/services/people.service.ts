@@ -21,12 +21,20 @@ export class PeopleService {
   private estudioList: any[] = [];
   private estadosList: any[] = [];
   private municipiosList: any[] = [];
+  private contratosList: any[] = [];
+  private areasList: any[] = [];
+  private puestosList: any[] = [];
+  private cuadrantesList: any[] = [];
 
   constructor(private http: HttpClient) {
     this.loadDependencias();
     this.loadEstudios();
     this.loadEstados();
     this.loadMunicipios();
+    this.loadContrataciones();
+    this.loadAreas();
+    this.loadPuestos();
+    this.loadCuadrantes();
   }
 
   private loadDependencias(): void {
@@ -53,6 +61,31 @@ export class PeopleService {
     ).subscribe(municipio => this.municipiosList = municipio);
   }
 
+
+  private loadContrataciones(): void {
+    this.http.get<any[]>(`${this.apiUrl}/tipocontratacione`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadContrataciones', []))
+    ).subscribe(contratacion => this.contratosList = contratacion);
+  }
+
+  private loadAreas(): void {
+    this.http.get<any[]>(`${this.apiUrl}/area`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadAreas', []))
+    ).subscribe(area => this.areasList = area);
+  }
+
+  private loadPuestos(): void {
+    this.http.get<any[]>(`${this.apiUrl}/puesto`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadPuestos', []))
+    ).subscribe(puesto => this.puestosList = puesto);
+  }
+
+  private loadCuadrantes(): void {
+    this.http.get<any[]>(`${this.apiUrl}/cuadrante`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadCuadrantes', []))
+    ).subscribe(cuadrante => this.cuadrantesList = cuadrante);
+  }
+
   // Métodos públicos para obtener las listas de dependencias y estudios
   getDependencias(): Observable<any[]> {
     return of(this.dependenciaList);
@@ -68,6 +101,22 @@ export class PeopleService {
 
   getMunicipios(): Observable<any[]> {
     return of(this.municipiosList);
+  }
+
+  getContratos(): Observable<any[]> {
+    return of(this.contratosList);
+  }
+
+  getAreas(): Observable<any[]> {
+    return of(this.areasList);
+  }
+
+  getPuestos(): Observable<any[]> {
+    return of(this.puestosList);
+  }
+
+  getCuadrantes(): Observable<any[]> {
+    return of(this.cuadrantesList);
   }
 
   searchPersonByRFC(rfc: string): Observable<any> {
@@ -123,6 +172,25 @@ export class PeopleService {
   getPersonalAddress(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/personadomicilio/${id}`, this.httpOptions).pipe(
       catchError(this.handleError<any>('getPersonalAddress', {}))
+    );
+  }
+
+  getWorkById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/empleado/${id}`, this.httpOptions).pipe(
+      map((work: any) => {
+        const contratacion = this.contratosList.find(c => c.descripcion === work.contratacion);
+        const area = this.areasList.find(a => a.clave === work.area);
+        const puesto = this.puestosList.find(p => p.nombre === work.puesto);
+        const cuadrante = this.cuadrantesList.find(c => c.descripcion === work.cuadrante);
+        return {
+          ...work,
+          idTipoContratacion: contratacion ? contratacion.idTipoContratacion : null,
+          idArea: area ? area.idArea : null,
+          idPuesto: puesto ? puesto.idPuesto : null,
+          idCuadrante: cuadrante ? cuadrante.idCuadrante : null
+        };
+      }),
+      catchError(this.handleError<any>('getWorkById', {}))
     );
   }
 
@@ -183,8 +251,26 @@ export class PeopleService {
     );
   }
 
-  updateWorkInfo(id: string, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/empleado/${id}`, data, this.httpOptions).pipe(
+  updateWorkInfo(data: any): Observable<any> {
+    console.log('data:', data);  // Verifica el contenido de PersonalAddress
+
+    const updateWorkData = {
+      idEmpleado: data.idEmpleado,
+      idPersona: data.idPersona,
+      idInterno: data.idInterno,
+      numEmpleado: data.numEmpleado,
+      idTipoContratacion: data.idTipoContratacion,
+      idArea: data.idArea,
+      idPuesto: data.idPuesto,
+      idCuadrante: data.idCuadrante,
+      sueldo: data.sueldo,
+      fechaContratacion: data.fechaContratacion
+    };
+
+    // Imprime el objeto updateWorkData en la consola para verificar su contenido
+    console.log('updateWorkData:', updateWorkData);
+
+    return this.http.put(`${this.apiUrl}/Empleado`, updateWorkData, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateWorkInfo'))
     );
   }

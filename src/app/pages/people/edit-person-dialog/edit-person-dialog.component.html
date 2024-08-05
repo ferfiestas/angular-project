@@ -115,28 +115,59 @@
     <mat-tab label="Info. Trabajo">
         <form [formGroup]="workInfoForm" (ngSubmit)="saveWorkInfo()">
             <mat-form-field appearance="fill">
+                <mat-label>ID Empleado</mat-label>
+                <input matInput formControlName="idEmpleado">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>ID Persona</mat-label>
+                <input matInput formControlName="idPersona">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
                 <mat-label>ID Usuario</mat-label>
                 <input matInput formControlName="idInterno">
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Contratación</mat-label>
-                <input matInput formControlName="contratacion">
+                <mat-label>No. Empleado</mat-label>
+                <input matInput formControlName="numEmpleado">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Contratacion</mat-label>
+                <mat-select formControlName="idTipoContratacion">
+                    <mat-option *ngFor="let contratacion of contratos" [value]="contratacion.idTipoContratacion">
+                        {{ contratacion.descripcion }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Área</mat-label>
-                <input matInput formControlName="area">
+                <mat-select formControlName="idArea">
+                    <mat-option *ngFor="let area of areas" [value]="area.idArea">
+                        {{ area.clave }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Puesto</mat-label>
-                <input matInput formControlName="puesto">
+                <mat-select formControlName="idPuesto">
+                    <mat-option *ngFor="let puesto of puestos" [value]="puesto.idPuesto">
+                        {{ puesto.nombre }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>ID Cuadrante</mat-label>
-                <input matInput formControlName="idCuadrante">
+                <mat-label>Cuadrante</mat-label>
+                <mat-select formControlName="idCuadrante">
+                    <mat-option *ngFor="let cuadrante of cuadrantes" [value]="cuadrante.idCuadrante">
+                        {{ cuadrante.descripcion }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">

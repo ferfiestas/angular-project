@@ -22,6 +22,10 @@ export class EditPersonDialogComponent implements OnInit {
   estudios: any[] = [];
   estados: any[] = [];
   municipios: any[] = [];
+  contratos: any[] = [];
+  areas: any[] = [];
+  puestos: any[] = [];
+  cuadrantes: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -58,10 +62,13 @@ export class EditPersonDialogComponent implements OnInit {
       });
 
       this.workInfoForm = this.fb.group({
+        idEmpleado: [''],
+        idPersona: [''],
         idInterno: [''],
-        contratacion: [''],
-        area: [''],
-        puesto: [''],
+        numEmpleado: [''],
+        idTipoContratacion: [''],
+        idArea: [''],
+        idPuesto: [''],
         idCuadrante: [''],
         sueldo: [''],
         fechaContratacion: ['']
@@ -75,6 +82,7 @@ export class EditPersonDialogComponent implements OnInit {
 
       this.loadDependenciesAndStudies();
       this.loadEstadosAndMunicipios();
+      this.loadContratosAreasCuadrantesAndPuestos();
       this.loadPersonData(idPersonaUsuario);
     }
   }
@@ -96,6 +104,24 @@ export class EditPersonDialogComponent implements OnInit {
 
     this.peopleService.getMunicipios().subscribe(municipios => {
       this.municipios = municipios;
+    });
+  }
+
+  loadContratosAreasCuadrantesAndPuestos(): void {
+    this.peopleService.getContratos().subscribe(contratos => {
+      this.contratos = contratos;
+    });
+
+    this.peopleService.getAreas().subscribe(areas => {
+      this.areas = areas;
+    });
+
+    this.peopleService.getPuestos().subscribe(puestos => {
+      this.puestos = puestos;
+    });
+
+    this.peopleService.getCuadrantes().subscribe(cuadrantes => {
+      this.cuadrantes = cuadrantes;
     });
   }
 
@@ -140,6 +166,38 @@ export class EditPersonDialogComponent implements OnInit {
 
     this.peopleService.getWorkInfo(idPersona).subscribe(data => {
       this.workInfoForm.patchValue(data);
+      this.peopleService.getContratos().subscribe(contratos => {
+        this.contratos = contratos;
+        const selectedContratos = this.contratos.find(c => c.descripcion === data.contratacion);
+        if (selectedContratos) {
+          this.workInfoForm.get('idTipoContratacion')!.setValue(selectedContratos.idTipoContratacion);
+        }
+      });
+
+      this.peopleService.getAreas().subscribe(areas => {
+        this.areas = areas;
+        const selectedAreas = this.areas.find(a => a.clave === data.area);
+        if (selectedAreas) {
+          this.workInfoForm.get('idArea')!.setValue(selectedAreas.idArea);
+        }
+      });
+
+      this.peopleService.getPuestos().subscribe(puestos => {
+        this.puestos = puestos;
+        const selectedPuestos = this.puestos.find(p => p.nombre === data.puesto);
+        if (selectedPuestos) {
+          this.workInfoForm.get('idPuesto')!.setValue(selectedPuestos.idPuesto);
+        }
+      });
+
+      this.peopleService.getCuadrantes().subscribe(cuadrantes => {
+        this.cuadrantes = cuadrantes;
+        const selectedCuadrantes = this.cuadrantes.find(c => c.descripcion === data.cuadrante);
+        if (selectedCuadrantes) {
+          this.workInfoForm.get('idCuadrante')!.setValue(selectedCuadrantes.idCuadrante);
+        }
+      });
+
     });
 
     this.peopleService.getWorkAddress(idPersona).subscribe(data => {
@@ -200,11 +258,25 @@ export class EditPersonDialogComponent implements OnInit {
   saveWorkInfo(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     if (idPersonaUsuario) {
-      this.peopleService.updateWorkInfo(idPersonaUsuario, this.workInfoForm.value).subscribe(_response => {
-        alert('Información laboral guardada exitosamente.');
-      }, _error => {
-        alert('Error al guardar información laboral.');
-      });
+      const formData = this.workInfoForm.value;
+      formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
+
+      this.peopleService.updateWorkInfo(formData).subscribe(
+        _response => {
+          alert('Información personal guardada exitosamente.');
+        },
+        error => {
+          console.error('Error al guardar información personal:', error);
+          if (error.status === 400 && error.error.errors) {
+            const errorMessages = Object.values(error.error.errors).flat().join('\n');
+            alert('Errores de validación: \n' + errorMessages);
+          } else {
+            alert('Error al guardar información personal. Por favor, intenta nuevamente.');
+          }
+        }
+      );
+    } else {
+      alert('ID de Persona no encontrado en el almacenamiento local.');
     }
   }
 
