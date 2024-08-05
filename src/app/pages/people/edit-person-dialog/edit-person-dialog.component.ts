@@ -192,7 +192,7 @@ export class EditPersonDialogComponent implements OnInit {
 
       this.peopleService.getCuadrantes().subscribe(cuadrantes => {
         this.cuadrantes = cuadrantes;
-        const selectedCuadrantes = this.cuadrantes.find(c => c.descripcion === data.cuadrante);
+        const selectedCuadrantes = this.cuadrantes.find(c => c.descripcion === data.idCuadrante);
         if (selectedCuadrantes) {
           this.workInfoForm.get('idCuadrante')!.setValue(selectedCuadrantes.idCuadrante);
         }

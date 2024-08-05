@@ -164,8 +164,8 @@
             <mat-form-field appearance="fill">
                 <mat-label>Cuadrante</mat-label>
                 <mat-select formControlName="idCuadrante">
-                    <mat-option *ngFor="let cuadrante of cuadrantes" [value]="cuadrante.idCuadrante">
-                        {{ cuadrante.descripcion }}
+                    <mat-option *ngFor="let idCuadrante of cuadrantes" [value]="idCuadrante.idCuadrante">
+                        {{ idCuadrante.descripcion }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

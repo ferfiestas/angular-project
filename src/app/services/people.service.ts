@@ -181,7 +181,7 @@ export class PeopleService {
         const contratacion = this.contratosList.find(c => c.descripcion === work.contratacion);
         const area = this.areasList.find(a => a.clave === work.area);
         const puesto = this.puestosList.find(p => p.nombre === work.puesto);
-        const cuadrante = this.cuadrantesList.find(c => c.descripcion === work.cuadrante);
+        const cuadrante = this.cuadrantesList.find(c => c.descripcion === work.idCuadrante);
         return {
           ...work,
           idTipoContratacion: contratacion ? contratacion.idTipoContratacion : null,
