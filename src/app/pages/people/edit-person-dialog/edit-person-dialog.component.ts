@@ -75,8 +75,10 @@ export class EditPersonDialogComponent implements OnInit {
       });
 
       this.workAddressForm = this.fb.group({
-        estado: [''],
-        municipio: [''],
+        idTrabajoDomicilio: [''],
+        idEmpleado: [''],
+        idEstado: [''],
+        idMunicipio: [''],
         domicilio: ['']
       });
 
@@ -152,6 +154,7 @@ export class EditPersonDialogComponent implements OnInit {
         const selectedEstados = this.estados.find(e => e.descripcion === data.estado);
         if (selectedEstados) {
           this.personalAddressForm.get('idEstado')!.setValue(selectedEstados.idEstado);
+          this.workAddressForm.get('idEstado')!.setValue(selectedEstados.idEstado);
         }
       });
 
@@ -160,6 +163,7 @@ export class EditPersonDialogComponent implements OnInit {
         const selectedMunicipios = this.municipios.find(m => m.nombre === data.municipio);
         if (selectedMunicipios) {
           this.personalAddressForm.get('idMunicipio')!.setValue(selectedMunicipios.idMunicipio);
+          this.workAddressForm.get('idMunicipio')!.setValue(selectedMunicipios.idMunicipio);
         }
       });
     });
@@ -283,11 +287,25 @@ export class EditPersonDialogComponent implements OnInit {
   saveWorkAddress(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     if (idPersonaUsuario) {
-      this.peopleService.updateWorkAddress(idPersonaUsuario, this.workAddressForm.value).subscribe(_response => {
-        alert('Domicilio laboral guardado exitosamente.');
-      }, _error => {
-        alert('Error al guardar domicilio laboral.');
-      });
+      const formData = this.workAddressForm.value;
+      formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
+
+      this.peopleService.updateWorkAddress(formData).subscribe(
+        _response => {
+          alert('Información personal guardada exitosamente.');
+        },
+        error => {
+          console.error('Error al guardar información personal:', error);
+          if (error.status === 400 && error.error.errors) {
+            const errorMessages = Object.values(error.error.errors).flat().join('\n');
+            alert('Errores de validación: \n' + errorMessages);
+          } else {
+            alert('Error al guardar información personal. Por favor, intenta nuevamente.');
+          }
+        }
+      );
+    } else {
+      alert('ID de Persona no encontrado en el almacenamiento local.');
     }
   }
 

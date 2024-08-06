@@ -200,6 +200,21 @@ export class PeopleService {
     );
   }
 
+  getWorkAddressById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/trabajodomicilio/${id}`, this.httpOptions).pipe(
+      map((workdomicilio: any) => {
+        const estado = this.estadosList.find(e => e.descripcion === workdomicilio.estado);
+        const municipio = this.municipiosList.find(m => m.nombre === workdomicilio.municipio);
+        return {
+          ...workdomicilio,
+          idEstado: estado ? estado.idEstado : null,
+          idMunicipio: municipio ? municipio.idMunicipio : null
+        };
+      }),
+      catchError(this.handleError<any>('getWorkAddressById', {}))
+    );
+  }
+
   getWorkAddress(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/trabajodomicilio/${id}`, this.httpOptions).pipe(
       catchError(this.handleError<any>('getWorkAddress', {}))
@@ -252,7 +267,7 @@ export class PeopleService {
   }
 
   updateWorkInfo(data: any): Observable<any> {
-    console.log('data:', data);  // Verifica el contenido de PersonalAddress
+    console.log('data:', data);  // Verifica el contenido de WorkInfo
 
     const updateWorkData = {
       idEmpleado: data.idEmpleado,
@@ -275,8 +290,21 @@ export class PeopleService {
     );
   }
 
-  updateWorkAddress(id: string, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/trabajodomicilio/${id}`, data, this.httpOptions).pipe(
+  updateWorkAddress(data: any): Observable<any> {
+    console.log('data:', data);  // Verifica el contenido de WorkAddres
+
+    const updateWorkAddressData = {
+      idTrabajoDomicilio: data.idTrabajoDomicilio,
+      idEmpleado: data.idEmpleado,
+      idEstado: data.idEstado,
+      idMunicipio: data.idMunicipio,
+      domicilio: data.domicilio
+    };
+
+    // Imprime el objeto updateWorkAddressData en la consola para verificar su contenido
+    console.log('updateWorkAddressData:', updateWorkAddressData);
+
+    return this.http.put(`${this.apiUrl}/TrabajoDomicilio`, updateWorkAddressData, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateWorkAddress'))
     );
   }

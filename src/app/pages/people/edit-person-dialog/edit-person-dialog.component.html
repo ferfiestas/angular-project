@@ -187,13 +187,31 @@
     <mat-tab label="Domicilio Trabajo">
         <form [formGroup]="workAddressForm" (ngSubmit)="saveWorkAddress()">
             <mat-form-field appearance="fill">
+                <mat-label>ID Domicilio Trabajo</mat-label>
+                <input matInput formControlName="idTrabajoDomicilio">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Empleado</mat-label>
+                <input matInput formControlName="idEmpleado">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
                 <mat-label>Estado</mat-label>
-                <input matInput formControlName="estado">
+                <mat-select formControlName="idEstado">
+                    <mat-option *ngFor="let estado of estados" [value]="estado.idEstado">
+                        {{ estado.descripcion }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Municipio</mat-label>
-                <input matInput formControlName="municipio">
+                <mat-select formControlName="idMunicipio">
+                    <mat-option *ngFor="let municipio of municipios" [value]="municipio.idMunicipio">
+                        {{ municipio.nombre }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
