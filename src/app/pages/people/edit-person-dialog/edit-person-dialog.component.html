@@ -1,6 +1,6 @@
-<mat-tab-group>
-    <mat-tab label="Info. Personal">
-        <form [formGroup]="personalInfoForm" (ngSubmit)="savePersonalInfo()">
+<mat-tab-group class="custom-tab-group">
+    <mat-tab class="custom-tab" label="Info. Personal">
+        <form [formGroup]="personalInfoForm" (ngSubmit)="savePersonalInfo()" class="form-container">
             <mat-form-field appearance="fill">
                 <mat-label>ID Persona</mat-label>
                 <input matInput formControlName="idPersona">
@@ -69,12 +69,12 @@
                 <input matInput formControlName="urlImagen">
             </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit">Guardar</button>
+            <button mat-raised-button color="primary" type="submit" class="submit-button">Guardar</button>
         </form>
     </mat-tab>
 
-    <mat-tab label="Domicilio Personal">
-        <form [formGroup]="personalAddressForm" (ngSubmit)="savePersonalAddress()">
+    <mat-tab class="custom-tab" label="Domicilio Personal">
+        <form [formGroup]="personalAddressForm" (ngSubmit)="savePersonalAddress()" class="form-container">
             <mat-form-field appearance="fill">
                 <mat-label>ID Persona Domicilio</mat-label>
                 <input matInput formControlName="idPersonaDomicilio">
@@ -108,12 +108,12 @@
                 <textarea matInput formControlName="domicilio"></textarea>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit">Guardar</button>
+            <button mat-raised-button color="primary" type="submit" class="submit-button">Guardar</button>
         </form>
     </mat-tab>
 
-    <mat-tab label="Info. Trabajo">
-        <form [formGroup]="workInfoForm" (ngSubmit)="saveWorkInfo()">
+    <mat-tab class="custom-tab" label="Info. Trabajo">
+        <form [formGroup]="workInfoForm" (ngSubmit)="saveWorkInfo()" class="form-container">
             <mat-form-field appearance="fill">
                 <mat-label>ID Empleado</mat-label>
                 <input matInput formControlName="idEmpleado">
@@ -180,12 +180,12 @@
                 <input matInput formControlName="fechaContratacion" type="date">
             </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit">Guardar</button>
+            <button mat-raised-button color="primary" type="submit" class="submit-button">Guardar</button>
         </form>
     </mat-tab>
 
-    <mat-tab label="Domicilio Trabajo">
-        <form [formGroup]="workAddressForm" (ngSubmit)="saveWorkAddress()">
+    <mat-tab class="custom-tab" label="Domicilio Trabajo">
+        <form [formGroup]="workAddressForm" (ngSubmit)="saveWorkAddress()" class="form-container">
             <mat-form-field appearance="fill">
                 <mat-label>ID Domicilio Trabajo</mat-label>
                 <input matInput formControlName="idTrabajoDomicilio">
@@ -219,7 +219,7 @@
                 <textarea matInput formControlName="domicilio"></textarea>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit">Guardar</button>
+            <button mat-raised-button color="primary" type="submit" class="submit-button">Guardar</button>
         </form>
     </mat-tab>
 </mat-tab-group>

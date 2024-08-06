@@ -1,53 +1,52 @@
-.search-filter {
+/* Contenedor de la búsqueda */
+.search-container {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     gap: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
-.search-filter input,
-.search-filter select,
-.search-filter input[type="date"] {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    font-size: 16px;
+/* Campo de búsqueda */
+.search-field {
     flex: 1;
-    min-width: 200px;
 }
 
-.people-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+/* Botón de búsqueda */
+.search-button {
+    background-color: #9D2449;
+    color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
-.person-card {
-    background: white;
+.search-button:hover {
+    background-color: #621132;
+}
+
+/* Detalles de la persona */
+.person-details {
+    padding: 16px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    flex: 1 1 calc(33.333% - 32px);
-    box-sizing: border-box;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
-.person-info p {
-    margin: 4px 0;
+.person-details p {
+    margin: 8px 0;
+    font-size: 1.1em;
 }
 
-button[mat-button] {
-    margin-top: 8px;
-    background-color: #9d2449;
+/* Botón de edición */
+.edit-button {
+    background-color: #9D2449;
     color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    margin-top: 16px;
 }
 
-button[mat-button]:hover {
-    background-color: #721a33;
-}
-
-@media (max-width: 768px) {
-    .person-card {
-        flex: 1 1 100%;
-    }
+.edit-button:hover {
+    background-color: #621132;
 }

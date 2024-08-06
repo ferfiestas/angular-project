@@ -64,7 +64,7 @@ export class ProfileService {
           email: response.persona.email,
           estado: response.domicilio.estado,
           municipio: response.domicilio.municipio,
-          estatus: response.empleado.estatus,
+          telefono: response.persona.telefono,
           folio: response.empleado.folio,
           tipoContratacion: response.empleado.contratacion,
           fechaContratacion: response.empleado.fechaContratacion,

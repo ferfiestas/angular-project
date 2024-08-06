@@ -23,7 +23,7 @@ export class profileComponent implements OnInit {
       email: [{ value: '', disabled: true }],
       estado: [{ value: '', disabled: true }],
       municipio: [{ value: '', disabled: true }],
-      estatus: [{ value: '', disabled: true }],
+      telefono: [{ value: '', disabled: true }],
       folio: [{ value: '', disabled: true }],
       tipoContratacion: [{ value: '', disabled: true }],
       fechaContratacion: [{ value: '', disabled: true }],
