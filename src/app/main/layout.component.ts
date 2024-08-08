@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
@@ -13,12 +13,15 @@ export class LayoutComponent {
 
     @Input() collapsed = false;
     @Input() screenWidth = 0;
+    headerHeight = 80;
 
     getBodyClass(): string {
         let styleClass = '';
-        if(this.collapsed && this.screenWidth > 768) {
+        const headerHeight = 80;
+        this.headerHeight = headerHeight;
+        if (this.collapsed && this.screenWidth > 768) {
             styleClass = 'body-trimmed';
-        } else if(this.collapsed && this.screenWidth <= 768 && this.screenWidth > 0) {
+        } else if (this.collapsed && this.screenWidth <= 768 && this.screenWidth > 0) {
             styleClass = 'body-md-screen'
         }
         return styleClass;

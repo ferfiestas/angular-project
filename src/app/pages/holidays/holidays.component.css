@@ -1,0 +1,65 @@
+.calendar-container {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 90vw;
+    margin: auto;
+}
+
+.calendar-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.image-cell {
+    text-align: center;
+    padding: 5px;
+}
+
+.image-cell img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Pantallas grandes (mayor a 1080px) */
+@media (min-width: 1081px) {
+    .calendar-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    .full-width {
+        grid-column: span 6;
+    }
+}
+
+/* Pantallas medianas (máximo 1080px) */
+@media (max-width: 1080px) {
+    .calendar-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .full-width {
+        grid-column: span 3;
+    }
+}
+
+/* Pantallas pequeñas (máximo 800px) */
+@media (max-width: 800px) {
+    .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .full-width {
+        grid-column: span 2;
+    }
+}
+
+/* Pantallas muy pequeñas (máximo 500px) */
+@media (max-width: 500px) {
+    .calendar-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .full-width {
+        grid-column: span 1;
+    }
+}

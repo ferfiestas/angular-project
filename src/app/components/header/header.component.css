@@ -1,66 +1,70 @@
 .head {
     width: calc(100% - 80px);
     margin-left: 80px;
-    z-index: 1;
+    z-index: 1000;
     transition: all .5s ease;
     background: #9d2448f5;
     padding: 1px;
-
+    width: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    box-sizing: border-box; /* Asegura que padding se incluya en el tamaño del elemento */
+    box-sizing: border-box;
+    /* Asegura que padding se incluya en el tamaño del elemento */
+    height: 80px;
 
     .head-content {
         background-color: transparent;
         border-radius: 10px;
         box-shadow: 0px 0px 10px 0 rgb(34 41 47 / 10%);
-        padding: 13.008px 25.008px;
+        padding: 13px 25px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 100%; /* Asegura que ocupe toda la anchura del contenedor */
+        width: 100%;
+        /* Asegura que ocupe toda la anchura del contenedor */
 
         .head-content-left {
-            
-                .ticker-container {
-                    overflow: hidden;
-                    background: rgba(255, 255, 255, 0.150);
-                    white-space: nowrap;
-                    display: flex;
-                    align-items: center;
-                    border-radius: 30px;
-                    padding: 13.008px 25.008px;
-                }
-                
-                .ticker-text {
-                    display: inline-block;
-                    font-weight: bold;
-                    animation: ticker 60s ease-in-out infinite;                    
-                    
-                }
 
-                .ticker-text:hover {
-                    animation-play-state: paused;
-                
-                }
-                
-                .ticker-item {
-                    display: inline-block;
-                    padding: 0 2rem;
-                    color: #9D449;
-                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-                    transition: transform 0.3s ease, color 0.3s ease;
-                    font-size: 1.2rem;
-                    
-                    
-                }
+            .ticker-container {
+                overflow: hidden;
+                background: rgba(255, 255, 255, 0.150);
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                border-radius: 30px;
+                padding: 13.008px 25.008px;
+            }
 
-                .ticker-item:hover {
-                    transform: scale(1.2);
-                    color: #ff5733; /* Cambia el color al pasar el ratón */
-                }
-            
+            .ticker-text {
+                display: inline-block;
+                font-weight: bold;
+                animation: ticker 60s ease-in-out infinite;
+
+            }
+
+            .ticker-text:hover {
+                animation-play-state: paused;
+
+            }
+
+            .ticker-item {
+                display: inline-block;
+                padding: 0 2rem;
+                color: #9D449;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                transition: transform 0.3s ease, color 0.3s ease;
+                font-size: 1.2rem;
+
+
+            }
+
+            .ticker-item:hover {
+                transform: scale(1.2);
+                color: #ff5733;
+                /* Cambia el color al pasar el ratón */
+            }
+
             /* .search-container {
                 position: relative;
 
@@ -136,6 +140,7 @@
 
                     .head-menu-item-btn:hover,
                     .head-menu-item-btn:focus {
+
                         /* background: #eff2f3; */
                         .menu-icon {
                             color: #699dfa;
@@ -181,12 +186,12 @@
 
 .ticker-trimmed {
     width: calc(100% - 210px);
-    
+
 }
 
 .ticker-md-screen {
     width: calc(100% - 210px);
-    
+
 }
 
 .head-trimmed {
@@ -200,15 +205,24 @@
 }
 
 @keyframes ticker {
-    0% { transform: translateX(100%); }
-    99% { transform: translateX(-100%); }
-    100% { transform: translateX(-100%); }
+    0% {
+        transform: translateX(100%);
+    }
+
+    99% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 @keyframes pulse-animation {
     0% {
         box-shadow: 0 0 0 0 rgba(26, 206, 80, 0.6);
     }
+
     100% {
         box-shadow: 0 0 0 13px rgba(17, 64, 126, 0);
     }
@@ -218,6 +232,7 @@
     0% {
         transform: scaleY(0);
     }
+
     100% {
         transform: scaleY(1);
     }
@@ -264,6 +279,7 @@
 
 .overlay-language {
     padding: 8px 0;
+
     ul {
         list-style: none;
         width: 160px;
@@ -355,7 +371,7 @@
             font-size: 14px;
             font-weight: 400;
             color: #fff;
-            cursor: pointer;           
+            cursor: pointer;
 
             .icon {
                 margin-left: 9.6px;
@@ -376,8 +392,7 @@
 
 .ripple:hover,
 .ripple:focus {
-    background: #eff2f3 radial-gradient(circle, transparent 1%, #eff2f3 1%)
-    center/15000%;
+    background: #eff2f3 radial-gradient(circle, transparent 1%, #eff2f3 1%) center/15000%;
 }
 
 .ripple:active {
@@ -395,4 +410,9 @@
     top: 0;
     right: 0;
     font-size: 0.75em;
+}
+
+.main-content {
+    margin-top: 80px;
+    /* La altura del header */
 }

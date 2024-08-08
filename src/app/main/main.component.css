@@ -1,25 +1,27 @@
 .join-company-container {
   display: flex;
-  flex-direction: column; /* Cambiar de row a column */
-  height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
-  justify-content: center; /* Asegura que el contenido esté centrado verticalmente */
-  align-items: center; /* Asegura que el contenido esté centrado horizontalmente */
+  flex-direction: column; /* Cambiado a column para que el contenido esté en una columna */
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  width: 100%; /* Ocupa toda la anchura de la ventana */
+  overflow: auto; /* Asegura que el contenido no se desborde */
+  min-height: 100vh;
 }
 
 .bg-image {
   background-image: url(../../assets/background.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
+  background-attachment: scroll;
+  background-position: center center;
   width: 100%; /* Asegura que ocupe toda la anchura disponible */
   height: 100%; /* Asegura que ocupe toda la altura disponible */
 }
   
   /* Ajuste de altura del contenedor central */
   body {
-    position: relative;
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    height: 100%;
-  }
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  } 
