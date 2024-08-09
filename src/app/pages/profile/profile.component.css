@@ -1,86 +1,169 @@
+/* Estilos generales */
 .principal {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100vw;
-
+  width: calc(100vw - 80px); /* Ajusta el ancho total para tener en cuenta el sidenav */
+  margin-left: 80px; /* Deja espacio para el sidenav */
+  margin-right: 20px; /* Espacio adicional para mantener la consistencia */
 }
 
 .credential-form {
-    background-color: rgba(255, 255, 255, 0.700); 
-    border: 2px solid #9d2449; 
-    width: 80%; 
-    padding: 20px; 
-    border-radius: 8px; 
-    text-align: left; 
-    margin: auto; 
+  background-color: rgba(255, 255, 255, 0.700);
+  border: 2px solid #9d2449;
+  width: 100%;
+  max-width: 1200px; /* Establece un ancho máximo para pantallas grandes */
+  padding: 20px;
+  border-radius: 8px;
+  text-align: left;
+  margin: auto;
+  box-sizing: border-box;
+}
 
-  }
-  
+.form-row {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se acomoden en varias filas si es necesario */
+  gap: 20px; /* Espacio entre columnas */
+}
+
+.form-column {
+  flex: 1;
+  min-width: 200px; /* Ajusta el ancho mínimo para mejorar la legibilidad */
+  box-sizing: border-box;
+}
+
+.photo-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-frame {
+  background-color: rgba(255, 255, 255, 0.400);
+  border: 2px solid #9d2449;
+  padding: 4px;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%; /* Asegura que el contenedor de la foto ocupe todo el ancho disponible */
+  max-width: 300px; /* Limita el ancho máximo de la foto */
+}
+
+.photo {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: auto;
+  border-radius: 8px;
+}
+
+.credential-form label {
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Ajustes para centrar verticalmente el texto y aumentar el tamaño del texto en inputs y textareas */
+.credential-form input[type=text],
+.credential-form input[type=email],
+.credential-form input[type=date],
+textarea {
+  width: 100%; /* Ajusta el ancho de los campos de entrada al 100% del contenedor */
+  padding: 8px;
+  margin-bottom: 4px;
+  border: 1px solid #9d2449;
+  border-radius: 8px;
+  box-sizing: border-box;
+  resize: none; /* Deshabilita el redimensionamiento */
+  overflow: hidden; /* Oculta el desbordamiento de contenido */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Sombra interior para mejorar apariencia */
+  font-size: 16px; /* Aumenta el tamaño del texto */
+  line-height: 1.5; /* Ajusta la altura de la línea para mejorar la legibilidad */
+}
+
+/* Ajustes específicos para textarea */
+textarea {
+  height: auto; /* Ajusta la altura automáticamente */
+  min-height: 40px; /* Altura mínima para texto corto */
+  max-height: 150px; /* Altura máxima para evitar desbordamiento */
+  overflow-y: auto; /* Agrega barra de desplazamiento si es necesario */
+  box-sizing: border-box; /* Incluye el padding y el border en el tamaño total */
+  padding: 10px; /* Asegura suficiente espacio interno */
+  margin: 0; /* Asegura que el margen no afecta el alineamiento */
+  text-align: left; /* Alinea el texto a la izquierda */
+  /* Alineamiento vertical del texto */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra verticalmente el texto */
+}
+
+/* Estilos específicos para diferentes tamaños de pantalla */
+
+/* Pantallas grandes (mayor a 1080px) */
+@media (min-width: 1080px) {
   .form-row {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: row;
   }
-  
-  .form-column {
-    flex: 1;
-    margin-right: 20px; 
-  }
-  
-  .photo-column {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+
   .photo-frame {
-    background-color: rgba(255, 255, 255, 0.400); 
-    border: 2px solid #9d2449; 
-    padding: 4px; 
-    border-radius: 8px; 
-    text-align: center; 
+    width: auto; /* Permite que el marco de la foto se ajuste automáticamente en pantallas grandes */
   }
-  
+}
+
+/* Pantallas medianas (máximo 1080px) */
+@media (max-width: 1080px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+/* Pantallas pequeñas (máximo 800px) */
+@media (max-width: 800px) {
+  .credential-form {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .form-column {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .photo-frame {
+    width: 100%;
+    max-width: none; /* Permite que el marco de la foto ocupe todo el ancho disponible */
+  }
+
   .photo {
-    max-width: 100%; 
-    max-height: 100%; 
-    display: block; 
-    margin: auto; 
-    border-radius: 8px; 
+    width: 100%;
+    height: auto;
   }
-  
-  .credential-form label {
-    display: block; 
-    margin-bottom: 2px; 
-  }
-  
+
   .credential-form input[type=text],
   .credential-form input[type=email],
-  .credential-form input[type=date] {
-    width: calc(100% - 20px); 
-    padding: 8px; 
-    margin-bottom: 4px; 
-    border: 1px solid #9d2449; 
-    border-radius: 8px; 
-    box-sizing: border-box; 
+  .credential-form input[type=date],
+  textarea {
+    width: 100%; /* Ajusta el ancho de los campos de entrada al 100% del contenedor */
   }
-  
-  .credential-form button {
-    margin-top: 20px; 
-    padding: 10px 20px; 
-    background-color: #9d2449; 
-    color: white; 
-    border: none; 
-    border-radius: 4px; 
-    cursor: pointer;
+}
+
+/* Pantallas muy pequeñas (máximo 500px) */
+@media (max-width: 500px) {
+  .credential-form {
+    width: 100%;
+    padding: 10px;
   }
 
-  textarea[formControlName="domicilio"] {
-    width: calc(100% - 20px);
-    resize: none;
-    overflow: hidden;
-    box-sizing: border-box;
-    border: 1px solid #9d2449;
-    border-radius: 8px;
+  .form-column {
+    margin-right: 0;
+    margin-bottom: 15px;
   }
+
+  .photo-frame {
+    padding: 4px;
+  }
+
+  .photo {
+    width: 100%;
+    height: auto;
+  }
+}
