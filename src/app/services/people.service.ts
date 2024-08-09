@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+
+import { appsettings } from '../components/api/appsetting';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeopleService {
-  private apiUrl = 'http://209.38.48.98:8080/api';
+  private apiUrl: string = appsettings.apiUrl;
   private token = localStorage.getItem('token');
 
   private httpOptions = {
@@ -38,50 +41,50 @@ export class PeopleService {
   }
 
   private loadDependencias(): void {
-    this.http.get<any[]>(`${this.apiUrl}/dependencia`, this.httpOptions).pipe(
+    this.http.get<any[]>(`${this.apiUrl}/api/dependencia`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadDependencias', []))
     ).subscribe(dependencias => this.dependenciaList = dependencias);
   }
 
   private loadEstudios(): void {
-    this.http.get<any[]>(`${this.apiUrl}/estudio`, this.httpOptions).pipe(
+    this.http.get<any[]>(`${this.apiUrl}/api/estudio`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadEstudios', []))
     ).subscribe(gradoEstudio => this.estudioList = gradoEstudio);
   }
 
   private loadEstados(): void {
-    this.http.get<any[]>(`${this.apiUrl}/estado`, this.httpOptions).pipe(
+    this.http.get<any[]>(`${this.apiUrl}/api/estado`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadEstados', []))
     ).subscribe(estado => this.estadosList = estado);
   }
 
   private loadMunicipios(): void {
-    this.http.get<any[]>(`${this.apiUrl}/municipio`, this.httpOptions).pipe(
+    this.http.get<any[]>(`${this.apiUrl}/api/municipio`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadMunicipios', []))
     ).subscribe(municipio => this.municipiosList = municipio);
   }
 
 
   private loadContrataciones(): void {
-    this.http.get<any[]>(`${this.apiUrl}/tipocontratacione`, this.httpOptions).pipe(
+    this.http.get<any[]>(`${this.apiUrl}/api/tipocontratacione`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadContrataciones', []))
     ).subscribe(contratacion => this.contratosList = contratacion);
   }
 
   private loadAreas(): void {
-    this.http.get<any[]>(`${this.apiUrl}/area`, this.httpOptions).pipe(
+    this.http.get<any[]>(`${this.apiUrl}/api/area`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadAreas', []))
     ).subscribe(area => this.areasList = area);
   }
 
   private loadPuestos(): void {
-    this.http.get<any[]>(`${this.apiUrl}/puesto`, this.httpOptions).pipe(
+    this.http.get<any[]>(`${this.apiUrl}/api/puesto`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadPuestos', []))
     ).subscribe(puesto => this.puestosList = puesto);
   }
 
   private loadCuadrantes(): void {
-    this.http.get<any[]>(`${this.apiUrl}/cuadrante`, this.httpOptions).pipe(
+    this.http.get<any[]>(`${this.apiUrl}/api/cuadrante`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadCuadrantes', []))
     ).subscribe(cuadrante => this.cuadrantesList = cuadrante);
   }
@@ -120,7 +123,7 @@ export class PeopleService {
   }
 
   searchPersonByRFC(rfc: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/persona/byrfc/${rfc}`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/api/persona/byrfc/${rfc}`, this.httpOptions).pipe(
       map((response: any) => {
         if (response && response.idPersona) {
           localStorage.setItem('idPersonaUsuario', response.idPersona);
@@ -134,7 +137,7 @@ export class PeopleService {
   }
 
   getPersonById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/persona/byid/${id}`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/api/persona/byid/${id}`, this.httpOptions).pipe(
       map((persona: any) => {
         const dependencia = this.dependenciaList.find(d => d.descripcion === persona.dependencia);
         const gradoEstudio = this.estudioList.find(e => e.descripcion === persona.gradoEstudio);
@@ -149,13 +152,13 @@ export class PeopleService {
   }
 
   getPersonalInfo(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/persona/byid/${id}`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/api/persona/byid/${id}`, this.httpOptions).pipe(
       catchError(this.handleError<any>('getPersonalInfo', {}))
     );
   }
 
   getPersonAddressById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/personadomicilio/${id}`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/api/personadomicilio/${id}`, this.httpOptions).pipe(
       map((personadomicilio: any) => {
         const estado = this.estadosList.find(e => e.descripcion === personadomicilio.estado);
         const municipio = this.municipiosList.find(m => m.nombre === personadomicilio.municipio);
@@ -170,13 +173,13 @@ export class PeopleService {
   }
 
   getPersonalAddress(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/personadomicilio/${id}`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/api/personadomicilio/${id}`, this.httpOptions).pipe(
       catchError(this.handleError<any>('getPersonalAddress', {}))
     );
   }
 
   getWorkById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/empleado/${id}`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/api/empleado/${id}`, this.httpOptions).pipe(
       map((work: any) => {
         const contratacion = this.contratosList.find(c => c.descripcion === work.contratacion);
         const area = this.areasList.find(a => a.clave === work.area);
@@ -195,13 +198,13 @@ export class PeopleService {
   }
 
   getWorkInfo(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/empleado/${id}`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/api/empleado/${id}`, this.httpOptions).pipe(
       catchError(this.handleError<any>('getWorkInfo', {}))
     );
   }
 
   getWorkAddressById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/trabajodomicilio/${id}`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/api/trabajodomicilio/${id}`, this.httpOptions).pipe(
       map((workdomicilio: any) => {
         const estado = this.estadosList.find(e => e.descripcion === workdomicilio.estado);
         const municipio = this.municipiosList.find(m => m.nombre === workdomicilio.municipio);
@@ -216,7 +219,7 @@ export class PeopleService {
   }
 
   getWorkAddress(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/trabajodomicilio/${id}`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/api/trabajodomicilio/${id}`, this.httpOptions).pipe(
       catchError(this.handleError<any>('getWorkAddress', {}))
     );
   }
@@ -242,7 +245,7 @@ export class PeopleService {
     // Imprime el objeto updateData en la consola para verificar su contenido
     console.log('updateData:', updateData);
 
-    return this.http.put(`${this.apiUrl}/persona`, updateData, this.httpOptions).pipe(
+    return this.http.put(`${this.apiUrl}/api/persona`, updateData, this.httpOptions).pipe(
       catchError(this.handleError<any>('updatePersonalInfo'))
     );
   }
@@ -261,7 +264,7 @@ export class PeopleService {
     // Imprime el objeto updatePerAddData en la consola para verificar su contenido
     console.log('updatePerAddData:', updatePerAddData);
 
-    return this.http.put(`${this.apiUrl}/PersonaDomicilio`, updatePerAddData, this.httpOptions).pipe(
+    return this.http.put(`${this.apiUrl}/api/PersonaDomicilio`, updatePerAddData, this.httpOptions).pipe(
       catchError(this.handleError<any>('updatePersonalAddress'))
     );
   }
@@ -285,7 +288,7 @@ export class PeopleService {
     // Imprime el objeto updateWorkData en la consola para verificar su contenido
     console.log('updateWorkData:', updateWorkData);
 
-    return this.http.put(`${this.apiUrl}/Empleado`, updateWorkData, this.httpOptions).pipe(
+    return this.http.put(`${this.apiUrl}/api/Empleado`, updateWorkData, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateWorkInfo'))
     );
   }
@@ -304,7 +307,7 @@ export class PeopleService {
     // Imprime el objeto updateWorkAddressData en la consola para verificar su contenido
     console.log('updateWorkAddressData:', updateWorkAddressData);
 
-    return this.http.put(`${this.apiUrl}/TrabajoDomicilio`, updateWorkAddressData, this.httpOptions).pipe(
+    return this.http.put(`${this.apiUrl}/api/TrabajoDomicilio`, updateWorkAddressData, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateWorkAddress'))
     );
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { PasswordService } from '../../../services/password.service';
 
 @Component({
   selector: 'app-cambiar-contrasena',
@@ -9,14 +10,48 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 export class passwordComponent implements OnInit {
   cambiarContrasenaForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  get newPassword() {
+    return this.cambiarContrasenaForm.get('newPassword');
+  }
+
+  get confirmPassword() {
+    return this.cambiarContrasenaForm.get('confirmPassword');
+  }
+
+  get hasUppercase() {
+    return /[A-Z]/.test(this.newPassword?.value);
+  }
+
+  get hasNumber() {
+    return /\d/.test(this.newPassword?.value);
+  }
+
+  get hasLowercase() {
+    return /[a-z]/.test(this.newPassword?.value);
+  }
+
+  get hasSpecialChar() {
+    return /[!@#$%^&*]/.test(this.newPassword?.value);
+  }
+
+  get hasMinLength() {
+    return this.newPassword?.value.length >= 6;
+  }
+
+  get passwordsMatch() {
+    const newPassword = this.newPassword?.value;
+    const confirmPassword = this.confirmPassword?.value;
+    // Solo marcar como coincidentes si ambos campos tienen valores
+    return newPassword && confirmPassword && newPassword === confirmPassword;
+  }
+
+  constructor(private fb: FormBuilder, private passwordService: PasswordService) {}
 
   ngOnInit(): void {
     this.cambiarContrasenaForm = this.fb.group({
-      oldPassword: ['', [Validators.required]],
       newPassword: ['', [
         Validators.required,
-        Validators.minLength(5),
+        Validators.minLength(6),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).+$')
       ]],
       confirmPassword: ['', [Validators.required]]
@@ -34,7 +69,15 @@ export class passwordComponent implements OnInit {
 
   onSubmit() {
     if (this.cambiarContrasenaForm.valid) {
-      console.log('Form Submitted', this.cambiarContrasenaForm.value);
+      const nuevaContrasena = this.cambiarContrasenaForm.get('newPassword')?.value;
+      this.passwordService.cambiarContrasena(nuevaContrasena).subscribe(
+        response => {
+          console.log('Contraseña cambiada con éxito', response);
+        },
+        error => {
+          console.error('Error al cambiar la contraseña', error);
+        }
+      );
     }
   }
 }

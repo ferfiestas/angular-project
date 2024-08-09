@@ -6,7 +6,7 @@
   height: 100vh;
   width: calc(100vw - 80px); /* Ajusta el ancho total para tener en cuenta el sidenav */
   margin-left: 80px; /* Deja espacio para el sidenav */
-  margin-right: 20px; /* Espacio adicional para mantener la consistencia */
+  margin-right: 80px; /* Espacio adicional para mantener la consistencia */
 }
 
 .credential-form {

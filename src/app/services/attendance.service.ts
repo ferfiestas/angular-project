@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+import { appsettings } from '../components/api/appsetting';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
-  private apiUrl = 'http://209.38.48.98:8080/api/asistencia'; // URL de la API del servidor
+  private apiUrl: string = appsettings.apiUrl;
   private userIp: string = '';
 
   constructor(private http: HttpClient) {}
@@ -26,6 +29,7 @@ export class AttendanceService {
   }
 
   saveAttendanceRecord(): Observable<any> {
+    const url = `${ this.apiUrl }/api/asistencia`;
     const idEmpleado = localStorage.getItem('idEmpleado');
     const token = localStorage.getItem('token'); // Obtener el token del localStorage
 
@@ -39,7 +43,7 @@ export class AttendanceService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(this.apiUrl, record, { headers, responseType: 'text' }).pipe(
+    return this.http.post(url, record, { headers, responseType: 'text' }).pipe(
       catchError(this.handleError)
     );
   }
