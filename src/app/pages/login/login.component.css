@@ -72,17 +72,74 @@ body {
     max-width: 360px;
 }
 
-.login-card {
+/* Estilos para mat-card-content */
+mat-card {
     width: 100%;
     max-width: 400px;
     background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 8px rgba(105, 158, 250, 0.822);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: auto; /* Centrar el card horizontalmente */
+}
+
+mat-card-content {
+    background: linear-gradient(135deg, #f0f4f8, #ffffff);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1rem; /* Ajusta el padding */
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    max-height: 600px; /* Limitar la altura máxima para evitar que se alargue demasiado */
+    overflow: hidden; /* Ocultar el desbordamiento */
+}
+
+/* Efecto al pasar el mouse sobre el card */
+mat-card-content:hover {
+    background: linear-gradient(135deg, #ffffff, #e0e7ef);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+}
+
+/* Efectos de borde y sombra */
+mat-card-content::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    background: rgba(105, 158, 250, 0.2);
+    border-radius: 16px;
+    z-index: -1;
+    filter: blur(8px);
+    transition: all 0.3s ease-in-out;
+}
+
+mat-card-header {
+    background: #6eacbb;
+    color: #ffffff;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+mat-card-title {
+    font-size: 1.2rem; /* Ajusta el tamaño del texto del título */
+    font-weight: bold;
+}
+
+/* Estilo para el botón */
+button.mat-raised-button {
+    background: #6eacbb;
+    color: #ffffff;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.3s ease;
+    font-size: 0.9rem; /* Ajusta el tamaño del texto del botón */
+    padding: 0.5rem 1rem; /* Ajusta el padding del botón */
+}
+
+button.mat-raised-button:hover {
+    background: #5bbfc1;
+    transform: translateY(-2px);
 }
 
 /* Estilos Responsivos */
@@ -93,6 +150,10 @@ body {
 
     .bottom-center-text {
         font-size: 4.1rem;
+    }
+
+    mat-card-content {
+        max-height: 500px; /* Ajustar altura máxima en pantallas grandes */
     }
 }
 
@@ -146,6 +207,10 @@ body {
     .bottom-center-text {
         font-size: 3rem;
     }
+
+    mat-card-content {
+        max-height: 450px; /* Ajustar altura máxima en pantallas medianas */
+    }
 }
 
 @media (max-width: 800px) and (min-width: 500px) {
@@ -168,6 +233,10 @@ body {
     .bottom-center-text {
         font-size: 2.06rem;
     }
+
+    mat-card-content {
+        max-height: 400px; /* Ajustar altura máxima en pantallas pequeñas */
+    }
 }
 
 @media (max-width: 500px) {
@@ -189,6 +258,35 @@ body {
     }
 
     .bottom-center-text {
-        font-size: 1.9rem;
+        font-size: 1.7rem; /* Reducir el tamaño del texto */
+    }
+
+    mat-card-content {
+        max-height: 300px; /* Ajustar altura máxima en pantallas muy pequeñas */
+        padding: 0.5rem; /* Reduce el padding */
+    }
+
+    mat-card-title {
+        font-size: 1rem; /* Ajusta el tamaño del título */
+    }
+
+    p {
+        font-size: 0.8rem; /* Ajusta el tamaño del texto dentro de los párrafos */
+    }
+
+    button.mat-raised-button {
+        width: 100%; /* Asegúrate de que el botón ocupe el 100% del ancho disponible */
+        font-size: 0.7rem; /* Ajusta el tamaño del texto del botón */
+        padding: 0.4rem 0.8rem; /* Ajusta el padding del botón */
+    }
+
+    .mat-form-field {
+        width: 100%; /* Asegúrate de que los campos ocupen el 100% del ancho disponible */
+        margin-bottom: 0.5rem; /* Ajusta el margen inferior entre campos */
+    }
+
+    .mat-form-field .mat-input-element {
+        font-size: 0.8rem; /* Ajusta el tamaño del texto dentro de los inputs */
+        padding: 0.4rem; /* Ajusta el padding interno del input */
     }
 }
