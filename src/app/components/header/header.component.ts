@@ -97,11 +97,27 @@ export class HeaderComponent implements OnInit {
 
   gettrickerClass(): string {
     let styleClass = '';
-    if(this.collapsed && this.screenWidth > 768) {
-      styleClass = 'ticker-trimmed';
+  
+    if (this.screenWidth > 1080) {
+      // Pantallas grandes
+      styleClass = this.collapsed ? 'ticker-trimmed-lg' : 'ticker-md-screen-lg';
+    } else if (this.screenWidth > 800) {
+      // Pantallas medianas
+      styleClass = this.collapsed ? 'ticker-trimmed-md' : 'ticker-md-screen-md';
+    } else if (this.screenWidth > 500) {
+      // Pantallas pequeñas
+      styleClass = this.collapsed ? 'ticker-trimmed-sm' : 'ticker-md-screen-sm';
+    } else if (this.screenWidth > 400) {
+      // Pantallas muy pequeñas
+      styleClass = this.collapsed ? 'ticker-trimmed-xs' : 'ticker-md-screen-xs';
+    } else if (this.screenWidth > 300) {
+      // Pantallas demasiado pequeñas
+      styleClass = this.collapsed ? 'ticker-trimmed-xxs' : 'ticker-md-screen-xxs';
     } else {
-      styleClass = 'ticker-md-screen';
+      // Pantallas extremadamente pequeñas
+      styleClass = this.collapsed ? 'ticker-trimmed-xxx' : 'ticker-md-screen-xxx';
     }
+  
     return styleClass;
   }
 

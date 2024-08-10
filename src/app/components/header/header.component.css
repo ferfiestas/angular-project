@@ -113,7 +113,7 @@
             display: flex;
             align-items: center;
 
-            .head-menu {
+            /* .head-menu {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -141,13 +141,13 @@
                     .head-menu-item-btn:hover,
                     .head-menu-item-btn:focus {
 
-                        /* background: #eff2f3; */
+                        background: #eff2f3;
                         .menu-icon {
                             color: #699dfa;
                         }
                     }
                 }
-            }
+            } */
 
             .head-user-avatar-container {
                 margin-left: 20px;
@@ -184,15 +184,29 @@
 
 
 
-.ticker-trimmed {
-    width: calc(100% - 210px);
+/* Pantallas grandes */
+.ticker-trimmed-lg { width: calc(100% - 90px); }
+.ticker-md-screen-lg { width: calc(100% - 90px); }
 
-}
+/* Pantallas medianas */
+.ticker-trimmed-md { width: calc(100% - 90px); }
+.ticker-md-screen-md { width: calc(100% - 90px); }
 
-.ticker-md-screen {
-    width: calc(100% - 210px);
+/* Pantallas pequeñas */
+.ticker-trimmed-sm { width: calc(100% - 60px); }
+.ticker-md-screen-sm { width: calc(100% - 60px); }
 
-}
+/* Pantallas muy pequeñas */
+.ticker-trimmed-xs { width: calc(100% - 65px); }
+.ticker-md-screen-xs { width: calc(100% - 65px); }
+
+/* Pantallas demasiado pequeñas */
+.ticker-trimmed-xxs { width: calc(100% - 70px); }
+.ticker-md-screen-xxs { width: calc(100% - 70px); }
+
+/* Pantallas extremadamente pequeñas */
+.ticker-trimmed-xxx { width: calc(100% - 90px); }
+.ticker-md-screen-xxx { width: calc(100% - 90px); }
 
 .head-trimmed {
     width: calc(100% - 265px);
