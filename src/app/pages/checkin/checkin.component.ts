@@ -33,7 +33,11 @@ export class CheckinComponent implements OnInit {
       const result = await this.attendanceService.saveAttendanceRecord().toPromise();
       // Mostrar el mensaje del servidor en un diálogo
       this.dialog.open(MessageDialogComponent, {
-        data: { message: result }
+        data: { message: result },
+        width: '45vw',  // Ancho del diálogo para pantallas grandes
+        maxWidth: '90vw', // Máximo ancho para pantallas pequeñas
+        maxHeight: '90vh', // Altura máxima para evitar ocultamiento detrás del sidenav
+        panelClass: 'responsive-dialog' // Clase CSS personalizada para el diálogo
       });
     } catch (error) {
       this.message = typeof error === 'string' ? error : 'Error desconocido al registrar la asistencia';

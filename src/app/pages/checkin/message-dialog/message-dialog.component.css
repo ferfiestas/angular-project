@@ -1,3 +1,4 @@
+/* Estilos existentes */
 .dialog-title {
     background-color: #9D2449;
     color: white;
@@ -31,7 +32,82 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Estilo general del diálogo */
 .mat-dialog-container {
+    max-width: 100vw;
+    max-height: 100vh;
+    padding: 0;
     border-radius: 4px;
     overflow: hidden; 
+}
+
+/* Clase personalizada para el diálogo */
+.responsive-dialog .mat-dialog-container {
+    width: 40vw; /* Ancho del diálogo */
+    max-width: 40vw; /* Máximo ancho para pantallas pequeñas */
+    max-height: 90vh; /* Altura máxima para evitar ocultamiento detrás del sidenav */
+}
+
+/* Media Queries para adaptar el tamaño del diálogo y el texto */
+@media (max-width: 1080px) {
+    .responsive-dialog .mat-dialog-container {
+        max-width: 50vw;
+    }
+
+    .dialog-content {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 800px) {
+    .responsive-dialog .mat-dialog-container {
+        max-width: 60vw;
+    }
+
+    .dialog-content {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 600px) {
+    .responsive-dialog .mat-dialog-container {
+        max-width: 80vw;
+    }
+
+    .dialog-content {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 500px) {
+    .responsive-dialog .mat-dialog-container {
+        max-width: 90vw;
+        max-height: 90vh;
+    }
+
+    .dialog-content {
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 400px) {
+    .responsive-dialog .mat-dialog-container {
+        max-width: 95vw;
+        max-height: 85vh;
+    }
+
+    .dialog-content {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 300px) {
+    .responsive-dialog .mat-dialog-container {
+        max-width: 95vw;
+        max-height: 80vh;
+    }
+
+    .dialog-content {
+        font-size: 0.75em;
+    }
 }
