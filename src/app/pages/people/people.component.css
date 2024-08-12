@@ -1,4 +1,20 @@
-/* Contenedor de la búsqueda */
+/* Contenedor principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa la altura total de la pantalla */
+    padding: 16px;
+}
+
+/* Ajustes para que los elementos dentro de main-container se mantengan centrados */
+.search-container, .person-details {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Otros estilos existentes */
 .search-container {
     display: flex;
     align-items: center;
@@ -6,12 +22,10 @@
     margin-bottom: 20px;
 }
 
-/* Campo de búsqueda */
 .search-field {
     flex: 1;
 }
 
-/* Botón de búsqueda */
 .search-button {
     background-color: #9D2449;
     color: white;
@@ -23,7 +37,6 @@
     background-color: #621132;
 }
 
-/* Detalles de la persona */
 .person-details {
     padding: 16px;
     border: 1px solid #ddd;
@@ -38,7 +51,6 @@
     font-size: 1.1em;
 }
 
-/* Botón de edición */
 .edit-button {
     background-color: #9D2449;
     color: white;
@@ -49,4 +61,65 @@
 
 .edit-button:hover {
     background-color: #621132;
+}
+
+/* Estilos para pantallas grandes (mayor a 1080px) */
+@media (min-width: 1081px) {
+    .main-container {
+        max-width: 800px;
+    }
+}
+
+/* Estilos para pantallas medianas (máximo 1080px) */
+@media (max-width: 1080px) {
+    .main-container {
+        max-width: 700px;
+    }
+}
+
+/* Estilos para pantallas pequeñas (máximo 800px) */
+@media (max-width: 800px) {
+    .main-container {
+        max-width: 600px;
+    }
+}
+
+/* Estilos para pantallas muy pequeñas (máximo 500px) */
+@media (max-width: 500px) {
+    .main-container {
+        max-width: 400px;
+    }
+}
+
+/* Estilos para pantallas más pequeñas (máximo 400px) */
+@media (max-width: 400px) {
+    .main-container {
+        max-width: 300px;
+        padding: 8px;
+    }
+}
+
+/* Estilos para pantallas demasiado pequeñas (máximo 300px) */
+@media (max-width: 300px) {
+    .main-container {
+        max-width: 250px;
+        padding: 4px;
+    }
+
+    .search-container, .person-details {
+        width: 100%;
+    }
+
+    .search-field {
+        flex: 1;
+        font-size: 0.8em;
+    }
+
+    .search-button, .edit-button {
+        font-size: 0.8em;
+    }
+
+    .person-details p {
+        font-size: 0.9em;
+    }
 }
