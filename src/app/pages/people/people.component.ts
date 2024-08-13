@@ -30,8 +30,17 @@ export class PeopleComponent implements OnInit {
 
   openEditDialog(): void {
     if (this.person) {
+      let dialogWidth = '600px'; // Ancho predeterminado
+
+      if (window.innerWidth <= 800) {
+        dialogWidth = '55vw'; // Ancho para pantallas menores a 800px
+      }
+
       const dialogRef = this.dialog.open(EditPersonDialogComponent, {
-        width: '700px',
+        width: dialogWidth,
+        height: '600px', // Altura predeterminada
+        maxWidth: '90vw',
+        maxHeight: '90vh',
         data: { person: this.person }
       });
 

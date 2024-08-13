@@ -70,7 +70,7 @@ export class passwordComponent implements OnInit {
   onSubmit() {
     if (this.cambiarContrasenaForm.valid) {
       const nuevaContrasena = this.cambiarContrasenaForm.get('newPassword')?.value;
-      this.passwordService.cambiarContrasena(nuevaContrasena).subscribe(
+      this.passwordService.passwordReset(nuevaContrasena).subscribe(
         response => {
           console.log('Contraseña cambiada con éxito', response);
         },

@@ -309,6 +309,8 @@ export class EditPersonDialogComponent implements OnInit {
     }
   }
 
+  
+
   closeDialog(): void {
     localStorage.removeItem('idPersonaUsuario');
     this.dialogRef.close();

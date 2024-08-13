@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -13,15 +13,20 @@ export class PasswordService {
 
   constructor(private http: HttpClient) {}
 
-  cambiarContrasena(password: string): Observable<any> {
+  passwordReset(password: string): Observable<any> {
     const url = `${ this.apiUrl }/api/usuario`;
     const token = localStorage.getItem('token');
     const idEmpleado = localStorage.getItem('idEmpleado');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
     const body = {
       password,
-      token,
       idEmpleado
     };
-    return this.http.post(url, body);
+
+    return this.http.post(url, body, { headers });
   }
 }

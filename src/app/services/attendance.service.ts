@@ -31,7 +31,7 @@ export class AttendanceService {
   saveAttendanceRecord(): Observable<any> {
     const url = `${ this.apiUrl }/api/asistencia`;
     const idEmpleado = localStorage.getItem('idEmpleado');
-    const token = localStorage.getItem('token'); // Obtener el token del localStorage
+    const token = localStorage.getItem('token');
 
     const record = {
       idEmpleado: idEmpleado,

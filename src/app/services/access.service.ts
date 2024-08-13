@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 
 import { appsettings } from '../components/api/appsetting';
@@ -6,7 +6,6 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { responseAccess } from '../components/interfaces/responseaccess';
 import { user } from '../components/interfaces/user';
 import { AuthStatus } from '../components/interfaces/auth-status.enum';
-import { CheckTokenResponse } from '../components/interfaces/check-token.response';
 
 @Injectable({
   providedIn: 'root'
@@ -51,28 +50,30 @@ export class AccessService {
       );
   }
 
-  checkAuthStatus():Observable<boolean> {
-
-    const url = `${ this.baseUrl }/api/usuario`;
+  checkAuthStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
-
-    if ( !token ) {
-      this.logout();
-      return of(false);
+    const idEmpleado = localStorage.getItem('idEmpleado');
+    
+    if (!token || !idEmpleado) {
+        this.logout();
+        return of(false);
     }
 
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${ token }`);
+    const user: user = {
+        idPersona: parseInt(localStorage.getItem('idPersona')!, 10),
+        idUsuario: 0, // Este valor no se obtiene de localStorage, podrías ajustar según lo necesites
+        idEmpleado: parseInt(idEmpleado, 10),
+        idRol: parseInt(localStorage.getItem('userRole')!, 10),
+        usuario1: '', // Este valor no se obtiene de localStorage, podrías ajustar según lo necesites
+        activo: true // Ajustar si es necesario
+    };
 
-      return this.http.get<CheckTokenResponse>(url, { headers })
-      .pipe (
-        map(({ user, token }) => this.setAuthentication( user, token )),
-        catchError(() => {
-          this._authStatus.set( AuthStatus.notAuthenticated );
-          return of(false);
-        })
-      );
-  }
+    // Set the user and authentication status based on local storage data
+    this._currentUser.set(user);
+    this._authStatus.set(AuthStatus.authenticated);
+    
+    return of(true);
+}
 
   logout() {
     localStorage.removeItem('token');
@@ -83,12 +84,6 @@ export class AccessService {
     this._authStatus.set( AuthStatus.notAuthenticated);
   }
 
-
-  getUser() {
-    // Aquí obtendrás la información del usuario logeado.
-    // Esto es solo un ejemplo, deberás implementar esto basado en tu lógica de autenticación.
-    return { id: 1, name: 'Juan Pérez' };
-  }
 
   getUserRole(): number | null {
     const currentUser = this._currentUser();

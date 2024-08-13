@@ -1,73 +1,73 @@
 <mat-tab-group class="custom-tab-group">
     <mat-tab class="custom-tab" label="Info. Personal">
         <form [formGroup]="personalInfoForm" (ngSubmit)="savePersonalInfo()" class="form-container">
-            <mat-form-field appearance="fill">
-                <mat-label>ID Persona</mat-label>
-                <input matInput formControlName="idPersona">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>ID Persona</mat-label>
+                    <textarea matInput formControlName="idPersona"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Nombre completo</mat-label>
-                <input matInput formControlName="nombreCompleto">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Nombre completo</mat-label>
+                    <textarea matInput formControlName="nombreCompleto"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>RFC</mat-label>
-                <input matInput formControlName="rfc">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>RFC</mat-label>
+                    <textarea matInput formControlName="rfc"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>CURP</mat-label>
-                <input matInput formControlName="curp">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>CURP</mat-label>
+                    <textarea matInput formControlName="curp"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Referencia</mat-label>
-                <input matInput formControlName="referencia">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Referencia</mat-label>
+                    <textarea matInput formControlName="referencia"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Teléfono</mat-label>
-                <input matInput formControlName="telefono">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Teléfono</mat-label>
+                    <textarea matInput formControlName="telefono"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Teléfono Emergencia</mat-label>
-                <input matInput formControlName="telEmergencia">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Teléfono Emergencia</mat-label>
+                    <textarea matInput formControlName="telEmergencia"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>E-mail</mat-label>
-                <input matInput formControlName="email">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>E-mail</mat-label>
+                    <textarea matInput formControlName="email"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Dependencia</mat-label>
-                <mat-select formControlName="idDependencia">
-                    <mat-option *ngFor="let dependencia of dependencias" [value]="dependencia.idDependencia">
-                        {{ dependencia.descripcion }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Dependencia</mat-label>
+                    <mat-select formControlName="idDependencia">
+                        <mat-option *ngFor="let dependencia of dependencias" [value]="dependencia.idDependencia">
+                            {{ dependencia.descripcion }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Grado Estudio</mat-label>
-                <mat-select formControlName="idEstudio">
-                    <mat-option *ngFor="let gradoEstudio of estudios" [value]="gradoEstudio.idEstudio">
-                        {{ gradoEstudio.descripcion }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Grado Estudio</mat-label>
+                    <mat-select formControlName="idEstudio">
+                        <mat-option *ngFor="let gradoEstudio of estudios" [value]="gradoEstudio.idEstudio">
+                            {{ gradoEstudio.descripcion }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Estudio</mat-label>
-                <input matInput formControlName="estudio">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Estudio</mat-label>
+                    <textarea matInput formControlName="estudio"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>URL Imagen</mat-label>
-                <input matInput formControlName="urlImagen">
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>URL Imagen</mat-label>
+                    <textarea matInput formControlName="urlImagen"></textarea>
+                </mat-form-field>
 
             <button mat-raised-button color="primary" type="submit" class="submit-button">Guardar</button>
         </form>
@@ -77,12 +77,12 @@
         <form [formGroup]="personalAddressForm" (ngSubmit)="savePersonalAddress()" class="form-container">
             <mat-form-field appearance="fill">
                 <mat-label>ID Persona Domicilio</mat-label>
-                <input matInput formControlName="idPersonaDomicilio">
+                <textarea matInput formControlName="idPersonaDomicilio"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>ID Persona</mat-label>
-                <input matInput formControlName="idPersona">
+                <textarea matInput formControlName="idPersona"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
@@ -116,22 +116,22 @@
         <form [formGroup]="workInfoForm" (ngSubmit)="saveWorkInfo()" class="form-container">
             <mat-form-field appearance="fill">
                 <mat-label>ID Empleado</mat-label>
-                <input matInput formControlName="idEmpleado">
+                <textarea matInput formControlName="idEmpleado"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>ID Persona</mat-label>
-                <input matInput formControlName="idPersona">
+                <textarea matInput formControlName="idPersona"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>ID Usuario</mat-label>
-                <input matInput formControlName="idInterno">
+                <textarea matInput formControlName="idInterno"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>No. Empleado</mat-label>
-                <input matInput formControlName="numEmpleado">
+                <textarea matInput formControlName="numEmpleado"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
@@ -172,12 +172,12 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>Sueldo</mat-label>
-                <input matInput formControlName="sueldo" type="number">
+                <textarea matInput formControlName="sueldo" type="number"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Fecha de Contratación</mat-label>
-                <input matInput formControlName="fechaContratacion" type="date">
+                <textarea matInput formControlName="fechaContratacion" type="date"></textarea>
             </mat-form-field>
 
             <button mat-raised-button color="primary" type="submit" class="submit-button">Guardar</button>
@@ -188,12 +188,12 @@
         <form [formGroup]="workAddressForm" (ngSubmit)="saveWorkAddress()" class="form-container">
             <mat-form-field appearance="fill">
                 <mat-label>ID Domicilio Trabajo</mat-label>
-                <input matInput formControlName="idTrabajoDomicilio">
+                <textarea matInput formControlName="idTrabajoDomicilio"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Empleado</mat-label>
-                <input matInput formControlName="idEmpleado">
+                <textarea matInput formControlName="idEmpleado"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">

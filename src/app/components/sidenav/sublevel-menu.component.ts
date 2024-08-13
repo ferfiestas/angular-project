@@ -10,7 +10,7 @@ import { AccessService } from '../../services/access.service';
   declarations: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class SublevelMenuModule {}
+export class SublevelMenuModule { }
 
 @Component({
   selector: 'app-sublevel-menu',
@@ -19,9 +19,10 @@ export class SublevelMenuModule {}
   template: `
     <ng-container *ngIf="collapsed && data.items && data.items.length > 0">
       <ul
+        [ngClass]="{'overflow-hidden': !expanded}"
         [@submenu]="expanded
-          ? {value: 'visible', params: {transitionParams: '400ms cubic-bezier(0.86, 0, 0.07, 1)', height: '*'}}
-          : {value: 'hidden', params: {transitionParams: '400ms cubic-bezier(0.86, 0, 0.07, 1)', height: '0'}}"
+        ? {value: 'visible', params: {transitionParams: '400ms cubic-bezier(0.86, 0, 0.07, 1)', height: '*'}}
+        : {value: 'hidden', params: {transitionParams: '400ms cubic-bezier(0.86, 0, 0.07, 1)', height: '0'}}"
         class="sublevel-nav"
       >
         <ng-container *ngFor="let item of data.items">
@@ -67,7 +68,7 @@ export class SublevelMenuModule {}
   animations: [
     fadeInOut,
     trigger('submenu', [
-      state('hidden', style({ height: '0', overflow: 'hidden' })),
+      state('hidden', style({ height: '0' })),
       state('visible', style({ height: '*' })),
       transition('visible <=> hidden', [
         style({ overflow: 'hidden' }),
@@ -91,9 +92,9 @@ export class SublevelMenuComponent implements OnInit {
   @Input() expanded: boolean | undefined;
   @Input() multiple = false;
 
-  constructor(public router: Router, public accessService: AccessService) {}
+  constructor(public router: Router, public accessService: AccessService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   handleClick(data: any): void {
     if (!this.multiple) {
