@@ -48,6 +48,7 @@ export class PeopleComponent implements OnInit {
         // Limpiar la persona después de cerrar el diálogo
         this.person = null;
         localStorage.removeItem('idPersonaUsuario');
+        localStorage.removeItem('idPerUsuario');
         this.searchRFC = '';
       });
     }

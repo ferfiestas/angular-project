@@ -100,6 +100,7 @@ export class AccessService {
     localStorage.removeItem('usuario1');
     localStorage.removeItem('idUsuario');
     localStorage.removeItem('idPersonaUsuario');
+    localStorage.removeItem('idPerUsuario');
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
   }

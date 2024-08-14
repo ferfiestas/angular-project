@@ -229,3 +229,14 @@ button[mat-button] {
 button[mat-button]:hover {
     color: #9d2449;
 }
+
+.swal2-confirm {
+    background-color: #9d2449 !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.swal2-confirm:hover {
+    background-color: #851d3d !important;
+}

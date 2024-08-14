@@ -33,4 +33,21 @@ export class PasswordService {
 
     return this.http.put(url, body, { headers });
   }
+
+  defaultPasswordReset(): Observable<any> {
+    const url = `${ this.apiUrl }/api/usuario/putpass`;
+    const token = localStorage.getItem('token');
+    const idUsuario = localStorage.getItem('idPerUsuario');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const body = {
+      idUsuario
+    };
+
+    return this.http.put(url, body, { headers });
+  }
+
 }

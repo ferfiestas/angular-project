@@ -2,7 +2,10 @@ import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import Swal from 'sweetalert2';
+
 import { PeopleService } from '../../../services/people.service';
+import { PasswordService } from '../../../services/password.service';
 
 @Component({
   selector: 'app-edit-person-dialog',
@@ -32,9 +35,48 @@ export class EditPersonDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private peopleService: PeopleService,
+    private passwordService: PasswordService,
     public dialogRef: MatDialogRef<EditPersonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
+
+  resetPassword(): void {
+    this.passwordService.defaultPasswordReset().subscribe(
+      _response => {
+        // Si llegamos aquí, es porque la llamada fue exitosa
+        Swal.fire({
+          icon: 'success',
+          title: 'Contraseña restablecida',
+          text: 'La contraseña se ha restablecido exitosamente.',
+          customClass: {
+            confirmButton: 'swal2-confirm'
+          }
+        });
+      },
+      error => {
+        const message = error.error.text || error.message || 'Hubo un error al restablecer la contraseña. Intenta nuevamente.';
+        if (message.includes('Contraseña reseteada satisfactoriamente')) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Contraseña restablecida',
+            text: message,
+            customClass: {
+              confirmButton: 'swal2-confirm'
+            }
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: message,
+            customClass: {
+              confirmButton: 'swal2-confirm'
+            }
+          });
+        }
+      }
+    );
+  }
 
   ngOnInit(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
@@ -313,7 +355,6 @@ export class EditPersonDialogComponent implements OnInit {
     }
   }
 
-  
 
   closeDialog(): void {
     localStorage.removeItem('idPersonaUsuario');

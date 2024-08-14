@@ -127,6 +127,7 @@ export class PeopleService {
       map((response: any) => {
         if (response && response.idPersona) {
           localStorage.setItem('idPersonaUsuario', response.idPersona);
+          localStorage.setItem('idPerUsuario', response.idUsuario);
           return response;
         } else {
           return null;
