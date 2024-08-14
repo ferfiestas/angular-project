@@ -16,17 +16,21 @@ export class PasswordService {
   passwordReset(password: string): Observable<any> {
     const url = `${ this.apiUrl }/api/usuario`;
     const token = localStorage.getItem('token');
-    const idEmpleado = localStorage.getItem('idEmpleado');
+    const idUsuario = localStorage.getItem('idUsuario');
+    const idRol = localStorage.getItem('userRole');
+    const usuario1 = localStorage.getItem('usuario1');
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
     const body = {
-      password,
-      idEmpleado
+      idUsuario,
+      idRol,
+      usuario1,
+      password
     };
 
-    return this.http.post(url, body, { headers });
+    return this.http.put(url, body, { headers });
   }
 }

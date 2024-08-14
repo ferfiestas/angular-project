@@ -35,6 +35,7 @@ import { NotificationDialogComponent } from './pages/notifications/notification-
 import { PeopleComponent } from './pages/people/people.component';
 import { EditPersonDialogComponent } from './pages/people/edit-person-dialog/edit-person-dialog.component';
 import { MessageDialogComponent } from './pages/checkin/message-dialog/message-dialog.component';
+import { ChangePasswordComponent } from './pages/settings/change-password/change-password.component';
 
 
 
@@ -50,7 +51,8 @@ import { MessageDialogComponent } from './pages/checkin/message-dialog/message-d
     NotificationDialogComponent,
     PeopleComponent,
     EditPersonDialogComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

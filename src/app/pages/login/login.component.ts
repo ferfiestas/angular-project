@@ -34,17 +34,15 @@ export class LoginComponent {
   });
 
   LogIn() {
-
     const { usuario1, password } = this.formLogin.value;
-
-    this.accessService.login( usuario1, password )
+  
+    this.accessService.login(usuario1, password)
       .subscribe({
-        next: () => this.router.navigate(['main']),
+        
         error: (message) => {
-          Swal.fire( 'Error', message, 'error')
+          Swal.fire('Error', message, 'error');
         }
-      })
-    
+      });
   }
 
 }

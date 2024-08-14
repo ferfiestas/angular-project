@@ -21,15 +21,18 @@ export class profileComponent implements OnInit {
       rfc: [{ value: '', disabled: true }],
       curp: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }],
-      estado: [{ value: '', disabled: true }],
+      gradoEstudio: [{ value: '', disabled: true }],
       municipio: [{ value: '', disabled: true }],
       telefono: [{ value: '', disabled: true }],
-      folio: [{ value: '', disabled: true }],
+      telEmergencia: [{ value: '', disabled: true }],
+      dependencia: [{ value: '', disabled: true }],
       tipoContratacion: [{ value: '', disabled: true }],
       fechaContratacion: [{ value: '', disabled: true }],
       domicilio: [{ value: '', disabled: true }],
       cuadrante: [{ value: '', disabled: true }],
       puesto: [{ value: '', disabled: true }],
+      area: [{ value: '', disabled: true }],
+      municipioTrabajo: [{ value: '', disabled: true }],
       referente: [{ value: '', disabled: true }]
     });
 

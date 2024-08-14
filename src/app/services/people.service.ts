@@ -281,7 +281,8 @@ export class PeopleService {
       idArea: data.idArea,
       idPuesto: data.idPuesto,
       idCuadrante: data.idCuadrante,
-      sueldo: data.sueldo,
+      sueldoNeto: data.sueldoNeto,
+      sueldoBruto: data.sueldoBruto,
       fechaContratacion: data.fechaContratacion
     };
 

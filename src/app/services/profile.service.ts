@@ -46,6 +46,11 @@ export class ProfileService {
     return this.http.get(url, { headers: this.getHeaders() });
   }
 
+  getDireccionTrabajoData(userId: number): Observable<any> {
+    const url = `${this.baseUrl}/api/trabajodomicilio/${userId}`;
+    return this.http.get(url, { headers: this.getHeaders() });
+  }
+
   getProfileData(): Observable<any> {
     const userId = this.getUserId();
 
@@ -54,6 +59,7 @@ export class ProfileService {
       empleado: this.getEmpleadoData(userId),
       usuario: this.getUsuarioData(userId),
       domicilio: this.getDireccionEmpleadoData(userId),
+      trabajoDomicilio: this.getDireccionTrabajoData(userId),
     }).pipe(
       map((response: any) => {
         return {
@@ -62,15 +68,18 @@ export class ProfileService {
           rfc: response.persona.rfc,
           curp: response.persona.curp,
           email: response.persona.email,
-          estado: response.domicilio.estado,
+          gradoEstudio: response.persona.gradoEstudio,
           municipio: response.domicilio.municipio,
           telefono: response.persona.telefono,
-          folio: response.empleado.folio,
+          telEmergencia: response.persona.telEmergencia,
+          dependencia: response.persona.dependencia,
           tipoContratacion: response.empleado.contratacion,
           fechaContratacion: response.empleado.fechaContratacion,
           domicilio: response.domicilio.domicilio,
           cuadrante: response.empleado.idCuadrante,
           puesto: response.empleado.puesto,
+          area: response.empleado.area,
+          municipioTrabajo: response.trabajoDomicilio.municipio,
           referente: response.persona.referencia,
           imageUrl: response.persona.urlImagen,
         };

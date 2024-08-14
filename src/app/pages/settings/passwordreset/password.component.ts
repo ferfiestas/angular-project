@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { PasswordService } from '../../../services/password.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cambiar-contrasena',
@@ -71,13 +72,30 @@ export class passwordComponent implements OnInit {
     if (this.cambiarContrasenaForm.valid) {
       const nuevaContrasena = this.cambiarContrasenaForm.get('newPassword')?.value;
       this.passwordService.passwordReset(nuevaContrasena).subscribe(
-        response => {
-          console.log('Contraseña cambiada con éxito', response);
+        _response => {
+          Swal.fire({
+            title: 'Éxito',
+            text: 'Contraseña cambiada con éxito',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
         },
-        error => {
-          console.error('Error al cambiar la contraseña', error);
+        _error => {
+          Swal.fire({
+            title: 'Error',
+            text: 'Error al cambiar la contraseña',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         }
       );
+    } else {
+      Swal.fire({
+        title: 'Advertencia',
+        text: 'Por favor, complete todos los campos requeridos.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
     }
   }
 }

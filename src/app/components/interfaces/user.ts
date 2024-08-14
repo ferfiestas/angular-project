@@ -5,4 +5,5 @@ export interface user {
     idRol: number;
     usuario1: string;
     activo: boolean;
+    login: boolean;
 }

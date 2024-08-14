@@ -1,13 +1,13 @@
 <mat-tab-group class="custom-tab-group">
     <mat-tab class="custom-tab" label="Info. Personal">
         <form [formGroup]="personalInfoForm" (ngSubmit)="savePersonalInfo()" class="form-container">
-                <mat-form-field appearance="fill">
-                    <mat-label>ID Persona</mat-label>
+                <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                    <mat-label>ID PERSONA</mat-label>
                     <textarea matInput formControlName="idPersona"></textarea>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
-                    <mat-label>Nombre completo</mat-label>
+                    <mat-label>NOMBRE COMPLETO</mat-label>
                     <textarea matInput formControlName="nombreCompleto"></textarea>
                 </mat-form-field>
 
@@ -22,27 +22,27 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
-                    <mat-label>Referencia</mat-label>
+                    <mat-label>REFERENCIA</mat-label>
                     <textarea matInput formControlName="referencia"></textarea>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
-                    <mat-label>Teléfono</mat-label>
+                    <mat-label>TELÉFONO</mat-label>
                     <textarea matInput formControlName="telefono"></textarea>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
-                    <mat-label>Teléfono Emergencia</mat-label>
+                    <mat-label>TELÉFONO EMERGENCIA</mat-label>
                     <textarea matInput formControlName="telEmergencia"></textarea>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
-                    <mat-label>E-mail</mat-label>
+                    <mat-label>E-MAIL</mat-label>
                     <textarea matInput formControlName="email"></textarea>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
-                    <mat-label>Dependencia</mat-label>
+                    <mat-label>DEPENDENCIA</mat-label>
                     <mat-select formControlName="idDependencia">
                         <mat-option *ngFor="let dependencia of dependencias" [value]="dependencia.idDependencia">
                             {{ dependencia.descripcion }}
@@ -51,7 +51,7 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
-                    <mat-label>Grado Estudio</mat-label>
+                    <mat-label>GRADO ESTUDIO</mat-label>
                     <mat-select formControlName="idEstudio">
                         <mat-option *ngFor="let gradoEstudio of estudios" [value]="gradoEstudio.idEstudio">
                             {{ gradoEstudio.descripcion }}
@@ -59,13 +59,13 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Estudio</mat-label>
+                <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                    <mat-label>ESTUDIO</mat-label>
                     <textarea matInput formControlName="estudio"></textarea>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>URL Imagen</mat-label>
+                <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                    <mat-label>URL IMAGEN</mat-label>
                     <textarea matInput formControlName="urlImagen"></textarea>
                 </mat-form-field>
 
@@ -75,18 +75,18 @@
 
     <mat-tab class="custom-tab" label="Domicilio Personal">
         <form [formGroup]="personalAddressForm" (ngSubmit)="savePersonalAddress()" class="form-container">
-            <mat-form-field appearance="fill">
-                <mat-label>ID Persona Domicilio</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ID PERSONA DOMICILIO</mat-label>
                 <textarea matInput formControlName="idPersonaDomicilio"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>ID Persona</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ID PERSONA</mat-label>
                 <textarea matInput formControlName="idPersona"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Estado</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ESTADO</mat-label>
                 <mat-select formControlName="idEstado">
                     <mat-option *ngFor="let estado of estados" [value]="estado.idEstado">
                         {{ estado.descripcion }}
@@ -95,7 +95,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Municipio</mat-label>
+                <mat-label>MUNICIPIO</mat-label>
                 <mat-select formControlName="idMunicipio">
                     <mat-option *ngFor="let municipio of municipios" [value]="municipio.idMunicipio">
                         {{ municipio.nombre }}
@@ -104,7 +104,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Domicilio</mat-label>
+                <mat-label>DOMICILIO</mat-label>
                 <textarea matInput formControlName="domicilio"></textarea>
             </mat-form-field>
 
@@ -114,28 +114,28 @@
 
     <mat-tab class="custom-tab" label="Info. Trabajo">
         <form [formGroup]="workInfoForm" (ngSubmit)="saveWorkInfo()" class="form-container">
-            <mat-form-field appearance="fill">
-                <mat-label>ID Empleado</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ID USUARIO</mat-label>
                 <textarea matInput formControlName="idEmpleado"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>ID Persona</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ID PERSONA</mat-label>
                 <textarea matInput formControlName="idPersona"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>ID Usuario</mat-label>
+                <mat-label>ID EMPLEADO</mat-label>
                 <textarea matInput formControlName="idInterno"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>No. Empleado</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>NO. EMPLEADO</mat-label>
                 <textarea matInput formControlName="numEmpleado"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Contratacion</mat-label>
+                <mat-label>CONTRATACION</mat-label>
                 <mat-select formControlName="idTipoContratacion">
                     <mat-option *ngFor="let contratacion of contratos" [value]="contratacion.idTipoContratacion">
                         {{ contratacion.descripcion }}
@@ -144,7 +144,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Área</mat-label>
+                <mat-label>ÁREA</mat-label>
                 <mat-select formControlName="idArea">
                     <mat-option *ngFor="let area of areas" [value]="area.idArea">
                         {{ area.clave }}
@@ -153,7 +153,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Puesto</mat-label>
+                <mat-label>PUESTO</mat-label>
                 <mat-select formControlName="idPuesto">
                     <mat-option *ngFor="let puesto of puestos" [value]="puesto.idPuesto">
                         {{ puesto.nombre }}
@@ -162,7 +162,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Cuadrante</mat-label>
+                <mat-label>CUADRANTE</mat-label>
                 <mat-select formControlName="idCuadrante">
                     <mat-option *ngFor="let idCuadrante of cuadrantes" [value]="idCuadrante.idCuadrante">
                         {{ idCuadrante.descripcion }}
@@ -170,13 +170,18 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Sueldo</mat-label>
-                <textarea matInput formControlName="sueldo" type="number"></textarea>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>SUELDO BRUTO</mat-label>
+                <textarea matInput formControlName="sueldoNeto" type="number"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>SUELDO NETO</mat-label>
+                <textarea matInput formControlName="sueldoBruto" type="number"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Fecha de Contratación</mat-label>
+                <mat-label>FECHA DE CONTRATACION</mat-label>
                 <textarea matInput formControlName="fechaContratacion" type="date"></textarea>
             </mat-form-field>
 
@@ -186,18 +191,18 @@
 
     <mat-tab class="custom-tab" label="Domicilio Trabajo">
         <form [formGroup]="workAddressForm" (ngSubmit)="saveWorkAddress()" class="form-container">
-            <mat-form-field appearance="fill">
-                <mat-label>ID Domicilio Trabajo</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ID DOMICILIO TRABAJO</mat-label>
                 <textarea matInput formControlName="idTrabajoDomicilio"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Empleado</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>EMPLEADO</mat-label>
                 <textarea matInput formControlName="idEmpleado"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Estado</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ESTADO</mat-label>
                 <mat-select formControlName="idEstado">
                     <mat-option *ngFor="let estado of estados" [value]="estado.idEstado">
                         {{ estado.descripcion }}
@@ -206,7 +211,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Municipio</mat-label>
+                <mat-label>MUNICIPIO</mat-label>
                 <mat-select formControlName="idMunicipio">
                     <mat-option *ngFor="let municipio of municipios" [value]="municipio.idMunicipio">
                         {{ municipio.nombre }}
@@ -214,8 +219,8 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Domicilio</mat-label>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>DOMICILIO</mat-label>
                 <textarea matInput formControlName="domicilio"></textarea>
             </mat-form-field>
 

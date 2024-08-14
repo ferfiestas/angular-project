@@ -107,7 +107,6 @@ export class CustomAdminSidenavComponent implements OnInit {
 
   filterMenuByRole(): void {
     const userRole = this.accessService.getUserRole() ?? -1;
-    console.log('User role:', userRole);
     this.filteredNavData = this.navData.filter(item => item.allowedRoles.includes(userRole));
   }
 
