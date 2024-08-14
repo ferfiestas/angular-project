@@ -22,12 +22,12 @@
       <mat-list>
         <mat-list-item *ngFor="let message of messages; let i = index">
           <div class="message-content">
-            <p>{{ message.message }}</p>
+            <p>{{ message.descripcion }}</p>
             <div class="actions">
               <button mat-icon-button color="accent" (click)="editMessage(i)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="deleteMessage(message.id)">
+              <button mat-icon-button color="warn" (click)="deleteMessage(message.idTicker)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>

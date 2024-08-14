@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   public unreadNotificationsCount: number = 0;
 
   tickerWidth: string = '100'; 
-  messages: { id: number; message: string }[] = [];
+  messages: { idTicker: number; descripcion: string }[] = [];
 
   constructor(
     private tickerService: TickerService, 

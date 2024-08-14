@@ -14,7 +14,7 @@ import { TickerService } from '../../../services/ticker.service';
 export class TickerAdminComponent {
 [x: string]: any;
   
-  messages: { id: number; message: string }[] = [];
+  messages: { idTicker: number; descripcion: string }[] = [];
   newMessage: string = '';
 
   constructor(private tickerService: TickerService, public dialog: MatDialog) {
@@ -49,7 +49,7 @@ addMessage(): void {
 deleteMessage(id: number): void {
   this.tickerService.deleteMessage(id).subscribe(
     () => {
-      this.messages = this.messages.filter(message => message.id !== id);
+      this.messages = this.messages.filter(message => message.idTicker !== id);
     },
     (error) => {
       console.error('Error deleting message:', error);
@@ -61,7 +61,7 @@ editMessage(index: number) {
   const message = this.messages[index];
   const dialogRef = this.dialog.open(EditDialog, {
     width: '350px',
-    data: { id: message.id, message: message.message }
+    data: { id: message.idTicker, message: message.descripcion }
   });
 
   dialogRef.afterClosed().subscribe(result => {
