@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+
 import { PasswordService } from '../../../services/password.service';
 import Swal from 'sweetalert2';
 
@@ -10,6 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class passwordComponent implements OnInit {
   cambiarContrasenaForm!: FormGroup;
+  showNewPassword = false;
+  showConfirmPassword = false;
 
   get newPassword() {
     return this.cambiarContrasenaForm.get('newPassword');
@@ -66,6 +69,14 @@ export class passwordComponent implements OnInit {
       return { mismatch: true };
     }
     return null;
+  }
+
+  togglePasswordVisibility(field: string, action: string) {
+    if (field === 'newPassword') {
+      this.showNewPassword = action === 'show';
+    } else if (field === 'confirmPassword') {
+      this.showConfirmPassword = action === 'show';
+    }
   }
 
   onSubmit() {
