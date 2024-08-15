@@ -127,12 +127,12 @@ export class HeaderComponent implements OnInit {
   loadHeaderImage(): void {
     const idUsuario = localStorage.getItem('usuario1');
     if (idUsuario) {
-      const imageUrl = `http://auditoriainterna.com.mx/photo_upload/${idUsuario}.jpg`;
+      const imageUrl = `https://auditoriainterna.com.mx/photo_upload/${idUsuario}.jpg`;
       this.checkImageExists(imageUrl).then(exists => {
-        this.headerImageUrl = exists ? imageUrl : 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+        this.headerImageUrl = exists ? imageUrl : 'https://auditoriainterna.com.mx/photo_upload/img00000.jpg';
       });
     } else {
-      this.headerImageUrl = 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+      this.headerImageUrl = 'https://auditoriainterna.com.mx/photo_upload/img00000.jpg';
     }
   }
 
