@@ -22,6 +22,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 import { routes } from './app.routes';
 import { profileComponent } from './pages/profile/profile.component';
@@ -36,6 +37,9 @@ import { PeopleComponent } from './pages/people/people.component';
 import { EditPersonDialogComponent } from './pages/people/edit-person-dialog/edit-person-dialog.component';
 import { MessageDialogComponent } from './pages/checkin/message-dialog/message-dialog.component';
 import { ChangePasswordComponent } from './pages/settings/change-password/change-password.component';
+import { CoursesComponent } from './pages/courses/courses.component';
+import { SafeUrlPipe } from './components/pipes/safe-url.pipe';
+
 
 
 
@@ -52,7 +56,9 @@ import { ChangePasswordComponent } from './pages/settings/change-password/change
     PeopleComponent,
     EditPersonDialogComponent,
     MessageDialogComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    CoursesComponent,
+    SafeUrlPipe
   ],
   imports: [
     BrowserModule,
@@ -74,7 +80,8 @@ import { ChangePasswordComponent } from './pages/settings/change-password/change
     MatGridListModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatSelectModule
+    MatSelectModule,
+    YouTubePlayerModule
   ],
   providers: [AccessService, AttendanceService],
 })

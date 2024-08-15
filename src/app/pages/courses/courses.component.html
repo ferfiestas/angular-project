@@ -1,1 +1,14 @@
-<p>courses-news works!</p>
+<div class="courses-container">
+    <div *ngFor="let course of courses" class="course-item">
+        <h3>{{ course.title }}</h3>
+        <p>{{ course.description }}</p>
+        <ng-container *ngIf="course.type === 'document'">
+            <a [href]="course.url" target="_blank">Ver Documento</a>
+        </ng-container>
+        <ng-container *ngIf="course.type === 'video'">
+            <div class="video-container">
+                <iframe [src]="'https://www.youtube.com/embed/' + course.url | safeUrl" allowfullscreen></iframe>
+            </div>
+        </ng-container>
+    </div>
+</div>
