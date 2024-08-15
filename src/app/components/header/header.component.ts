@@ -19,6 +19,8 @@ import { AccessService } from '../../services/access.service';
 })
 export class HeaderComponent implements OnInit {
 
+  headerImageUrl: string = '';
+
   @Input() collapsed = false;
   @Input() screenWidth = 0;
 
@@ -49,6 +51,7 @@ export class HeaderComponent implements OnInit {
     this.selectedLanguage = this.languages[0];
     this.loadMessages();
     this.loadNotifications();
+    this.loadHeaderImage();
   }
 
   loadMessages(): void {
@@ -119,6 +122,27 @@ export class HeaderComponent implements OnInit {
     }
   
     return styleClass;
+  }
+
+  loadHeaderImage(): void {
+    const idUsuario = localStorage.getItem('usuario1');
+    if (idUsuario) {
+      const imageUrl = `http://auditoriainterna.com.mx/photo_upload/${idUsuario}.jpg`;
+      this.checkImageExists(imageUrl).then(exists => {
+        this.headerImageUrl = exists ? imageUrl : 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+      });
+    } else {
+      this.headerImageUrl = 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+    }
+  }
+
+  checkImageExists(url: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
+    });
   }
 
   checkCanShowSearchAsOverlay(innerWidth: number): void {

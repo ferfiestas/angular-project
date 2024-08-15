@@ -40,9 +40,27 @@ export class profileComponent implements OnInit {
   }
 
   loadUserData(): void {
-    this.profileService.getProfileData().subscribe(data => {
+    const idUsuario = localStorage.getItem('usuario1');
+    if (idUsuario) {
+      const imageUrl = `http://auditoriainterna.com.mx/photo_upload/${idUsuario}.jpg`;
+      this.checkImageExists(imageUrl).then(exists => {
+        this.imageUrl = exists ? imageUrl : 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+      });
+    } else {
+      this.imageUrl = 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+    }
+
+    this.profileService.getProfileData().subscribe((data: { [x: string]: any; persona?: any; }) => {
       this.profileForm.patchValue(data);
-      this.imageUrl = data.persona.urlImagen;
+    });
+  }
+
+  checkImageExists(url: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
     });
   }
 }
