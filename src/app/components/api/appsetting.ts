@@ -1,3 +1,3 @@
 export const appsettings = {
-    apiUrl: 'https://209.38.48.98:8080'
+    apiUrl: 'http://internapiaudit.xyz:8080'
 }

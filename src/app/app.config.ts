@@ -88,6 +88,6 @@ import { SafeUrlPipe } from './components/pipes/safe-url.pipe';
 export class AppModule { }
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync(), provideAnimations(), importProvidersFrom(HttpClientModule), provideAnimationsAsync()]
+  providers: [provideRouter(routes), provideAnimationsAsync(), provideAnimations(), importProvidersFrom(HttpClientModule), provideAnimationsAsync(), provideAnimationsAsync()]
 };
 
