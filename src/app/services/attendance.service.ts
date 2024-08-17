@@ -17,7 +17,7 @@ export class AttendanceService {
 
   async getPublicIp(): Promise<{ ip: string } | undefined> {
     try {
-      return await this.http.get<{ ip: string }>('https://api.ipify.org?format=json').toPromise();
+      return await this.http.get<{ ip: string }>('http://api.ipify.org?format=json').toPromise();
     } catch (error) {
       console.error('Error al obtener la IP pública:', error);
       return { ip: '0.0.0.0' };

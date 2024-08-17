@@ -42,12 +42,12 @@ export class profileComponent implements OnInit {
   loadUserData(): void {
     const idUsuario = localStorage.getItem('usuario1');
     if (idUsuario) {
-      const imageUrl = `https://auditoriainterna.com.mx/photo_upload/${idUsuario}.jpg`;
+      const imageUrl = `http://auditoriainterna.com.mx/photo_upload/${idUsuario}.jpg`;
       this.checkImageExists(imageUrl).then(exists => {
-        this.imageUrl = exists ? imageUrl : 'https://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+        this.imageUrl = exists ? imageUrl : 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
       });
     } else {
-      this.imageUrl = 'https://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+      this.imageUrl = 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
     }
 
     this.profileService.getProfileData().subscribe((data: { [x: string]: any; persona?: any; }) => {
