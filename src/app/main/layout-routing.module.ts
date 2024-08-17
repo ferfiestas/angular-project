@@ -27,7 +27,7 @@ const routes: Routes = [
       {path: 'profile', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: profileComponent},
       {path: 'people', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3] }, component: PeopleComponent},
       {path: 'courses', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: CoursesComponent},
-      {path: 'news', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: NotificationsComponent},
+      {path: 'news', canActivate: [RoleGuard], data: { expectedRole: [1] }, component: NotificationsComponent},
       {path: 'ticker', canActivate: [RoleGuard], data: { expectedRole: [1] }, component: TickerAdminComponent},
       {path: 'adminnews', canActivate: [RoleGuard], data: { expectedRole: [1] }, component: AdminNotificationComponent},
       {path: 'holidays', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: HolidaysComponent},

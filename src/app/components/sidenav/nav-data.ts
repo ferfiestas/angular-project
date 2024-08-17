@@ -32,7 +32,7 @@ export const navbarData: INavbarData[] = [
         icon: 'fal fa-envelope',
         Label: 'Notificaciones',
         routeLink: 'news',
-        allowedRoles: [1, 2, 3, 4, 5],
+        allowedRoles: [1],
       },
       {
         icon: 'fal fa-newspaper',
