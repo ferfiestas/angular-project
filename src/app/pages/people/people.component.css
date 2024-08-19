@@ -17,13 +17,24 @@
 /* Otros estilos existentes */
 .search-container {
     display: flex;
+    flex-direction: column; /* Cambiado para permitir que el texto de instrucciones esté arriba */
     align-items: center;
     gap: 16px;
     margin-bottom: 20px;
 }
 
+/* Texto de instrucciones de búsqueda */
+.search-instructions {
+    font-size: 1em;
+    margin-bottom: 8px;
+    text-align: center;
+    color: #555;
+    font-weight: bold;
+}
+
 .search-field {
     flex: 1;
+    width: 100%; /* Ajusta el ancho del campo de búsqueda */
 }
 
 .search-button {
@@ -63,10 +74,49 @@
     background-color: #621132;
 }
 
+/* Estilos de paginación */
+.pagination-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination-controls button {
+    background-color: #9D2449;
+    color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    padding: 4px 8px;
+}
+
+.pagination-controls button:hover {
+    background-color: #621132;
+}
+
+.pagination-controls button[disabled] {
+    background-color: #ddd;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.pagination-controls span {
+    font-size: 1em;
+}
+
 /* Estilos para pantallas grandes (mayor a 1080px) */
 @media (min-width: 1081px) {
     .main-container {
         max-width: 800px;
+    }
+
+    .search-instructions {
+        font-size: 1.2em;
+    }
+
+    .pagination-controls span {
+        font-size: 1.1em;
     }
 }
 
@@ -75,12 +125,28 @@
     .main-container {
         max-width: 700px;
     }
+
+    .search-instructions {
+        font-size: 1.1em;
+    }
+
+    .pagination-controls span {
+        font-size: 1em;
+    }
 }
 
 /* Estilos para pantallas pequeñas (máximo 800px) */
 @media (max-width: 800px) {
     .main-container {
         max-width: 600px;
+    }
+
+    .search-instructions {
+        font-size: 1em;
+    }
+
+    .pagination-controls span {
+        font-size: 1em;
     }
 }
 
@@ -89,6 +155,14 @@
     .main-container {
         max-width: 400px;
     }
+
+    .search-instructions {
+        font-size: 0.9em;
+    }
+
+    .pagination-controls span {
+        font-size: 0.9em;
+    }
 }
 
 /* Estilos para pantallas más pequeñas (máximo 400px) */
@@ -96,6 +170,25 @@
     .main-container {
         max-width: 300px;
         padding: 8px;
+        justify-content: flex-start; /* Asegura que los elementos comiencen desde la parte superior */
+        height: auto; /* Permite que el contenedor ajuste su altura según el contenido */
+    }
+
+    .search-container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .person-details {
+        margin-top: 10px; /* Ajusta el margen superior para dejar espacio para la búsqueda */
+    }
+
+    .search-instructions {
+        font-size: 0.8em;
+    }
+
+    .pagination-controls span {
+        font-size: 0.8em;
     }
 }
 
@@ -104,22 +197,33 @@
     .main-container {
         max-width: 250px;
         padding: 4px;
+        justify-content: flex-start;
+        height: auto; 
     }
 
-    .search-container, .person-details {
+    .search-container {
         width: 100%;
+        margin-bottom: 20px;
     }
 
     .search-field {
         flex: 1;
-        font-size: 0.8em;
+        font-size: 0.7em;
     }
 
     .search-button, .edit-button {
-        font-size: 0.8em;
+        font-size: 0.7em;
     }
 
     .person-details p {
-        font-size: 0.9em;
+        font-size: 0.8em;
+    }
+
+    .search-instructions {
+        font-size: 0.7em;
+    }
+
+    .pagination-controls span {
+        font-size: 0.7em;
     }
 }

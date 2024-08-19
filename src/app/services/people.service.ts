@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { appsettings } from '../components/api/appsetting';
 
@@ -125,15 +125,80 @@ export class PeopleService {
   searchPersonByRFC(rfc: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/persona/byrfc/${rfc}`, this.httpOptions).pipe(
       map((response: any) => {
-        if (response && response.idPersona) {
-          localStorage.setItem('idPersonaUsuario', response.idPersona);
-          localStorage.setItem('idPerUsuario', response.idUsuario);
+        if (response && response[0]?.idPersona) {
+          localStorage.setItem('idPersonaUsuario', response[0].idPersona);
+          localStorage.setItem('idPerUsuario', response[0].idUsuario);
           return response;
         } else {
           return null;
         }
       }),
       catchError(this.handleError<any>('searchPersonByRFC', null))
+    );
+  }
+
+  searchPersonByCURP(curp: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/persona/bycurp/${curp}`, this.httpOptions).pipe(
+      map((response: any) => {
+        if (response && response[0]?.idPersona) {
+          localStorage.setItem('idPersonaUsuario', response[0].idPersona);
+          localStorage.setItem('idPerUsuario', response[0].idUsuario);
+          return response;
+        } else {
+          return null;
+        }
+      }),
+      catchError(this.handleError<any>('searchPersonByCURP', null))
+    );
+  }
+
+  searchPersonByNumber(numero: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/persona/bynumero/${numero}`, this.httpOptions).pipe(
+      map((response: any) => {
+        if (response && response[0]?.idPersona) {
+          localStorage.setItem('idPersonaUsuario', response[0].idPersona);
+          localStorage.setItem('idPerUsuario', response[0].idUsuario);
+          return response;
+        } else {
+          return null;
+        }
+      }),
+      catchError(this.handleError<any>('searchPersonByNumber', null))
+    );
+  }
+
+  searchPersonByName(nombre: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/persona/bynombre/${nombre}`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('searchPersonByName', []))
+    );
+  }
+
+  // Nuevo método para buscar en secuencia
+  searchPerson(query: string): Observable<any[]> {
+    return this.searchPersonByRFC(query).pipe(
+      switchMap(result => {
+        if (result) {
+          return of([result[0]]); // Si encontró por RFC, retorna el resultado como array
+        } else {
+          return this.searchPersonByCURP(query).pipe(
+            switchMap(curpResult => {
+              if (curpResult) {
+                return of([curpResult[0]]); // Si encontró por CURP, retorna el resultado como array
+              } else {
+                return this.searchPersonByNumber(query).pipe(
+                  switchMap(numberResult => {
+                    if (numberResult) {
+                      return of([numberResult[0]]); // Si encontró por número, retorna el resultado como array
+                    } else {
+                      return this.searchPersonByName(query); // Finalmente, busca por nombre o apellido
+                    }
+                  })
+                );
+              }
+            })
+          );
+        }
+      })
     );
   }
 

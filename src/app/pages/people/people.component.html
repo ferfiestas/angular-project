@@ -1,14 +1,27 @@
 <div class="main-container">
     <div class="search-container">
+        <p class="search-instructions">Buscar por Nombre/Apellido/RFC/CURP/No. Empleado</p>
         <mat-form-field appearance="fill" class="search-field">
-            <mat-label>Buscar por RFC</mat-label>
-            <input matInput [(ngModel)]="searchRFC" placeholder="RFC" />
+            <mat-label>Buscar Usuario</mat-label>
+            <input matInput [(ngModel)]="searchRFC" placeholder="Ingresa un criterio de búsqueda" />
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="search()" class="search-button">Buscar</button>
     </div>
 
-    <div *ngIf="person" class="person-details">
-        <p><strong>Nombre Completo:</strong> {{ person.nombreCompleto }}</p>
-        <button mat-raised-button color="primary" (click)="openEditDialog()" class="edit-button">Editar</button>
+    <div *ngIf="paginatedPersons.length > 0" class="person-details">
+        <div *ngFor="let person of paginatedPersons">
+            <p><strong>Nombre Completo:</strong> {{ person.nombreCompleto }}</p>
+            <button mat-raised-button color="primary" (click)="openEditDialog(person)" class="edit-button">Editar</button>
+        </div>
+    
+        <div class="pagination-controls">
+            <button mat-raised-button (click)="previousPage()" [disabled]="currentPage === 1">
+                Anterior
+            </button>
+            <span>{{currentPage}} / {{totalPages}}</span>
+            <button mat-raised-button (click)="nextPage()" [disabled]="currentPage === totalPages">
+                Siguiente
+            </button>
+        </div>
     </div>
 </div>
