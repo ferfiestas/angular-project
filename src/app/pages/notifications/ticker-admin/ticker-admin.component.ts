@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
+import Swal from 'sweetalert2';
 
 import { TickerService } from '../../../services/ticker.service';
-
+import { TickerupdateService } from '../../../services/tickerupdate.service';
 
 
 @Component({
@@ -12,75 +13,89 @@ import { TickerService } from '../../../services/ticker.service';
   styleUrls: ['./ticker-admin.component.css']
 })
 export class TickerAdminComponent {
-[x: string]: any;
   
-  messages: { idTicker: number; descripcion: string }[] = [];
+  messages: { idTicker: number; texto: string }[] = [];
   newMessage: string = '';
 
-  constructor(private tickerService: TickerService, public dialog: MatDialog) {
+  constructor(private tickerService: TickerService, public dialog: MatDialog, private messageService: TickerupdateService) {
     this.loadMessages();
   }
 
   loadMessages(): void {
     this.tickerService.getMessages().subscribe(
         (messages) => {
-          this.messages = messages;
+          // Ahora los mensajes usan la propiedad "texto" en lugar de "descripcion"
+          this.messages = messages.map(message => ({ idTicker: message.idTicker, texto: message.descripcion }));
         },
         (error) => {
           console.error('Error fetching messages:', error);
         }
     );
-}
+  }
 
-addMessage(): void {
-  if (this.newMessage.trim()) {
-    this.tickerService.createMessage(this.newMessage).subscribe(
-      (message) => {
-        this.messages.push(message);
-        this.newMessage = '';
+  addMessage(): void {
+    if (this.newMessage.trim()) {
+      this.tickerService.createMessage(this.newMessage).subscribe(
+        () => {
+          this.newMessage = '';
+          this.loadMessages();
+          this.messageService.notifyMessagesUpdated();
+          Swal.fire('¡Éxito!', 'El mensaje se agregó correctamente.', 'success');
+        },
+        (error) => {
+          console.error('Error adding message:', error);
+          Swal.fire('Error', 'No se pudo agregar el mensaje.', 'error');
+        }
+      );
+    }
+  }
+
+  deleteMessage(id: number): void {
+    this.tickerService.deleteMessage(id).subscribe(
+      () => {
+        this.messages = this.messages.filter(message => message.idTicker !== id);
+        this.messageService.notifyMessagesUpdated();
+        Swal.fire('¡Éxito!', 'El mensaje ha sido eliminado correctamente.', 'success');
       },
       (error) => {
-        console.error('Error adding message:', error);
+        console.error('Error deleting message:', error);
+        Swal.fire('Error', 'No se pudo eliminar el mensaje.', 'error');
+      }
+    );
+  }
+
+  editMessage(index: number) {
+    const message = this.messages[index];
+    const dialogRef = this.dialog.open(EditDialog, {
+      width: '350px',
+      data: { id: message.idTicker, message: message.texto }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateMessage(result.id, result.message);
+      }
+    });
+  }
+
+  updateMessage(id: number, newMessage: string) {
+    this.tickerService.updateMessage(id, newMessage).subscribe(
+      () => {
+        this.loadMessages();
+        this.messageService.notifyMessagesUpdated();
+        Swal.fire('¡Éxito!', 'El mensaje ha sido actualizado correctamente.', 'success');
+      },
+      (error) => {
+        console.error('Error updating message:', error);
+        Swal.fire('Error', 'No se pudo actualizar el mensaje.', 'error');
       }
     );
   }
 }
 
-deleteMessage(id: number): void {
-  this.tickerService.deleteMessage(id).subscribe(
-    () => {
-      this.messages = this.messages.filter(message => message.idTicker !== id);
-    },
-    (error) => {
-      console.error('Error deleting message:', error);
-    }
-  );
-}
-
-editMessage(index: number) {
-  const message = this.messages[index];
-  const dialogRef = this.dialog.open(EditDialog, {
-    width: '350px',
-    data: { id: message.idTicker, message: message.descripcion }
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      this.updateMessage(result.id, result.message);
-    }
-  });
-}
-
-updateMessage(id: number, newMessage: string) {
-  this.tickerService.updateMessage(id, newMessage).subscribe(() => {
-    this.loadMessages();
-  });
-}
-}
-
 @Component({
-selector: 'edit-dialog',
-templateUrl: 'edit-dialog.html',
+  selector: 'edit-dialog',
+  templateUrl: 'edit-dialog.html',
 })
 export class EditDialog {
   constructor(

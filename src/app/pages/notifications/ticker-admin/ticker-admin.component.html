@@ -1,5 +1,5 @@
 <mat-toolbar fxLayoutAlign="center center">
-  <span class="mat-toolbar">Administrar Noticias</span>
+  <span class="mat-toolbar-text">Administrar Noticias</span>
 </mat-toolbar>
 
 <div class="container">
@@ -22,7 +22,7 @@
       <mat-list>
         <mat-list-item *ngFor="let message of messages; let i = index">
           <div class="message-content">
-            <p>{{ message.descripcion }}</p>
+            <p>{{ message.texto }}</p>
             <div class="actions">
               <button mat-icon-button color="accent" (click)="editMessage(i)">
                 <mat-icon>edit</mat-icon>

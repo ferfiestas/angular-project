@@ -8,6 +8,7 @@ import { languages, userItems } from './header-dummy-data';
 import { TickerService } from '../../services/ticker.service';
 import { NotificationService, Notification } from '../../services/notification.service';
 import { AccessService } from '../../services/access.service';
+import { TickerupdateService } from '../../services/tickerupdate.service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private tickerService: TickerService, 
     private notificationService: NotificationService,
-    public accessService: AccessService
+    public accessService: AccessService,
+    private messageService: TickerupdateService
   ) {}
 
   @HostListener('window:resize', ['$event'])
@@ -50,6 +52,9 @@ export class HeaderComponent implements OnInit {
     this.checkCanShowSearchAsOverlay(window.innerWidth);
     this.selectedLanguage = this.languages[0];
     this.loadMessages();
+    this.messageService.messagesUpdated$.subscribe(() => {
+      this.loadMessages();
+    });
     this.loadNotifications();
     this.loadHeaderImage();
   }
