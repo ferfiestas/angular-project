@@ -7,9 +7,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { CommonModule } from '@angular/common';
 
-import Swal from 'sweetalert2'
-
+import Swal from 'sweetalert2';
 
 import { AccessService } from '../../services/access.service';
 
@@ -17,12 +17,11 @@ import { AccessService } from '../../services/access.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatToolbarModule, ReactiveFormsModule],
+  imports: [MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatToolbarModule, ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']  // Nota: styleUrl debe ser styleUrls
 })
 export class LoginComponent {
-
 
   private accessService = inject(AccessService);
   private formBuild = inject(FormBuilder);
@@ -32,6 +31,16 @@ export class LoginComponent {
     usuario1: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
+
+  isKeyboardVisible: boolean = false;
+
+  onFocus(): void {
+    this.isKeyboardVisible = true;
+  }
+
+  onBlur(): void {
+    this.isKeyboardVisible = false;
+  }
 
   LogIn() {
     const { usuario1, password } = this.formLogin.value;

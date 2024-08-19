@@ -260,23 +260,43 @@ export class EditPersonDialogComponent implements OnInit {
     if (idPersonaUsuario) {
       const formData = this.personalInfoForm.value;
       formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
-
+  
       this.peopleService.updatePersonalInfo(formData).subscribe(
         _response => {
-          alert('Información personal guardada exitosamente.');
+          Swal.fire({
+            title: 'Éxito',
+            text: 'Información personal guardada exitosamente.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
         },
         error => {
           console.error('Error al guardar información personal:', error);
           if (error.status === 400 && error.error.errors) {
             const errorMessages = Object.values(error.error.errors).flat().join('\n');
-            alert('Errores de validación: \n' + errorMessages);
+            Swal.fire({
+              title: 'Errores de validación',
+              text: errorMessages,
+              icon: 'warning',
+              confirmButtonText: 'OK'
+            });
           } else {
-            alert('Error al guardar información personal. Por favor, intenta nuevamente.');
+            Swal.fire({
+              title: 'Error',
+              text: 'Error al guardar información personal. Por favor, intenta nuevamente.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
           }
         }
       );
     } else {
-      alert('ID de Persona no encontrado en el almacenamiento local.');
+      Swal.fire({
+        title: 'Error',
+        text: 'ID de Persona no encontrado en el almacenamiento local.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   }
 
@@ -285,23 +305,43 @@ export class EditPersonDialogComponent implements OnInit {
     if (idPersonaUsuario) {
       const formData = this.personalAddressForm.value;
       formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
-
+  
       this.peopleService.updatePersonalAddress(formData).subscribe(
         _response => {
-          alert('Información personal guardada exitosamente.');
+          Swal.fire({
+            title: 'Éxito',
+            text: 'Dirección personal guardada exitosamente.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
         },
         error => {
-          console.error('Error al guardar información personal:', error);
+          console.error('Error al guardar dirección personal:', error);
           if (error.status === 400 && error.error.errors) {
             const errorMessages = Object.values(error.error.errors).flat().join('\n');
-            alert('Errores de validación: \n' + errorMessages);
+            Swal.fire({
+              title: 'Errores de validación',
+              text: errorMessages,
+              icon: 'warning',
+              confirmButtonText: 'OK'
+            });
           } else {
-            alert('Error al guardar información personal. Por favor, intenta nuevamente.');
+            Swal.fire({
+              title: 'Error',
+              text: 'Error al guardar dirección personal. Por favor, intenta nuevamente.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
           }
         }
       );
     } else {
-      alert('ID de Persona no encontrado en el almacenamiento local.');
+      Swal.fire({
+        title: 'Error',
+        text: 'ID de Persona no encontrado en el almacenamiento local.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   }
 
@@ -310,23 +350,43 @@ export class EditPersonDialogComponent implements OnInit {
     if (idPersonaUsuario) {
       const formData = this.workInfoForm.value;
       formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
-
+  
       this.peopleService.updateWorkInfo(formData).subscribe(
         _response => {
-          alert('Información personal guardada exitosamente.');
+          Swal.fire({
+            title: 'Éxito',
+            text: 'Información laboral guardada exitosamente.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
         },
         error => {
-          console.error('Error al guardar información personal:', error);
+          console.error('Error al guardar información laboral:', error);
           if (error.status === 400 && error.error.errors) {
             const errorMessages = Object.values(error.error.errors).flat().join('\n');
-            alert('Errores de validación: \n' + errorMessages);
+            Swal.fire({
+              title: 'Errores de validación',
+              text: errorMessages,
+              icon: 'warning',
+              confirmButtonText: 'OK'
+            });
           } else {
-            alert('Error al guardar información personal. Por favor, intenta nuevamente.');
+            Swal.fire({
+              title: 'Error',
+              text: 'Error al guardar información laboral. Por favor, intenta nuevamente.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
           }
         }
       );
     } else {
-      alert('ID de Persona no encontrado en el almacenamiento local.');
+      Swal.fire({
+        title: 'Error',
+        text: 'ID de Persona no encontrado en el almacenamiento local.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   }
 
@@ -335,23 +395,43 @@ export class EditPersonDialogComponent implements OnInit {
     if (idPersonaUsuario) {
       const formData = this.workAddressForm.value;
       formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
-
+  
       this.peopleService.updateWorkAddress(formData).subscribe(
         _response => {
-          alert('Información personal guardada exitosamente.');
+          Swal.fire({
+            title: 'Éxito',
+            text: 'Dirección laboral guardada exitosamente.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
         },
         error => {
-          console.error('Error al guardar información personal:', error);
+          console.error('Error al guardar dirección laboral:', error);
           if (error.status === 400 && error.error.errors) {
             const errorMessages = Object.values(error.error.errors).flat().join('\n');
-            alert('Errores de validación: \n' + errorMessages);
+            Swal.fire({
+              title: 'Errores de validación',
+              text: errorMessages,
+              icon: 'warning',
+              confirmButtonText: 'OK'
+            });
           } else {
-            alert('Error al guardar información personal. Por favor, intenta nuevamente.');
+            Swal.fire({
+              title: 'Error',
+              text: 'Error al guardar dirección laboral. Por favor, intenta nuevamente.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
           }
         }
       );
     } else {
-      alert('ID de Persona no encontrado en el almacenamiento local.');
+      Swal.fire({
+        title: 'Error',
+        text: 'ID de Persona no encontrado en el almacenamiento local.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   }
 

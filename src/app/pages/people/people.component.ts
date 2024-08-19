@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { PeopleService } from '../../services/people.service';
 import { EditPersonDialogComponent } from './edit-person-dialog/edit-person-dialog.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-people',
@@ -28,10 +29,20 @@ export class PeopleComponent implements OnInit {
         this.totalPages = Math.ceil(this.persons.length / this.pageSize);
         this.paginate(1); // Muestra la primera página de resultados
       } else {
-        console.log('No se encontró ninguna persona con los datos proporcionados.');
+        Swal.fire({
+          title: 'Sin resultados',
+          text: 'No se encontró ninguna persona con los datos proporcionados.',
+          icon: 'info',
+          confirmButtonText: 'OK'
+        });
       }
-    }, error => {
-      console.error('Error durante la búsqueda:', error);
+    }, _error => {
+      Swal.fire({
+        title: 'Error',
+        text: 'Error durante la búsqueda. Por favor, intenta de nuevo.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     });
   }
 
