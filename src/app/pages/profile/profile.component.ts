@@ -41,21 +41,45 @@ export class profileComponent implements OnInit {
 
   loadUserData(): void {
     const idUsuario = localStorage.getItem('usuario1');
+    const defaultImageUrl = 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+    
     if (idUsuario) {
-      const imageUrl = `http://auditoriainterna.com.mx/photo_upload/${idUsuario}.jpg`;
-      this.checkImageExists(imageUrl).then(exists => {
-        this.imageUrl = exists ? imageUrl : 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
-      });
+      const possibleExtensions = ['jpg', 'png', 'jpeg'];
+      this.checkMultipleImageExtensions(idUsuario, possibleExtensions)
+        .then((validImageUrl) => {
+          this.imageUrl = validImageUrl || defaultImageUrl;
+        })
+        .catch(() => {
+          // Si hay un error en la verificación, usa la imagen por defecto
+          this.imageUrl = defaultImageUrl;
+        });
     } else {
-      this.imageUrl = 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+      this.imageUrl = defaultImageUrl;
     }
-
-    this.profileService.getProfileData().subscribe((data: { [x: string]: any; persona?: any; }) => {
-      this.profileForm.patchValue(data);
-    });
+  
+    this.profileService.getProfileData().subscribe(
+      (data: { [key: string]: any; persona?: any; }) => {
+        this.profileForm.patchValue(data);
+      },
+      (error) => {
+        console.error('Error al cargar los datos del perfil:', error);
+        // Puedes manejar el error de manera más específica aquí si es necesario
+      }
+    );
   }
-
-  checkImageExists(url: string): Promise<boolean> {
+  
+  private async checkMultipleImageExtensions(idUsuario: string, extensions: string[]): Promise<string | null> {
+    for (const ext of extensions) {
+      const imageUrl = `http://auditoriainterna.com.mx/photo_upload/${idUsuario}.${ext}`;
+      const exists = await this.checkImageExists(imageUrl);
+      if (exists) {
+        return imageUrl; // Si se encuentra una imagen válida, retorna su URL
+      }
+    }
+    return null; // Si ninguna imagen es válida, retorna null
+  }
+  
+  private checkImageExists(url: string): Promise<boolean> {
     return new Promise((resolve) => {
       const img = new Image();
       img.onload = () => resolve(true);
