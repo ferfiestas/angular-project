@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ReplaySubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 
@@ -32,6 +34,28 @@ export class EditPersonDialogComponent implements OnInit {
   puestos: any[] = [];
   cuadrantes: any[] = [];
 
+  // FormControls for the search filters
+  dependenciaFilterCtrl: FormControl = new FormControl();
+  estudioFilterCtrl: FormControl = new FormControl();
+  estadoFilterCtrl: FormControl = new FormControl();
+  municipioFilterCtrl: FormControl = new FormControl();
+  contratoFilterCtrl: FormControl = new FormControl();
+  areaFilterCtrl: FormControl = new FormControl();
+  puestoFilterCtrl: FormControl = new FormControl();
+  cuadranteFilterCtrl: FormControl = new FormControl();
+
+  // Filtered lists
+  filteredDependencias: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredEstudios: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredEstados: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredMunicipios: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredContratos: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredAreas: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredPuestos: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredCuadrantes: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+
+  private onDestroy = new Subject<void>();
+
   constructor(
     private fb: FormBuilder,
     private peopleService: PeopleService,
@@ -43,7 +67,6 @@ export class EditPersonDialogComponent implements OnInit {
   resetPassword(): void {
     this.passwordService.defaultPasswordReset().subscribe(
       _response => {
-        // Si llegamos aquí, es porque la llamada fue exitosa
         Swal.fire({
           icon: 'success',
           title: 'Contraseña restablecida',
@@ -133,43 +156,199 @@ export class EditPersonDialogComponent implements OnInit {
       this.loadContratosAreasCuadrantesAndPuestos();
       this.loadPersonData(idPersonaUsuario);
     }
+
+    this.initFilterListeners();
+  }
+
+  initFilterListeners(): void {
+    this.dependenciaFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterDependencias();
+      });
+
+    this.estudioFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterEstudios();
+      });
+
+    this.estadoFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterEstados();
+      });
+
+    this.municipioFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterMunicipios();
+      });
+
+    this.contratoFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterContratos();
+      });
+
+    this.areaFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterAreas();
+      });
+
+    this.puestoFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterPuestos();
+      });
+
+    this.cuadranteFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterCuadrantes();
+      });
+  }
+
+  filterDependencias(): void {
+    let search = this.dependenciaFilterCtrl.value;
+    if (!search) {
+      this.filteredDependencias.next(this.dependencias.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredDependencias.next(
+      this.dependencias.filter(dependencia => dependencia.descripcion.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  filterEstudios(): void {
+    let search = this.estudioFilterCtrl.value;
+    if (!search) {
+      this.filteredEstudios.next(this.estudios.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredEstudios.next(
+      this.estudios.filter(estudio => estudio.descripcion.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  filterEstados(): void {
+    let search = this.estadoFilterCtrl.value;
+    if (!search) {
+      this.filteredEstados.next(this.estados.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredEstados.next(
+      this.estados.filter(estado => estado.descripcion.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  filterMunicipios(): void {
+    let search = this.municipioFilterCtrl.value;
+    if (!search) {
+      this.filteredMunicipios.next(this.municipios.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredMunicipios.next(
+      this.municipios.filter(municipio => municipio.nombre.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  filterContratos(): void {
+    let search = this.contratoFilterCtrl.value;
+    if (!search) {
+      this.filteredContratos.next(this.contratos.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredContratos.next(
+      this.contratos.filter(contrato => contrato.descripcion.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  filterAreas(): void {
+    let search = this.areaFilterCtrl.value;
+    if (!search) {
+      this.filteredAreas.next(this.areas.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredAreas.next(
+      this.areas.filter(area => area.clave.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  filterPuestos(): void {
+    let search = this.puestoFilterCtrl.value;
+    if (!search) {
+      this.filteredPuestos.next(this.puestos.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredPuestos.next(
+      this.puestos.filter(puesto => puesto.nombre.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  filterCuadrantes(): void {
+    let search = this.cuadranteFilterCtrl.value;
+    if (!search) {
+      this.filteredCuadrantes.next(this.cuadrantes.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredCuadrantes.next(
+      this.cuadrantes.filter(cuadrante => cuadrante.descripcion.toLowerCase().indexOf(search) > -1)
+    );
   }
 
   loadDependenciesAndStudies(): void {
     this.peopleService.getDependencias().subscribe(dependencias => {
       this.dependencias = dependencias;
+      this.filteredDependencias.next(this.dependencias.slice());
     });
 
     this.peopleService.getEstudios().subscribe(estudios => {
       this.estudios = estudios;
+      this.filteredEstudios.next(this.estudios.slice());
     });
   }
 
   loadEstadosAndMunicipios(): void {
     this.peopleService.getEstados().subscribe(estados => {
       this.estados = estados;
+      this.filteredEstados.next(this.estados.slice());
     });
 
     this.peopleService.getMunicipios().subscribe(municipios => {
       this.municipios = municipios;
+      this.filteredMunicipios.next(this.municipios.slice());
     });
   }
 
   loadContratosAreasCuadrantesAndPuestos(): void {
     this.peopleService.getContratos().subscribe(contratos => {
       this.contratos = contratos;
+      this.filteredContratos.next(this.contratos.slice());
     });
 
     this.peopleService.getAreas().subscribe(areas => {
       this.areas = areas;
+      this.filteredAreas.next(this.areas.slice());
     });
 
     this.peopleService.getPuestos().subscribe(puestos => {
       this.puestos = puestos;
+      this.filteredPuestos.next(this.puestos.slice());
     });
 
     this.peopleService.getCuadrantes().subscribe(cuadrantes => {
       this.cuadrantes = cuadrantes;
+      this.filteredCuadrantes.next(this.cuadrantes.slice());
     });
   }
 
@@ -259,8 +438,8 @@ export class EditPersonDialogComponent implements OnInit {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     if (idPersonaUsuario) {
       const formData = this.personalInfoForm.value;
-      formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
-  
+      formData.idPersona = idPersonaUsuario;
+
       this.peopleService.updatePersonalInfo(formData).subscribe(
         _response => {
           Swal.fire({
@@ -304,8 +483,8 @@ export class EditPersonDialogComponent implements OnInit {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     if (idPersonaUsuario) {
       const formData = this.personalAddressForm.value;
-      formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
-  
+      formData.idPersona = idPersonaUsuario;
+
       this.peopleService.updatePersonalAddress(formData).subscribe(
         _response => {
           Swal.fire({
@@ -349,8 +528,8 @@ export class EditPersonDialogComponent implements OnInit {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     if (idPersonaUsuario) {
       const formData = this.workInfoForm.value;
-      formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
-  
+      formData.idPersona = idPersonaUsuario;
+
       this.peopleService.updateWorkInfo(formData).subscribe(
         _response => {
           Swal.fire({
@@ -394,8 +573,8 @@ export class EditPersonDialogComponent implements OnInit {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     if (idPersonaUsuario) {
       const formData = this.workAddressForm.value;
-      formData.idPersona = idPersonaUsuario; // Añadir el ID al objeto de datos
-  
+      formData.idPersona = idPersonaUsuario;
+
       this.peopleService.updateWorkAddress(formData).subscribe(
         _response => {
           Swal.fire({
@@ -435,10 +614,14 @@ export class EditPersonDialogComponent implements OnInit {
     }
   }
 
-
   closeDialog(): void {
     localStorage.removeItem('idPersonaUsuario');
     this.dialogRef.close();
     this.dialogClosed.emit();
+  }
+
+  ngOnDestroy() {
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 }

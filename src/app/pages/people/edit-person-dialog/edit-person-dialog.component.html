@@ -1,73 +1,79 @@
 <mat-tab-group class="custom-tab-group">
     <mat-tab class="custom-tab" label="Info. Personal">
         <form [formGroup]="personalInfoForm" (ngSubmit)="savePersonalInfo()" class="form-container">
-                <mat-form-field appearance="fill" *ngIf="userRole !== 3">
-                    <mat-label>ID PERSONA</mat-label>
-                    <textarea matInput formControlName="idPersona"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ID PERSONA</mat-label>
+                <textarea matInput formControlName="idPersona"></textarea>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>NOMBRE COMPLETO</mat-label>
-                    <textarea matInput formControlName="nombreCompleto"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>NOMBRE COMPLETO</mat-label>
+                <textarea matInput formControlName="nombreCompleto"></textarea>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>RFC</mat-label>
-                    <textarea matInput formControlName="rfc"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>RFC</mat-label>
+                <textarea matInput formControlName="rfc"></textarea>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>CURP</mat-label>
-                    <textarea matInput formControlName="curp"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>CURP</mat-label>
+                <textarea matInput formControlName="curp"></textarea>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>REFERENCIA</mat-label>
-                    <textarea matInput formControlName="referencia"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>REFERENCIA</mat-label>
+                <textarea matInput formControlName="referencia"></textarea>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>TELÉFONO</mat-label>
-                    <textarea matInput formControlName="telefono"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>TELÉFONO</mat-label>
+                <textarea matInput formControlName="telefono"></textarea>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>TELÉFONO EMERGENCIA</mat-label>
-                    <textarea matInput formControlName="telEmergencia"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>TELÉFONO EMERGENCIA</mat-label>
+                <textarea matInput formControlName="telEmergencia"></textarea>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>E-MAIL</mat-label>
-                    <textarea matInput formControlName="email"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>E-MAIL</mat-label>
+                <textarea matInput formControlName="email"></textarea>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>DEPENDENCIA</mat-label>
-                    <mat-select formControlName="idDependencia">
-                        <mat-option *ngFor="let dependencia of dependencias" [value]="dependencia.idDependencia">
-                            {{ dependencia.descripcion }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>DEPENDENCIA</mat-label>
+                <mat-select formControlName="idDependencia">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="dependenciaFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let dependencia of filteredDependencias | async" [value]="dependencia.idDependencia">
+                        {{ dependencia.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>GRADO ESTUDIO</mat-label>
-                    <mat-select formControlName="idEstudio">
-                        <mat-option *ngFor="let gradoEstudio of estudios" [value]="gradoEstudio.idEstudio">
-                            {{ gradoEstudio.descripcion }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>GRADO ESTUDIO</mat-label>
+                <mat-select formControlName="idEstudio">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="estudioFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let gradoEstudio of filteredEstudios | async" [value]="gradoEstudio.idEstudio">
+                        {{ gradoEstudio.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill" *ngIf="userRole !== 3">
-                    <mat-label>ESTUDIO</mat-label>
-                    <textarea matInput formControlName="estudio"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ESTUDIO</mat-label>
+                <textarea matInput formControlName="estudio"></textarea>
+            </mat-form-field>
 
-                <mat-form-field appearance="fill" *ngIf="userRole !== 3">
-                    <mat-label>URL IMAGEN</mat-label>
-                    <textarea matInput formControlName="urlImagen"></textarea>
-                </mat-form-field>
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>URL IMAGEN</mat-label>
+                <textarea matInput formControlName="urlImagen"></textarea>
+            </mat-form-field>
 
             <button mat-raised-button color="primary" type="submit" class="submit-button">Guardar</button>
 
@@ -87,10 +93,13 @@
                 <textarea matInput formControlName="idPersona"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+            <mat-form-field appearance="fill">
                 <mat-label>ESTADO</mat-label>
                 <mat-select formControlName="idEstado">
-                    <mat-option *ngFor="let estado of estados" [value]="estado.idEstado">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="estadoFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let estado of filteredEstados | async" [value]="estado.idEstado">
                         {{ estado.descripcion }}
                     </mat-option>
                 </mat-select>
@@ -99,7 +108,10 @@
             <mat-form-field appearance="fill">
                 <mat-label>MUNICIPIO</mat-label>
                 <mat-select formControlName="idMunicipio">
-                    <mat-option *ngFor="let municipio of municipios" [value]="municipio.idMunicipio">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="municipioFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let municipio of filteredMunicipios | async" [value]="municipio.idMunicipio">
                         {{ municipio.nombre }}
                     </mat-option>
                 </mat-select>
@@ -139,7 +151,10 @@
             <mat-form-field appearance="fill">
                 <mat-label>CONTRATACION</mat-label>
                 <mat-select formControlName="idTipoContratacion">
-                    <mat-option *ngFor="let contratacion of contratos" [value]="contratacion.idTipoContratacion">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="contratoFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let contratacion of filteredContratos | async" [value]="contratacion.idTipoContratacion">
                         {{ contratacion.descripcion }}
                     </mat-option>
                 </mat-select>
@@ -148,7 +163,10 @@
             <mat-form-field appearance="fill">
                 <mat-label>ÁREA</mat-label>
                 <mat-select formControlName="idArea">
-                    <mat-option *ngFor="let area of areas" [value]="area.idArea">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="areaFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let area of filteredAreas | async" [value]="area.idArea">
                         {{ area.clave }}
                     </mat-option>
                 </mat-select>
@@ -157,7 +175,10 @@
             <mat-form-field appearance="fill">
                 <mat-label>PUESTO</mat-label>
                 <mat-select formControlName="idPuesto">
-                    <mat-option *ngFor="let puesto of puestos" [value]="puesto.idPuesto">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="puestoFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let puesto of filteredPuestos | async" [value]="puesto.idPuesto">
                         {{ puesto.nombre }}
                     </mat-option>
                 </mat-select>
@@ -166,7 +187,10 @@
             <mat-form-field appearance="fill">
                 <mat-label>CUADRANTE</mat-label>
                 <mat-select formControlName="idCuadrante">
-                    <mat-option *ngFor="let idCuadrante of cuadrantes" [value]="idCuadrante.idCuadrante">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="cuadranteFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let idCuadrante of filteredCuadrantes | async" [value]="idCuadrante.idCuadrante">
                         {{ idCuadrante.descripcion }}
                     </mat-option>
                 </mat-select>
@@ -206,7 +230,10 @@
             <mat-form-field appearance="fill" *ngIf="userRole !== 3">
                 <mat-label>ESTADO</mat-label>
                 <mat-select formControlName="idEstado">
-                    <mat-option *ngFor="let estado of estados" [value]="estado.idEstado">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="estadoFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let estado of filteredEstados | async" [value]="estado.idEstado">
                         {{ estado.descripcion }}
                     </mat-option>
                 </mat-select>
@@ -215,7 +242,10 @@
             <mat-form-field appearance="fill">
                 <mat-label>MUNICIPIO</mat-label>
                 <mat-select formControlName="idMunicipio">
-                    <mat-option *ngFor="let municipio of municipios" [value]="municipio.idMunicipio">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="municipioFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let municipio of filteredMunicipios | async" [value]="municipio.idMunicipio">
                         {{ municipio.nombre }}
                     </mat-option>
                 </mat-select>
