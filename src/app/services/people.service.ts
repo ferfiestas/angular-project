@@ -175,20 +175,20 @@ export class PeopleService {
 
   // Nuevo método para buscar en secuencia
   searchPerson(query: string): Observable<any[]> {
-    return this.searchPersonByRFC(query).pipe(
-      switchMap(result => {
-        if (result) {
-          return of([result[0]]); // Si encontró por RFC, retorna el resultado como array
+    return this.searchPersonByNumber(query).pipe(
+      switchMap(numberResult => {
+        if (numberResult) {
+          return of([numberResult[0]]); // Si encontró por número, retorna el resultado como array
         } else {
-          return this.searchPersonByCURP(query).pipe(
-            switchMap(curpResult => {
-              if (curpResult) {
-                return of([curpResult[0]]); // Si encontró por CURP, retorna el resultado como array
+          return this.searchPersonByRFC(query).pipe(
+            switchMap(result => {
+              if (result) {
+                return of([result[0]]); // Si encontró por RFC, retorna el resultado como array
               } else {
-                return this.searchPersonByNumber(query).pipe(
-                  switchMap(numberResult => {
-                    if (numberResult) {
-                      return of([numberResult[0]]); // Si encontró por número, retorna el resultado como array
+                return this.searchPersonByCURP(query).pipe(
+                  switchMap(curpResult => {
+                    if (curpResult) {
+                      return of([curpResult[0]]); // Si encontró por CURP, retorna el resultado como array
                     } else {
                       return this.searchPersonByName(query); // Finalmente, busca por nombre o apellido
                     }
