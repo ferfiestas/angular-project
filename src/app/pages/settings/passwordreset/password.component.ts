@@ -71,11 +71,11 @@ export class passwordComponent implements OnInit {
     return null;
   }
 
-  togglePasswordVisibility(field: string, action: string) {
+  togglePasswordVisibility(field: string) {
     if (field === 'newPassword') {
-      this.showNewPassword = action === 'show';
+      this.showNewPassword = !this.showNewPassword;
     } else if (field === 'confirmPassword') {
-      this.showConfirmPassword = action === 'show';
+      this.showConfirmPassword = !this.showConfirmPassword;
     }
   }
 
