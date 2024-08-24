@@ -6,7 +6,7 @@
   <mat-list>
     <mat-list-item *ngFor="let notification of notifications" (click)="openNotification(notification)" [class.unread]="!notification.read">
       <div class="notification-subject">{{ notification.subject }}</div>
-      <div>{{ notification.body }}</div>
+      <div class="notification-body">{{ notification.body }}</div>
     </mat-list-item>
   </mat-list>
 </mat-card>

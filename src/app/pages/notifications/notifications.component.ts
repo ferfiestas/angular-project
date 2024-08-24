@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+
 import { NotificationService, Notification } from '../../services/notification.service';
 import { NotificationDialogComponent } from '../notifications/notification-dialog/notification-dialog.component';
 
@@ -24,8 +25,13 @@ export class NotificationsComponent implements OnInit {
   }
 
   openNotification(notification: Notification): void {
+    const width = this.getDialogWidth();
+
     const dialogRef = this.dialog.open(NotificationDialogComponent, {
-      width: '400px',
+      width: width,
+      height: 'auto',
+      maxWidth: '100vw', // Asegura que no se desborde en pantallas pequeñas
+      maxHeight: '100vh', // Asegura que no se desborde en pantallas pequeñas
       data: notification
     });
 
@@ -36,5 +42,23 @@ export class NotificationsComponent implements OnInit {
         });
       }
     });
+  }
+
+  getDialogWidth(): string {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth > 1080) {
+      return '600px';
+    } else if (screenWidth > 800) {
+      return '500px';
+    } else if (screenWidth > 500) {
+      return '300px';
+    } else if (screenWidth > 400) {
+      return '230px';
+    } else if (screenWidth > 300) {
+      return '180px';
+    } else {
+      return '100px';
+    }
   }
 }

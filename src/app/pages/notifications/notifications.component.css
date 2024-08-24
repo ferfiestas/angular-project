@@ -1,5 +1,10 @@
 .notifications-container {
     padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center; /* Centra verticalmente si el contenedor es más alto que el contenido */
 }
 
 .unread {
@@ -9,29 +14,188 @@
 .notification-subject {
     font-weight: bold;
     cursor: pointer;
+    word-wrap: break-word;
 }
 
-mat-card-title {
-    text-align: center;
-}
-
-mat-list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #e0e0e0;
-    transition: background-color 0.3s ease;
-}
-
-mat-list-item:hover {
-    background-color: #f5f5f5;
+.notification-body {
+    font-size: 1rem; /* Tamaño de fuente predeterminado para pantallas grandes */
+    word-wrap: break-word; /* Asegura que el texto se ajuste al contenedor */
 }
 
 mat-card {
+    width: 100%;
+    max-width: 600px; /* Limita el ancho máximo del card */
     margin-bottom: 20px;
-    background: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(105, 158, 250, 0.822); /* Sombra sutil */
+    margin: 0 auto; /* Centra el card horizontalmente */
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(105, 158, 250, 0.822);
 }
 
+/* Pantallas grandes (mayor a 1080px) */
+@media (min-width: 1081px) {
+    .notifications-container {
+        padding: 20px;
+    }
+
+    mat-card-title {
+        font-size: 1.5rem;
+    }
+
+    mat-list-item {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .notification-subject {
+        font-size: 1.2rem;
+    }
+
+    .notification-body {
+        font-size: 0.9rem; /* Se mantiene en 1rem para pantallas grandes */
+    }
+}
+
+/* Pantallas medianas (hasta 1080px) */
+@media (max-width: 1080px) {
+    .notifications-container {
+        padding: 15px;
+    }
+
+    mat-card-title {
+        font-size: 1.3rem;
+    }
+
+    mat-list-item {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .notification-subject {
+        font-size: 1.1rem;
+    }
+
+    .notification-body {
+        font-size: 0.9rem; /* Ajusta la fuente ligeramente */
+    }
+}
+
+/* Pantallas pequeñas (hasta 800px) */
+@media (max-width: 800px) {
+    .notifications-container {
+        padding: 10px;
+        justify-content: center;
+    }
+
+    mat-card {
+        max-width: 76%;
+        margin: 0 auto;
+    }
+
+    mat-card-title {
+        font-size: 1.1rem;
+    }
+
+    mat-list-item {
+        padding: 6px;
+        font-size: 0.85rem;
+    }
+
+    .notification-subject {
+        font-size: 1rem;
+    }
+
+    .notification-body {
+        font-size: 0.80rem; /* Ajusta el tamaño de la fuente al reducirse el card */
+    }
+}
+
+/* Pantallas muy pequeñas (hasta 500px) */
+@media (max-width: 500px) {
+    .notifications-container {
+        padding: 5px;
+        justify-content: center;
+    }
+
+    mat-card {
+        max-width: 60%;
+        margin: 0 auto;
+    }
+
+    mat-card-title {
+        font-size: 1rem;
+    }
+
+    mat-list-item {
+        padding: 5px;
+        font-size: 0.8rem;
+    }
+
+    .notification-subject {
+        font-size: 0.95rem;
+    }
+
+    .notification-body {
+        font-size: 0.70rem; /* Fuente más pequeña para pantallas pequeñas */
+    }
+}
+
+/* Pantallas más pequeñas (hasta 400px) */
+@media (max-width: 400px) {
+    .notifications-container {
+        padding: 5px;
+        justify-content: center;
+    }
+
+    mat-card {
+        max-width: 45%;
+        margin: 0 auto;
+    }
+
+    mat-card-title {
+        font-size: 0.9rem;
+    }
+
+    mat-list-item {
+        padding: 4px;
+        font-size: 0.75rem;
+    }
+
+    .notification-subject {
+        font-size: 0.85rem;
+    }
+
+    .notification-body {
+        font-size: 0.7rem; /* Aún más pequeño para pantallas menores */
+    }
+}
+
+/* Pantallas demasiado pequeñas (hasta 300px) */
+@media (max-width: 300px) {
+    .notifications-container {
+        padding: 2px;
+        justify-content: center;
+    }
+
+    mat-card {
+        max-width: 35%;
+        margin: 0 auto;
+    }
+
+    mat-card-title {
+        font-size: 0.8rem;
+    }
+
+    mat-list-item {
+        padding: 3px;
+        font-size: 0.7rem;
+    }
+
+    .notification-subject {
+        font-size: 0.8rem;
+    }
+
+    .notification-body {
+        font-size: 0.6rem; /* Tamaño de fuente reducido al mínimo para pantallas muy pequeñas */
+    }
+}
