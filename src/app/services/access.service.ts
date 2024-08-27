@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 
 import { appsettings } from '../components/api/appsetting';
-import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { responseAccess } from '../components/interfaces/responseaccess';
 import { user } from '../components/interfaces/user';
 import { AuthStatus } from '../components/interfaces/auth-status.enum';
+import { IdleService } from './idle.service'; // Importa el IdleService
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ import { AuthStatus } from '../components/interfaces/auth-status.enum';
 export class AccessService {
 
   private http = inject(HttpClient);
-  private router = inject(Router);  // Inyecta Router
+  private router = inject(Router);
+  private idleService = inject(IdleService); // Inyecta IdleService
   private readonly baseUrl: string = appsettings.apiUrl;
 
   private _currentUser = signal<user | null>(null);
@@ -38,6 +40,9 @@ export class AccessService {
     localStorage.setItem('idEmpleado', user.idEmpleado.toString());
     localStorage.setItem('usuario1', user.usuario1.toString());
     localStorage.setItem('idUsuario', user.idUsuario.toString());
+
+    // Inicia el temporizador de inactividad
+    this.idleService.startWatching();
 
     return true;
   }
@@ -85,7 +90,6 @@ export class AccessService {
       login: false
     };
 
-    // Set the user and authentication status based on local storage data
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
 
@@ -93,6 +97,9 @@ export class AccessService {
   }
 
   logout() {
+    // Detiene el temporizador de inactividad
+    this.idleService.stopWatching();
+
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
     localStorage.removeItem('idPersona');
