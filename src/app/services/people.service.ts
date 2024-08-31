@@ -28,6 +28,7 @@ export class PeopleService {
   private areasList: any[] = [];
   private puestosList: any[] = [];
   private cuadrantesList: any[] = [];
+  private divisionesList: any[] = [];
 
   constructor(private http: HttpClient) {
     this.loadDependencias();
@@ -38,6 +39,7 @@ export class PeopleService {
     this.loadAreas();
     this.loadPuestos();
     this.loadCuadrantes();
+    this.loadDivisiones();
   }
 
   private loadDependencias(): void {
@@ -74,7 +76,7 @@ export class PeopleService {
   private loadAreas(): void {
     this.http.get<any[]>(`${this.apiUrl}/api/area`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadAreas', []))
-    ).subscribe(area => this.areasList = area);
+    ).subscribe(areaClave => this.areasList = areaClave);
   }
 
   private loadPuestos(): void {
@@ -87,6 +89,12 @@ export class PeopleService {
     this.http.get<any[]>(`${this.apiUrl}/api/cuadrante`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadCuadrantes', []))
     ).subscribe(cuadrante => this.cuadrantesList = cuadrante);
+  }
+
+  private loadDivisiones(): void {
+    this.http.get<any[]>(`${this.apiUrl}/api/divisione`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadDivisiones', []))
+    ).subscribe(division => this.divisionesList = division);
   }
 
   // Métodos públicos para obtener las listas de dependencias y estudios
@@ -120,6 +128,10 @@ export class PeopleService {
 
   getCuadrantes(): Observable<any[]> {
     return of(this.cuadrantesList);
+  }
+
+  getDivisiones(): Observable<any[]> {
+    return of(this.divisionesList);
   }
 
   searchPersonByRFC(rfc: string): Observable<any> {
@@ -248,15 +260,13 @@ export class PeopleService {
     return this.http.get(`${this.apiUrl}/api/empleado/${id}`, this.httpOptions).pipe(
       map((work: any) => {
         const contratacion = this.contratosList.find(c => c.descripcion === work.contratacion);
-        const area = this.areasList.find(a => a.clave === work.area);
+        const areaClave = this.areasList.find(a => a.clave === work.areaClave);
         const puesto = this.puestosList.find(p => p.nombre === work.puesto);
-        const cuadrante = this.cuadrantesList.find(c => c.descripcion === work.idCuadrante);
         return {
           ...work,
           idTipoContratacion: contratacion ? contratacion.idTipoContratacion : null,
-          idArea: area ? area.idArea : null,
+          idArea: areaClave ? areaClave.idArea : null,
           idPuesto: puesto ? puesto.idPuesto : null,
-          idCuadrante: cuadrante ? cuadrante.idCuadrante : null
         };
       }),
       catchError(this.handleError<any>('getWorkById', {}))
@@ -274,10 +284,14 @@ export class PeopleService {
       map((workdomicilio: any) => {
         const estado = this.estadosList.find(e => e.descripcion === workdomicilio.estado);
         const municipio = this.municipiosList.find(m => m.nombre === workdomicilio.municipio);
+        const cuadrante = this.cuadrantesList.find(c => c.descripcion === workdomicilio.cuadrante);
+        const division = this.divisionesList.find(d => d.descripcion === workdomicilio.division);
         return {
           ...workdomicilio,
           idEstado: estado ? estado.idEstado : null,
-          idMunicipio: municipio ? municipio.idMunicipio : null
+          idMunicipio: municipio ? municipio.idMunicipio : null,
+          idCuadrante: cuadrante ? cuadrante.idCuadrante : null,
+          idDivision: division ? division.idDivision : null,
         };
       }),
       catchError(this.handleError<any>('getWorkAddressById', {}))
@@ -346,7 +360,6 @@ export class PeopleService {
       idTipoContratacion: data.idTipoContratacion,
       idArea: data.idArea,
       idPuesto: data.idPuesto,
-      idCuadrante: data.idCuadrante,
       sueldoNeto: data.sueldoNeto,
       sueldoBruto: data.sueldoBruto,
       fechaContratacion: data.fechaContratacion
@@ -368,6 +381,8 @@ export class PeopleService {
       idEmpleado: data.idEmpleado,
       idEstado: data.idEstado,
       idMunicipio: data.idMunicipio,
+      idCuadrante: data.idCuadrante,
+      idDivision: data.idDivision,
       domicilio: data.domicilio
     };
 

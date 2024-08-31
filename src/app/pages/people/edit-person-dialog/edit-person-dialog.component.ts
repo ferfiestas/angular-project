@@ -33,6 +33,7 @@ export class EditPersonDialogComponent implements OnInit {
   areas: any[] = [];
   puestos: any[] = [];
   cuadrantes: any[] = [];
+  divisiones: any[] = [];
 
   // FormControls for the search filters
   dependenciaFilterCtrl: FormControl = new FormControl();
@@ -43,6 +44,7 @@ export class EditPersonDialogComponent implements OnInit {
   areaFilterCtrl: FormControl = new FormControl();
   puestoFilterCtrl: FormControl = new FormControl();
   cuadranteFilterCtrl: FormControl = new FormControl();
+  divisionFilterCtrl: FormControl = new FormControl();
 
   // Filtered lists
   filteredDependencias: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
@@ -53,6 +55,7 @@ export class EditPersonDialogComponent implements OnInit {
   filteredAreas: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   filteredPuestos: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   filteredCuadrantes: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredDivisiones: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 
   private onDestroy = new Subject<void>();
 
@@ -137,7 +140,6 @@ export class EditPersonDialogComponent implements OnInit {
         idTipoContratacion: [''],
         idArea: [''],
         idPuesto: [''],
-        idCuadrante: [''],
         sueldoNeto: [''],
         sueldoBruto: [''],
         fechaContratacion: ['']
@@ -148,12 +150,14 @@ export class EditPersonDialogComponent implements OnInit {
         idEmpleado: [''],
         idEstado: [''],
         idMunicipio: [''],
+        idCuadrante: [''],
+        idDivision: [''],
         domicilio: ['']
       });
 
       this.loadDependenciesAndStudies();
       this.loadEstadosAndMunicipios();
-      this.loadContratosAreasCuadrantesAndPuestos();
+      this.loadContratosAreasCuadrantesPuestosAndDivisiones();
       this.loadPersonData(idPersonaUsuario);
     }
 
@@ -207,6 +211,12 @@ export class EditPersonDialogComponent implements OnInit {
       .pipe(takeUntil(this.onDestroy))
       .subscribe(() => {
         this.filterCuadrantes();
+      });
+
+      this.divisionFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterDivisiones();
       });
   }
 
@@ -278,7 +288,7 @@ export class EditPersonDialogComponent implements OnInit {
     }
     search = search.toLowerCase();
     this.filteredAreas.next(
-      this.areas.filter(area => area.clave.toLowerCase().indexOf(search) > -1)
+      this.areas.filter(areaClave => areaClave.clave.toLowerCase().indexOf(search) > -1)
     );
   }
 
@@ -306,6 +316,18 @@ export class EditPersonDialogComponent implements OnInit {
     );
   }
 
+    filterDivisiones(): void {
+      let search = this.divisionFilterCtrl.value;
+      if (!search) {
+        this.filteredDivisiones.next(this.divisiones.slice());
+        return;
+      }
+      search = search.toLowerCase();
+      this.filteredDivisiones.next(
+        this.divisiones.filter(division => division.descripcion.toLowerCase().indexOf(search) > -1)
+      );
+  }
+
   loadDependenciesAndStudies(): void {
     this.peopleService.getDependencias().subscribe(dependencias => {
       this.dependencias = dependencias;
@@ -330,7 +352,7 @@ export class EditPersonDialogComponent implements OnInit {
     });
   }
 
-  loadContratosAreasCuadrantesAndPuestos(): void {
+  loadContratosAreasCuadrantesPuestosAndDivisiones(): void {
     this.peopleService.getContratos().subscribe(contratos => {
       this.contratos = contratos;
       this.filteredContratos.next(this.contratos.slice());
@@ -349,6 +371,11 @@ export class EditPersonDialogComponent implements OnInit {
     this.peopleService.getCuadrantes().subscribe(cuadrantes => {
       this.cuadrantes = cuadrantes;
       this.filteredCuadrantes.next(this.cuadrantes.slice());
+    });
+
+    this.peopleService.getDivisiones().subscribe(divisiones => {
+      this.divisiones = divisiones;
+      this.filteredDivisiones.next(this.divisiones.slice());
     });
   }
 
@@ -405,7 +432,7 @@ export class EditPersonDialogComponent implements OnInit {
 
       this.peopleService.getAreas().subscribe(areas => {
         this.areas = areas;
-        const selectedAreas = this.areas.find(a => a.clave === data.area);
+        const selectedAreas = this.areas.find(a => a.clave === data.areaClave);
         if (selectedAreas) {
           this.workInfoForm.get('idArea')!.setValue(selectedAreas.idArea);
         }
@@ -419,18 +446,26 @@ export class EditPersonDialogComponent implements OnInit {
         }
       });
 
-      this.peopleService.getCuadrantes().subscribe(cuadrantes => {
-        this.cuadrantes = cuadrantes;
-        const selectedCuadrantes = this.cuadrantes.find(c => c.descripcion === data.idCuadrante);
-        if (selectedCuadrantes) {
-          this.workInfoForm.get('idCuadrante')!.setValue(selectedCuadrantes.idCuadrante);
-        }
-      });
-
     });
 
     this.peopleService.getWorkAddress(idPersona).subscribe(data => {
       this.workAddressForm.patchValue(data);
+      this.peopleService.getCuadrantes().subscribe(cuadrantes => {
+        this.cuadrantes = cuadrantes;
+        const selectedCuadrantes = this.cuadrantes.find(c => c.descripcion === data.cuadrante);
+        if (selectedCuadrantes) {
+          this.workAddressForm.get('idCuadrante')!.setValue(selectedCuadrantes.idCuadrante);
+        }
+      });
+
+      this.peopleService.getDivisiones().subscribe(divisiones => {
+        this.divisiones = divisiones;
+        const selectedDivisiones = this.divisiones.find(d => d.descripcion === data.division);
+        if (selectedDivisiones) {
+          this.workAddressForm.get('idDivision')!.setValue(selectedDivisiones.idDivision);
+        }
+      });
+
     });
   }
 

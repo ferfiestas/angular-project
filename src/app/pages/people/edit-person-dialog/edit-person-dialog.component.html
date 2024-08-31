@@ -184,18 +184,6 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>CUADRANTE</mat-label>
-                <mat-select formControlName="idCuadrante">
-                    <mat-option>
-                        <ngx-mat-select-search [formControl]="cuadranteFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option *ngFor="let idCuadrante of filteredCuadrantes | async" [value]="idCuadrante.idCuadrante">
-                        {{ idCuadrante.descripcion }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
             <mat-form-field appearance="fill" *ngIf="userRole !== 3">
                 <mat-label>SUELDO NETO</mat-label>
                 <textarea matInput formControlName="sueldoNeto" type="number"></textarea>
@@ -247,6 +235,30 @@
                     </mat-option>
                     <mat-option *ngFor="let municipio of filteredMunicipios | async" [value]="municipio.idMunicipio">
                         {{ municipio.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>CUADRANTE</mat-label>
+                <mat-select formControlName="idCuadrante">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="cuadranteFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let idCuadrante of filteredCuadrantes | async" [value]="idCuadrante.idCuadrante">
+                        {{ idCuadrante.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>DIVISION</mat-label>
+                <mat-select formControlName="idDivision">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="divisionFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let idDivision of filteredDivisiones | async" [value]="idDivision.idDivision">
+                        {{ idDivision.descripcion }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
