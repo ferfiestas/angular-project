@@ -251,7 +251,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
                 <mat-label>DIVISION</mat-label>
                 <mat-select formControlName="idDivision">
                     <mat-option>
