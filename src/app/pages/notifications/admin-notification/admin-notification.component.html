@@ -4,7 +4,7 @@
       <mat-card-title>Administrar Notificaciones</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form (ngSubmit)="createNotification()">
+      <form (ngSubmit)="createNotification()" class="notification-form">
         <mat-form-field appearance="outline">
           <mat-label>Asunto</mat-label>
           <input matInput [(ngModel)]="newNotification.subject" name="subject" required>
@@ -13,20 +13,21 @@
           <mat-label>Cuerpo</mat-label>
           <textarea matInput [(ngModel)]="newNotification.body" name="description" required></textarea>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Crear Notificación</button>
+        <button mat-raised-button color="primary" type="submit" class="submit-button">Crear Notificación</button>
       </form>
     </mat-card-content>
   </mat-card>
+</div>
 
+<div class="existing-notifications-container">
   <mat-card>
     <mat-card-title>Notificaciones Existentes</mat-card-title>
-    <mat-card-content>
+    <mat-card-content class="notifications-list">
       <mat-list>
         <mat-list-item *ngFor="let notification of notifications">
           <div class="notification-content">
-            <div>
+            <div class="notification-subject">
               <p class="subject">{{ notification.subject }}</p>
-              <p class="body">{{ notification.body }}</p>
             </div>
             <div class="actions">
               <button mat-icon-button color="warn" (click)="deleteNotification(notification.id)" class="delete-button">
@@ -38,3 +39,4 @@
       </mat-list>
     </mat-card-content>
   </mat-card>
+</div>

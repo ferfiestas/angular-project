@@ -1,24 +1,38 @@
-
 .admin-notification-container {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
 }
 
-mat-card-title {
-    text-align: center;
+.notification-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.submit-button {
+    align-self: center;
+    width: 100%;
+}
+
+.existing-notifications-container {
+    padding: 20px;
+    width: 100%;
 }
 
 mat-card {
     margin-bottom: 20px;
-    background: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(105, 158, 250, 0.822); /* Sombra sutil */
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(105, 158, 250, 0.822);
+    width: 100%;
 }
 
-mat-form-field {
-    width: 100%;
-    margin-bottom: 2px;
+.notifications-list {
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 mat-list-item {
@@ -26,29 +40,324 @@ mat-list-item {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+    margin-bottom: 10px;
 }
 
-
-
 .notification-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto; /* Asigna el espacio adecuado para el texto y el botón */
+    gap: 10px; /* Espacio entre las columnas */
     width: 100%;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 10px 0;
+}
+
+.notification-subject {
+    display: flex;
+    align-items: center;
+    word-wrap: break-word; /* Permite que el texto del subject se ajuste y haga wrap */
 }
 
 .subject {
     font-weight: bold;
-}
-
-.body {
-    margin-top: 5px; /* Agrega un margen superior para separar el body del subject */
+    white-space: normal;
+    word-wrap: break-word; /* Asegura que el texto se ajuste dentro del contenedor */
 }
 
 .actions {
     display: flex;
     align-items: center;
-    margin-left: 20px; /* Agrega un margen izquierdo para separar las acciones del texto */
+}
+
+.delete-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+}
+
+/* Estilos para Pantallas Grandes (Mayor a 1080px) */
+@media (min-width: 1080px) {
+    .admin-notification-container, .existing-notifications-container {
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .submit-button, .delete-button {
+        width: 100px;
+        height: 40px;
+    }
+
+    .subject {
+        font-size: 16px;
+    }
+}
+
+/* Estilos para Pantallas Medianas (Máximo 1080px) */
+@media (max-width: 1080px) {
+    .admin-notification-container, .existing-notifications-container {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .submit-button, .delete-button {
+        width: 90px;
+        height: 36px;
+    }
+
+    .subject {
+        font-size: 14px;
+    }
+}
+
+/* Estilos para Pantallas Pequeñas (Máximo 800px) */
+@media (max-width: 800px) {
+    .admin-notification-container, .existing-notifications-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 15px; /* Añade un padding para mejorar la presentación */
+    }
+
+    .notification-form {
+        flex-direction: column;
+        gap: 15px; /* Espaciado entre los elementos del formulario */
+    }
+
+    .submit-button {
+        width: 100%; /* Botón ocupa todo el ancho disponible */
+        font-size: 16px; /* Tamaño de fuente aumentado para mejor legibilidad */
+        padding: 12px; /* Padding más cómodo */
+    }
+
+    .delete-button {
+        width: 32px; /* Tamaño del botón de eliminar ajustado */
+        height: 32px;
+        font-size: 16px; /* Tamaño del icono dentro del botón ajustado */
+    }
+
+    .delete-button mat-icon {
+        font-size: 16px; /* Tamaño del icono ajustado */
+    }
+
+    .subject {
+        font-size: 14px; /* Tamaño de fuente ligeramente mayor que en pantallas más pequeñas */
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.3;
+    }
+
+    mat-form-field {
+        font-size: 14px; /* Tamaño de fuente en los campos del formulario */
+        margin-bottom: 12px;
+    }
+
+    mat-card-title {
+        font-size: 18px; /* Tamaño del título de la tarjeta */
+        text-align: center; /* Centrado del título */
+    }
+
+    mat-list-item {
+        padding: 12px 0; /* Espaciado interno */
+        margin-bottom: 12px; /* Espaciado entre elementos */
+        font-size: 14px; /* Tamaño de fuente aumentado */
+        line-height: 1.4; /* Altura de línea */
+        display: grid;
+        grid-template-columns: 1fr 40px; /* Distribución en dos columnas: texto y botón */
+        gap: 10px; /* Espaciado entre columnas */
+        align-items: center; /* Alinea los elementos verticalmente en el centro */
+    }
+
+    .existing-notifications-container mat-card {
+        padding: 15px; /* Espaciado interno en la tarjeta */
+    }
+}
+
+/* Estilos para Pantallas Muy Pequeñas (Máximo 500px) */
+@media (max-width: 500px) {
+    .admin-notification-container, .existing-notifications-container {
+        max-width: 450px;
+        margin: auto;
+        padding: 10px; /* Añade padding para mejorar la presentación */
+    }
+
+    .notification-form {
+        flex-direction: column;
+        gap: 10px; /* Espaciado entre los elementos del formulario */
+    }
+
+    .submit-button {
+        width: 100%; /* Botón ocupa todo el ancho disponible */
+        font-size: 14px; /* Tamaño de fuente para mayor legibilidad */
+        padding: 8px; /* Padding más cómodo */
+    }
+
+    .delete-button {
+        width: 28px; /* Tamaño del botón de eliminar ajustado */
+        height: 28px;
+        font-size: 14px; /* Tamaño del icono dentro del botón ajustado */
+    }
+
+    .delete-button mat-icon {
+        font-size: 16px; /* Tamaño del icono ajustado */
+    }
+
+    .subject {
+        font-size: 12px; /* Tamaño de fuente ligeramente mayor que en pantallas más pequeñas */
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.2;
+    }
+
+    mat-form-field {
+        font-size: 13px; /* Tamaño de fuente en los campos del formulario */
+        margin-bottom: 10px;
+    }
+
+    mat-card-title {
+        font-size: 15px; /* Tamaño del título de la tarjeta */
+        text-align: center; /* Centrado del título */
+    }
+
+    mat-list-item {
+        padding: 10px 0; /* Espaciado interno */
+        margin-bottom: 10px; /* Espaciado entre elementos */
+        font-size: 13px; /* Tamaño de fuente ligeramente mayor */
+        line-height: 1.3; /* Altura de línea */
+        display: grid;
+        grid-template-columns: 1fr 35px; /* Distribución en dos columnas: texto y botón */
+        gap: 10px; /* Espaciado entre columnas */
+        align-items: center; /* Alinea los elementos verticalmente en el centro */
+    }
+
+    .existing-notifications-container mat-card {
+        padding: 12px; /* Espaciado interno en la tarjeta */
+    }
+}
+
+/* Estilos para Pantallas Más Pequeñas (Máximo 400px) */
+@media (max-width: 400px) {
+    .admin-notification-container, .existing-notifications-container {
+        max-width: 300px;
+        margin: auto;
+        padding: 10px;
+    }
+
+    .notification-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .submit-button {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .delete-button {
+        width: 28px; /* Tamaño del botón de eliminar reducido */
+        height: 28px;
+        font-size: 14px; /* Tamaño del icono dentro del botón */
+    }
+
+    .delete-button mat-icon {
+        font-size: 16px;
+    }
+
+    .subject {
+        font-size: 10px; /* Tamaño de fuente reducido */
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.2;
+    }
+
+    mat-form-field {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    mat-card-title {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    mat-list-item {
+        padding: 8px 0;
+        margin-bottom: 8px;
+        font-size: 12px;
+        line-height: 1.4;
+        display: grid;
+        grid-template-columns: 1fr 30px; /* Más espacio para el texto */
+        gap: 8px;
+        align-items: center;
+    }
+
+    .existing-notifications-container mat-card {
+        padding: 12px;
+    }
+}
+
+/* Estilos para Pantallas Demasiado Pequeñas (Máximo 300px) */
+@media (max-width: 300px) {
+    .admin-notification-container, .existing-notifications-container {
+        max-width: 200px;
+        margin: auto;
+        padding: 5px;
+    }
+
+    .notification-form {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .submit-button {
+        width: 100%; /* Ajusta el botón al ancho completo del contenedor */
+        font-size: 10px;
+        padding: 6px; /* Ajusta el padding para mejor visualización */
+    }
+
+    .delete-button {
+        width: 30px; /* Aumenta ligeramente el tamaño del botón para mayor visibilidad */
+        height: 30px;
+        margin-left: 5px; /* Asegura que haya espacio entre el texto y el botón */
+    }
+
+    .delete-button mat-icon {
+        font-size: 18px; /* Aumenta el tamaño del icono dentro del botón */
+    }
+
+    .subject {
+        font-size: 10px;
+        line-height: 1.2;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
+    mat-form-field {
+        font-size: 10px;
+        margin-bottom: 5px;
+    }
+
+    mat-card-title {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    mat-list-item {
+        padding: 5px 0;
+        margin-bottom: 5px;
+        font-size: 9px;
+        line-height: 1.2;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 5px; /* Reduce el espacio entre columnas */
+        align-items: center;
+    }
+
+    .existing-notifications-container mat-card {
+        padding: 10px;
+    }
 }

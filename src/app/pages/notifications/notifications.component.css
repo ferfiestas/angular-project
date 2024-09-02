@@ -88,7 +88,7 @@ mat-card {
     }
 
     mat-card {
-        max-width: 76%;
+        max-width: 420px;
         margin: 0 auto;
     }
 
@@ -118,7 +118,7 @@ mat-card {
     }
 
     mat-card {
-        max-width: 60%;
+        max-width: 320px;
         margin: 0 auto;
     }
 
@@ -148,7 +148,7 @@ mat-card {
     }
 
     mat-card {
-        max-width: 45%;
+        max-width: 220px;
         margin: 0 auto;
     }
 
@@ -178,7 +178,7 @@ mat-card {
     }
 
     mat-card {
-        max-width: 35%;
+        max-width: 150px;
         margin: 0 auto;
     }
 

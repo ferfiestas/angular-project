@@ -23,6 +23,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -84,7 +85,8 @@ import { SafeUrlPipe } from './components/pipes/safe-url.pipe';
     MatTabsModule,
     MatSelectModule,
     YouTubePlayerModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatExpansionModule
   ],
   providers: [AccessService, AttendanceService],
 })
