@@ -319,7 +319,8 @@ export class PeopleService {
       idDependencia: data.idDependencia,
       idEstudio: data.idEstudio,
       estudio: data.estudio,
-      urlImagen: data.urlImagen
+      urlImagen: data.urlImagen,
+      idEstatus: "2"  
     };
 
     // Imprime el objeto updateData en la consola para verificar su contenido
