@@ -77,6 +77,7 @@ export class ProfileService {
           fechaContratacion: response.empleado.fechaContratacion,
           domicilio: response.domicilio.domicilio,
           cuadrante: response.trabajoDomicilio.cuadrante,
+          division: response.trabajoDomicilio.division,
           puesto: response.empleado.puesto,
           area: response.empleado.areaDescripcion,
           municipioTrabajo: response.trabajoDomicilio.municipio,

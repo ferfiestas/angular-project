@@ -30,6 +30,7 @@ export class profileComponent implements OnInit {
       fechaContratacion: [{ value: '', disabled: true }],
       domicilio: [{ value: '', disabled: true }],
       cuadrante: [{ value: '', disabled: true }],
+      division: [{ value: '', disabled: true }],
       puesto: [{ value: '', disabled: true }],
       area: [{ value: '', disabled: true }],
       municipioTrabajo: [{ value: '', disabled: true }],
