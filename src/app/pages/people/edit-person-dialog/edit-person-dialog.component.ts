@@ -148,8 +148,8 @@ export class EditPersonDialogComponent implements OnInit {
       this.workAddressForm = this.fb.group({
         idTrabajoDomicilio: [''],
         idEmpleado: [''],
-        idEstadoTrabajo: [''],
-        idMunicipioTrabajo: [''],
+        idEstado: [''],
+        idMunicipio: [''],
         idCuadrante: [''],
         idDivision: [''],
         domicilio: ['']
@@ -414,7 +414,6 @@ export class EditPersonDialogComponent implements OnInit {
         const selectedMunicipios = this.municipios.find(m => m.nombre === data.municipio);
         if (selectedMunicipios) {
           this.personalAddressForm.get('idMunicipio')!.setValue(selectedMunicipios.idMunicipio);
-          this.workAddressForm.get('idMunicipioTrabajo')!.setValue(selectedMunicipios.idMunicipio);
         }
       });
     });
@@ -461,7 +460,7 @@ export class EditPersonDialogComponent implements OnInit {
         this.estados = estados;
         const selectedEstados = this.estados.find(e => e.descripcion === data.estado);
         if (selectedEstados) {
-          this.workAddressForm.get('idEstadoTrabajo')!.setValue(selectedEstados.idEstado);
+          this.workAddressForm.get('idEstado')!.setValue(selectedEstados.idEstado);
         }
       });
 
@@ -469,7 +468,7 @@ export class EditPersonDialogComponent implements OnInit {
         this.municipios = municipios;
         const selectedMunicipios = this.municipios.find(m => m.nombre === data.municipio);
         if (selectedMunicipios) {
-          this.workAddressForm.get('idMunicipioTrabajo')!.setValue(selectedMunicipios.idMunicipio);
+          this.workAddressForm.get('idMunicipio')!.setValue(selectedMunicipios.idMunicipio);
         }
       });
 
