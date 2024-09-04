@@ -217,7 +217,7 @@
 
             <mat-form-field appearance="fill" *ngIf="userRole !== 3">
                 <mat-label>ESTADO</mat-label>
-                <mat-select formControlName="idEstado">
+                <mat-select formControlName="idEstadoTrabajo">
                     <mat-option>
                         <ngx-mat-select-search [formControl]="estadoFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
@@ -229,7 +229,7 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>MUNICIPIO</mat-label>
-                <mat-select formControlName="idMunicipio">
+                <mat-select formControlName="idMunicipioTrabajo">
                     <mat-option>
                         <ngx-mat-select-search [formControl]="municipioFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
