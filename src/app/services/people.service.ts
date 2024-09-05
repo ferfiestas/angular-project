@@ -29,6 +29,7 @@ export class PeopleService {
   private puestosList: any[] = [];
   private cuadrantesList: any[] = [];
   private divisionesList: any[] = [];
+  private estatusList: any[] = [];
 
   constructor(private http: HttpClient) {
     this.loadDependencias();
@@ -40,6 +41,7 @@ export class PeopleService {
     this.loadPuestos();
     this.loadCuadrantes();
     this.loadDivisiones();
+    this.loadEstatus();
   }
 
   private loadDependencias(): void {
@@ -97,7 +99,13 @@ export class PeopleService {
     ).subscribe(division => this.divisionesList = division);
   }
 
-  // Métodos públicos para obtener las listas de dependencias y estudios
+  private loadEstatus(): void {
+    this.http.get<any[]>(`${this.apiUrl}/api/estatus`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadEstatus', []))
+    ).subscribe(estatus => this.estatusList = estatus);
+  }
+
+  // Métodos públicos para obtener las listas
   getDependencias(): Observable<any[]> {
     return of(this.dependenciaList);
   }
@@ -132,6 +140,10 @@ export class PeopleService {
 
   getDivisiones(): Observable<any[]> {
     return of(this.divisionesList);
+  }
+
+  getEstatus(): Observable<any[]> {
+    return of(this.estatusList);
   }
 
   searchPersonByRFC(rfc: string): Observable<any> {
@@ -219,10 +231,12 @@ export class PeopleService {
       map((persona: any) => {
         const dependencia = this.dependenciaList.find(d => d.descripcion === persona.dependencia);
         const gradoEstudio = this.estudioList.find(e => e.descripcion === persona.gradoEstudio);
+        const estatus = this.estatusList.find(estatus => estatus.descripcion === persona.estatus);
         return {
           ...persona,
           idDependencia: dependencia ? dependencia.idDependencia : null,
-          idEstudio: gradoEstudio ? gradoEstudio.idEstudio : null
+          idEstudio: gradoEstudio ? gradoEstudio.idEstudio : null,
+          idEstatus: estatus ? estatus.idEstatus : null
         };
       }),
       catchError(this.handleError<any>('getPersonById', {}))
@@ -304,6 +318,33 @@ export class PeopleService {
     );
   }
 
+  updatePersonalInfoValidator(data: any): Observable<any> {
+    console.log('data:', data);  // Verifica el contenido de data
+
+    const updateData = {
+      idPersona: data.idPersona,
+      nombreCompleto: data.nombreCompleto,
+      rfc: data.rfc,
+      curp: data.curp,
+      referencia: data.referencia,
+      telefono: data.telefono,
+      telEmergencia: data.telEmergencia,
+      email: data.email,
+      idDependencia: data.idDependencia,
+      idEstudio: data.idEstudio,
+      estudio: data.estudio,
+      idEstatus: "2",
+      urlImagen: data.urlImagen
+    };
+
+    // Imprime el objeto updateData en la consola para verificar su contenido
+    console.log('updateData:', updateData);
+
+    return this.http.put(`${this.apiUrl}/api/persona`, updateData, this.httpOptions).pipe(
+      catchError(this.handleError<any>('updatePersonalInfo'))
+    );
+  }
+
   updatePersonalInfo(data: any): Observable<any> {
     console.log('data:', data);  // Verifica el contenido de data
 
@@ -319,8 +360,8 @@ export class PeopleService {
       idDependencia: data.idDependencia,
       idEstudio: data.idEstudio,
       estudio: data.estudio,
-      urlImagen: data.urlImagen,
-      idEstatus: "2"  
+      idEstatus: data.idEstatus,
+      urlImagen: data.urlImagen
     };
 
     // Imprime el objeto updateData en la consola para verificar su contenido

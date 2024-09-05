@@ -71,6 +71,18 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>ESTATUS</mat-label>
+                <mat-select formControlName="idEstatus">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="estatusFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let estatus of filteredEstatus | async" [value]="estatus.idEstatus">
+                        {{ estatus.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
                 <mat-label>URL IMAGEN</mat-label>
                 <textarea matInput formControlName="urlImagen"></textarea>
             </mat-form-field>

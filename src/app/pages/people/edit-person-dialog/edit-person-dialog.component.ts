@@ -34,6 +34,7 @@ export class EditPersonDialogComponent implements OnInit {
   puestos: any[] = [];
   cuadrantes: any[] = [];
   divisiones: any[] = [];
+  estatus: any[] = [];
 
   // FormControls for the search filters
   dependenciaFilterCtrl: FormControl = new FormControl();
@@ -45,6 +46,7 @@ export class EditPersonDialogComponent implements OnInit {
   puestoFilterCtrl: FormControl = new FormControl();
   cuadranteFilterCtrl: FormControl = new FormControl();
   divisionFilterCtrl: FormControl = new FormControl();
+  estatusFilterCtrl: FormControl = new FormControl();
 
   // Filtered lists
   filteredDependencias: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
@@ -56,6 +58,7 @@ export class EditPersonDialogComponent implements OnInit {
   filteredPuestos: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   filteredCuadrantes: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   filteredDivisiones: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredEstatus: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 
   private onDestroy = new Subject<void>();
 
@@ -121,6 +124,7 @@ export class EditPersonDialogComponent implements OnInit {
         idDependencia: [''],
         idEstudio: [''],
         estudio: [''],
+        idEstatus: [''],
         urlImagen: ['']
       });
 
@@ -155,7 +159,7 @@ export class EditPersonDialogComponent implements OnInit {
         domicilio: ['']
       });
 
-      this.loadDependenciesAndStudies();
+      this.loadDependenciesStudiesAndStatus();
       this.loadEstadosAndMunicipios();
       this.loadContratosAreasCuadrantesPuestosAndDivisiones();
       this.loadPersonData(idPersonaUsuario);
@@ -213,10 +217,16 @@ export class EditPersonDialogComponent implements OnInit {
         this.filterCuadrantes();
       });
 
-      this.divisionFilterCtrl.valueChanges
+    this.divisionFilterCtrl.valueChanges
       .pipe(takeUntil(this.onDestroy))
       .subscribe(() => {
         this.filterDivisiones();
+      });
+
+    this.estatusFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterEstatus();
       });
   }
 
@@ -316,19 +326,31 @@ export class EditPersonDialogComponent implements OnInit {
     );
   }
 
-    filterDivisiones(): void {
-      let search = this.divisionFilterCtrl.value;
-      if (!search) {
-        this.filteredDivisiones.next(this.divisiones.slice());
-        return;
-      }
-      search = search.toLowerCase();
-      this.filteredDivisiones.next(
-        this.divisiones.filter(division => division.descripcion.toLowerCase().indexOf(search) > -1)
-      );
+  filterDivisiones(): void {
+    let search = this.divisionFilterCtrl.value;
+    if (!search) {
+      this.filteredDivisiones.next(this.divisiones.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredDivisiones.next(
+      this.divisiones.filter(division => division.descripcion.toLowerCase().indexOf(search) > -1)
+    );
   }
 
-  loadDependenciesAndStudies(): void {
+  filterEstatus(): void {
+    let search = this.estatusFilterCtrl.value;
+    if (!search) {
+      this.filteredEstatus.next(this.estatus.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredEstatus.next(
+      this.estatus.filter(estatus => estatus.descripcion.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  loadDependenciesStudiesAndStatus(): void {
     this.peopleService.getDependencias().subscribe(dependencias => {
       this.dependencias = dependencias;
       this.filteredDependencias.next(this.dependencias.slice());
@@ -337,6 +359,11 @@ export class EditPersonDialogComponent implements OnInit {
     this.peopleService.getEstudios().subscribe(estudios => {
       this.estudios = estudios;
       this.filteredEstudios.next(this.estudios.slice());
+    });
+
+    this.peopleService.getEstatus().subscribe(estatus => {
+      this.estatus = estatus;
+      this.filteredEstatus.next(this.estatus.slice());
     });
   }
 
@@ -395,6 +422,14 @@ export class EditPersonDialogComponent implements OnInit {
         const selectedEstudio = this.estudios.find(e => e.descripcion === data.gradoEstudio);
         if (selectedEstudio) {
           this.personalInfoForm.get('idEstudio')!.setValue(selectedEstudio.idEstudio);
+        }
+      });
+
+      this.peopleService.getEstatus().subscribe(estatus => {
+        this.estatus = estatus;
+        const selectedEstatus = this.estatus.find(estatus => estatus.descripcion === data.estatus);
+        if (selectedEstatus) {
+          this.personalInfoForm.get('idEstatus')!.setValue(selectedEstatus.idEstatus);
         }
       });
     });
@@ -485,43 +520,75 @@ export class EditPersonDialogComponent implements OnInit {
 
   savePersonalInfo(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
+    const userRole = localStorage.getItem('userRole');
+  
     if (idPersonaUsuario) {
       const formData = this.personalInfoForm.value;
       formData.idPersona = idPersonaUsuario;
-
-      this.peopleService.updatePersonalInfo(formData).subscribe(
-        _response => {
-          Swal.fire({
-            title: 'Éxito',
-            text: 'Información personal guardada exitosamente.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-          });
-        },
-        error => {
-          console.error('Error al guardar información personal:', error);
-          if (error.status === 400 && error.error.errors) {
-            const errorMessages = Object.values(error.error.errors).flat().join('\n');
+  
+      if (userRole === '3') {
+        // Llama a la función con idEstatus fijo a "2"
+        this.peopleService.updatePersonalInfoValidator(formData).subscribe(
+          _response => {
             Swal.fire({
-              title: 'Errores de validación',
-              text: errorMessages,
-              icon: 'warning',
+              title: 'Éxito',
+              text: 'Información personal guardada exitosamente.',
+              icon: 'success',
               confirmButtonText: 'OK'
             });
-          } else {
-            Swal.fire({
-              title: 'Error',
-              text: 'Error al guardar información personal. Por favor, intenta nuevamente.',
-              icon: 'error',
-              confirmButtonText: 'OK'
-            });
+          },
+          error => {
+            this.handleSaveError(error);
           }
-        }
-      );
+        );
+      } else if (userRole === '1' || userRole === '2') {
+        // Llama a la función con idEstatus variable
+        this.peopleService.updatePersonalInfo(formData).subscribe(
+          _response => {
+            Swal.fire({
+              title: 'Éxito',
+              text: 'Información personal guardada exitosamente.',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            });
+          },
+          error => {
+            this.handleSaveError(error);
+          }
+        );
+      } else {
+        // Si no es 1, 2 o 3, muestra un mensaje y no procede
+        Swal.fire({
+          title: 'Acción no permitida',
+          text: 'No tienes permisos para realizar esta acción.',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+        });
+      }
     } else {
       Swal.fire({
         title: 'Error',
         text: 'ID de Persona no encontrado en el almacenamiento local.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
+  
+  private handleSaveError(error: any): void {
+    console.error('Error al guardar información personal:', error);
+    if (error.status === 400 && error.error.errors) {
+      const errorMessages = Object.values(error.error.errors).flat().join('\n');
+      Swal.fire({
+        title: 'Errores de validación',
+        text: errorMessages,
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Error al guardar información personal. Por favor, intenta nuevamente.',
         icon: 'error',
         confirmButtonText: 'OK'
       });
