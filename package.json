@@ -23,12 +23,16 @@
     "@angular/router": "^18.2.0",
     "@angular/youtube-player": "^18.2.0",
     "bootstrap": "^5.3.3",
+    "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
+    "file-saver-esm": "^1.0.1",
+    "micromatch": "^4.0.8",
     "ngx-mat-select-search": "^7.0.6",
     "rxjs": "~7.8.0",
+    "sep": "file:",
     "sweetalert2": "^11.6.13",
     "tslib": "^2.3.0",
-    "xlsx": "^0.18.5",
+    "webpack": "^5.94.0",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
