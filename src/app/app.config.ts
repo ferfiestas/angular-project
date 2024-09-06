@@ -42,6 +42,7 @@ import { MessageDialogComponent } from './pages/checkin/message-dialog/message-d
 import { ChangePasswordComponent } from './pages/settings/change-password/change-password.component';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { SafeUrlPipe } from './components/pipes/safe-url.pipe';
+import { ValidationReportComponent } from './pages/reports/validation-report/validation-report.component';
 
 
 
@@ -61,7 +62,8 @@ import { SafeUrlPipe } from './components/pipes/safe-url.pipe';
     MessageDialogComponent,
     ChangePasswordComponent,
     CoursesComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    ValidationReportComponent
   ],
   imports: [
     BrowserModule,

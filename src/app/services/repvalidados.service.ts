@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+
+import { appsettings } from '../components/api/appsetting';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class RepvalidadosService {
+  private readonly baseUrl: string = appsettings.apiUrl;
+
+  constructor(private http: HttpClient) {}
+
+  getRepValidados(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl}/api/repvalidados`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(url, { headers });
+  }
+}

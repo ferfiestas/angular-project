@@ -77,6 +77,12 @@ export const navbarData: INavbarData[] = [
             Label: 'Asistencias',
             icon: 'fal fa-check-square',
             allowedRoles: [1, 2, 5],
+          },
+          {
+            routeLink: 'validations',
+            Label: 'Validaciones',
+            icon: 'fal fa-list-ol',
+            allowedRoles: [1, 2, 5],
           }
         ]
       },

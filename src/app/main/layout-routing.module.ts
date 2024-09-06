@@ -14,6 +14,7 @@ import { TickerAdminComponent } from '../pages/notifications/ticker-admin/ticker
 import { AdminNotificationComponent } from '../pages/notifications/admin-notification/admin-notification.component';
 import { NotificationsComponent } from '../pages/notifications/notifications.component';
 import { RoleGuard } from '../components/guards/role.guard';
+import { ValidationReportComponent } from '../pages/reports/validation-report/validation-report.component';
 
 
 
@@ -33,6 +34,7 @@ const routes: Routes = [
       {path: 'holidays', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: HolidaysComponent},
       {path: 'unusualities', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 5] }, component: unusualitiesComponent},
       {path: 'attendance', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 5] }, component: AttendanceComponent},
+      {path: 'validations', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 5] }, component: ValidationReportComponent},
       {path: 'passwordreset', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: passwordComponent},
 
     ]
