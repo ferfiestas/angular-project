@@ -16,7 +16,7 @@
             "outputPath": "dist/sep",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "allowedCommonJsDependencies": ["sweetalert2", "file-saver"],
+            "allowedCommonJsDependencies": ["sweetalert2", "file-saver", "exceljs"],
             "polyfills": [
               "zone.js"
             ],
