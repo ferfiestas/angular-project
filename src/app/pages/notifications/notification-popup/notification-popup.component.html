@@ -1,0 +1,6 @@
+<div *ngIf="showPopup" class="popup-overlay">
+    <div class="popup-content">
+        <img [src]="imageUrl" alt="Notificación">
+        <button (click)="closePopup()">Cerrar</button>
+    </div>
+</div>
