@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 import { AccessService } from '../../services/access.service';
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 
 @Component({
@@ -19,13 +20,14 @@ import { AccessService } from '../../services/access.service';
   standalone: true,
   imports: [MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatToolbarModule, ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']  // Nota: styleUrl debe ser styleUrls
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 
   private accessService = inject(AccessService);
   private formBuild = inject(FormBuilder);
   private router = inject(Router);
+  private popupNotificationService = inject(PopupNotificationService); // Inyectamos el servicio de notificación
 
   public formLogin: FormGroup = this.formBuild.group({
     usuario1: ['', [Validators.required]],
@@ -47,11 +49,25 @@ export class LoginComponent {
   
     this.accessService.login(usuario1, password)
       .subscribe({
-        
+        next: () => {
+          // Lógica para el caso de éxito
+          this.router.navigate(['/main']); // Redirige al usuario después de un login exitoso
+
+          // Verificar si se debe mostrar el pop-up de notificación
+          if (this.popupNotificationService.shouldShowNotification()) {
+            Swal.fire({
+              title: '¡Aviso importante!',
+              text: 'Compañero, recuerda que el próximo 16 de septiembre no pasaremos lista! Disfruta tu día feriado en conmemoración del inicio de nuestra Independencia. Felices fiestas patrias!!',
+              imageUrl: this.popupNotificationService.getNotificationImageUrl(),
+              imageHeight: 200,
+              imageAlt: 'Notificación de Feriado',
+              confirmButtonText: 'Aceptar'
+            });
+          }
+        },
         error: (message) => {
           Swal.fire('Error', message, 'error');
         }
       });
   }
-
 }
