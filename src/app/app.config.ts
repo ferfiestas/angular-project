@@ -4,7 +4,7 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -43,6 +43,7 @@ import { ChangePasswordComponent } from './pages/settings/change-password/change
 import { CoursesComponent } from './pages/courses/courses.component';
 import { SafeUrlPipe } from './components/pipes/safe-url.pipe';
 import { ValidationReportComponent } from './pages/reports/validation-report/validation-report.component';
+import { provideServiceWorker } from '@angular/service-worker';
 
 
 
@@ -95,6 +96,9 @@ import { ValidationReportComponent } from './pages/reports/validation-report/val
 export class AppModule { }
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync(), provideAnimations(), importProvidersFrom(HttpClientModule), provideAnimationsAsync(), provideAnimationsAsync()]
+  providers: [provideRouter(routes), provideAnimationsAsync(), provideAnimations(), importProvidersFrom(HttpClientModule), provideAnimationsAsync(), provideAnimationsAsync(), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          })]
 };
 

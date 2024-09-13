@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^18.2.4",
     "@angular/platform-browser-dynamic": "^18.2.4",
     "@angular/router": "^18.2.4",
+    "@angular/service-worker": "^18.2.4",
     "@angular/youtube-player": "^18.2.0",
     "bootstrap": "^5.3.3",
     "exceljs": "^4.4.0",
