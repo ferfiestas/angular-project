@@ -185,6 +185,23 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
+                <mat-label>DESCRIPCIÓN DE ÁREA</mat-label>
+                <textarea matInput formControlName="areaDescripcion" readonly></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>SUBÁREA</mat-label>
+                <mat-select formControlName="idSubArea">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="subareaFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let subAreaDescripcion of filteredSubAreas | async" [value]="subAreaDescripcion.idSubArea">
+                        {{ subAreaDescripcion.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
                 <mat-label>PUESTO</mat-label>
                 <mat-select formControlName="idPuesto">
                     <mat-option>
@@ -197,13 +214,8 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf="userRole !== 3">
-                <mat-label>SUELDO NETO</mat-label>
-                <textarea matInput formControlName="sueldoNeto" type="number"></textarea>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
-                <mat-label>SUELDO BRUTO</mat-label>
-                <textarea matInput formControlName="sueldoBruto" type="number"></textarea>
+                <mat-label>ASIGNACIÓN ADICIONAL</mat-label>
+                <textarea matInput formControlName="asignacionAdicional" type="number"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">

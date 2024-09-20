@@ -35,6 +35,7 @@ export class EditPersonDialogComponent implements OnInit {
   cuadrantes: any[] = [];
   divisiones: any[] = [];
   estatus: any[] = [];
+  subareas: any[] = [];
 
   // FormControls for the search filters
   dependenciaFilterCtrl: FormControl = new FormControl();
@@ -47,6 +48,7 @@ export class EditPersonDialogComponent implements OnInit {
   cuadranteFilterCtrl: FormControl = new FormControl();
   divisionFilterCtrl: FormControl = new FormControl();
   estatusFilterCtrl: FormControl = new FormControl();
+  subareaFilterCtrl: FormControl = new FormControl();
 
   // Filtered lists
   filteredDependencias: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
@@ -59,6 +61,7 @@ export class EditPersonDialogComponent implements OnInit {
   filteredCuadrantes: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   filteredDivisiones: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   filteredEstatus: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredSubAreas: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 
   private onDestroy = new Subject<void>();
 
@@ -143,9 +146,10 @@ export class EditPersonDialogComponent implements OnInit {
         numEmpleado: [''],
         idTipoContratacion: [''],
         idArea: [''],
+        idSubArea: [''],
+        areaDescripcion: [''],
         idPuesto: [''],
-        sueldoNeto: [''],
-        sueldoBruto: [''],
+        asignacionAdicional: [''],
         fechaContratacion: ['']
       });
 
@@ -161,7 +165,7 @@ export class EditPersonDialogComponent implements OnInit {
 
       this.loadDependenciesStudiesAndStatus();
       this.loadEstadosAndMunicipios();
-      this.loadContratosAreasCuadrantesPuestosAndDivisiones();
+      this.loadContratosAreasSubAreasCuadrantesPuestosAndDivisiones();
       this.loadPersonData(idPersonaUsuario);
     }
 
@@ -203,6 +207,12 @@ export class EditPersonDialogComponent implements OnInit {
       .pipe(takeUntil(this.onDestroy))
       .subscribe(() => {
         this.filterAreas();
+      });
+
+      this.subareaFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterSubAreas();
       });
 
     this.puestoFilterCtrl.valueChanges
@@ -302,6 +312,18 @@ export class EditPersonDialogComponent implements OnInit {
     );
   }
 
+  filterSubAreas(): void {
+    let search = this.subareaFilterCtrl.value;
+    if (!search) {
+      this.filteredSubAreas.next(this.subareas.slice());
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredSubAreas.next(
+      this.subareas.filter(subAreaDescripcion => subAreaDescripcion.descripcion.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
   filterPuestos(): void {
     let search = this.puestoFilterCtrl.value;
     if (!search) {
@@ -379,7 +401,7 @@ export class EditPersonDialogComponent implements OnInit {
     });
   }
 
-  loadContratosAreasCuadrantesPuestosAndDivisiones(): void {
+  loadContratosAreasSubAreasCuadrantesPuestosAndDivisiones(): void {
     this.peopleService.getContratos().subscribe(contratos => {
       this.contratos = contratos;
       this.filteredContratos.next(this.contratos.slice());
@@ -388,6 +410,11 @@ export class EditPersonDialogComponent implements OnInit {
     this.peopleService.getAreas().subscribe(areas => {
       this.areas = areas;
       this.filteredAreas.next(this.areas.slice());
+    });
+
+    this.peopleService.getSubArea().subscribe(subareas => {
+      this.subareas = subareas;
+      this.filteredSubAreas.next(this.subareas.slice());
     });
 
     this.peopleService.getPuestos().subscribe(puestos => {
@@ -468,6 +495,14 @@ export class EditPersonDialogComponent implements OnInit {
         const selectedAreas = this.areas.find(a => a.clave === data.areaClave);
         if (selectedAreas) {
           this.workInfoForm.get('idArea')!.setValue(selectedAreas.idArea);
+        }
+      });
+
+      this.peopleService.getSubArea().subscribe(subareas => {
+        this.subareas = subareas;
+        const selectedSubAreas = this.subareas.find(s => s.descripcion === data.subAreaDescripcion);
+        if (selectedSubAreas) {
+          this.workInfoForm.get('idSubArea')!.setValue(selectedSubAreas.idSubArea);
         }
       });
 

@@ -30,6 +30,7 @@ export class PeopleService {
   private cuadrantesList: any[] = [];
   private divisionesList: any[] = [];
   private estatusList: any[] = [];
+  private subareasList: any[] = [];
 
   constructor(private http: HttpClient) {
     this.loadDependencias();
@@ -42,6 +43,7 @@ export class PeopleService {
     this.loadCuadrantes();
     this.loadDivisiones();
     this.loadEstatus();
+    this.loadSubAreas();
   }
 
   private loadDependencias(): void {
@@ -105,6 +107,12 @@ export class PeopleService {
     ).subscribe(estatus => this.estatusList = estatus);
   }
 
+  private loadSubAreas(): void {
+    this.http.get<any[]>(`${this.apiUrl}/api/subarea`, this.httpOptions).pipe(
+      catchError(this.handleError<any[]>('loadSubAreas', []))
+    ).subscribe(subAreaDescripcion => this.subareasList = subAreaDescripcion);
+  }
+
   // Métodos públicos para obtener las listas
   getDependencias(): Observable<any[]> {
     return of(this.dependenciaList);
@@ -144,6 +152,10 @@ export class PeopleService {
 
   getEstatus(): Observable<any[]> {
     return of(this.estatusList);
+  }
+
+  getSubArea(): Observable<any[]> {
+    return of(this.subareasList);
   }
 
   searchPersonByRFC(rfc: string): Observable<any> {
@@ -276,11 +288,13 @@ export class PeopleService {
         const contratacion = this.contratosList.find(c => c.descripcion === work.contratacion);
         const areaClave = this.areasList.find(a => a.clave === work.areaClave);
         const puesto = this.puestosList.find(p => p.nombre === work.puesto);
+        const subAreaDescripcion = this.subareasList.find(s => s.descripcion === work.subAreaDescripcion);
         return {
           ...work,
           idTipoContratacion: contratacion ? contratacion.idTipoContratacion : null,
           idArea: areaClave ? areaClave.idArea : null,
           idPuesto: puesto ? puesto.idPuesto : null,
+          idSubArea: subAreaDescripcion ? subAreaDescripcion.idSubArea : null,
         };
       }),
       catchError(this.handleError<any>('getWorkById', {}))
@@ -402,8 +416,8 @@ export class PeopleService {
       idTipoContratacion: data.idTipoContratacion,
       idArea: data.idArea,
       idPuesto: data.idPuesto,
-      sueldoNeto: data.sueldoNeto,
-      sueldoBruto: data.sueldoBruto,
+      asignacionAdicional: data.asignacionAdicional,
+      idSubArea: data.idSubArea,
       fechaContratacion: data.fechaContratacion
     };
 
