@@ -147,10 +147,12 @@ export class EditPersonDialogComponent implements OnInit {
         idTipoContratacion: [''],
         idArea: [''],
         idSubArea: [''],
-        areaDescripcion: [''],
+        areaDescripcion: [{ value: '', disabled: true }],
         idPuesto: [''],
         asignacionAdicional: [''],
-        fechaContratacion: ['']
+        fechaContratacion: [''],
+        sueldoBruto: [{ value: '', disabled: true }],  // Campo de solo lectura
+        sueldoNeto: [{ value: '', disabled: true }]
       });
 
       this.workAddressForm = this.fb.group({
@@ -167,6 +169,39 @@ export class EditPersonDialogComponent implements OnInit {
       this.loadEstadosAndMunicipios();
       this.loadContratosAreasSubAreasCuadrantesPuestosAndDivisiones();
       this.loadPersonData(idPersonaUsuario);
+
+      // Escuchar los cambios en el puesto y actualizar los sueldos
+      this.workInfoForm.get('idPuesto')!.valueChanges
+        .pipe(takeUntil(this.onDestroy))
+        .subscribe(puestoId => {
+          if (puestoId) {
+            // Cuando se cambia el puesto, buscamos el puesto seleccionado
+            this.peopleService.getPuestos().subscribe(puestos => {
+              const selectedPuesto = puestos.find(p => p.idPuesto === puestoId);
+              if (selectedPuesto) {
+                // Actualizamos los valores de sueldo bruto y sueldo neto
+                this.workInfoForm.get('sueldoBruto')!.setValue(selectedPuesto.sueldoBruto);
+                this.workInfoForm.get('sueldoNeto')!.setValue(selectedPuesto.sueldoNeto);
+              }
+            });
+          }
+        });
+
+      // Escuchar los cambios en el área y actualizar la descripción
+      this.workInfoForm.get('idArea')!.valueChanges
+        .pipe(takeUntil(this.onDestroy))
+        .subscribe(areaId => {
+          if (areaId) {
+            // Cuando se cambia el área, buscamos la descripción del área seleccionada
+            this.peopleService.getAreas().subscribe(areas => {
+              const selectedArea = areas.find(a => a.idArea === areaId);
+              if (selectedArea) {
+                // Actualizamos el valor de areaDescripcion
+                this.workInfoForm.get('areaDescripcion')!.setValue(selectedArea.descripcion);
+              }
+            });
+          }
+        });
     }
 
     this.initFilterListeners();
@@ -209,7 +244,7 @@ export class EditPersonDialogComponent implements OnInit {
         this.filterAreas();
       });
 
-      this.subareaFilterCtrl.valueChanges
+    this.subareaFilterCtrl.valueChanges
       .pipe(takeUntil(this.onDestroy))
       .subscribe(() => {
         this.filterSubAreas();
@@ -511,6 +546,8 @@ export class EditPersonDialogComponent implements OnInit {
         const selectedPuestos = this.puestos.find(p => p.nombre === data.puesto);
         if (selectedPuestos) {
           this.workInfoForm.get('idPuesto')!.setValue(selectedPuestos.idPuesto);
+          this.workInfoForm.get('sueldoBruto')!.setValue(selectedPuestos.sueldoBruto);
+          this.workInfoForm.get('sueldoNeto')!.setValue(selectedPuestos.sueldoNeto);
         }
       });
 
@@ -556,11 +593,11 @@ export class EditPersonDialogComponent implements OnInit {
   savePersonalInfo(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     const userRole = localStorage.getItem('userRole');
-  
+
     if (idPersonaUsuario) {
       const formData = this.personalInfoForm.value;
       formData.idPersona = idPersonaUsuario;
-  
+
       if (userRole === '3') {
         // Llama a la función con idEstatus fijo a "2"
         this.peopleService.updatePersonalInfoValidator(formData).subscribe(
@@ -570,6 +607,9 @@ export class EditPersonDialogComponent implements OnInit {
               text: 'Información personal guardada exitosamente.',
               icon: 'success',
               confirmButtonText: 'OK'
+            }).then(() => {
+              // Recarga los datos después de guardar
+              this.loadPersonData(idPersonaUsuario);
             });
           },
           error => {
@@ -585,6 +625,9 @@ export class EditPersonDialogComponent implements OnInit {
               text: 'Información personal guardada exitosamente.',
               icon: 'success',
               confirmButtonText: 'OK'
+            }).then(() => {
+              // Recarga los datos después de guardar
+              this.loadPersonData(idPersonaUsuario);
             });
           },
           error => {
@@ -609,7 +652,7 @@ export class EditPersonDialogComponent implements OnInit {
       });
     }
   }
-  
+
   private handleSaveError(error: any): void {
     console.error('Error al guardar información personal:', error);
     if (error.status === 400 && error.error.errors) {
@@ -643,6 +686,11 @@ export class EditPersonDialogComponent implements OnInit {
             text: 'Dirección personal guardada exitosamente.',
             icon: 'success',
             confirmButtonText: 'OK'
+          }).then(() => {
+            // Recarga los datos de la dirección después de guardar
+            this.peopleService.getPersonalAddress(idPersonaUsuario).subscribe(addressData => {
+              this.personalAddressForm.patchValue(addressData);
+            });
           });
         },
         error => {
@@ -688,6 +736,21 @@ export class EditPersonDialogComponent implements OnInit {
             text: 'Información laboral guardada exitosamente.',
             icon: 'success',
             confirmButtonText: 'OK'
+          }).then(() => {
+            // Recarga la información laboral después de guardar
+            this.peopleService.getWorkInfo(idPersonaUsuario).subscribe(workData => {
+              this.workInfoForm.patchValue(workData);
+
+              // Recarga la información del puesto y sueldos después de guardar
+              this.peopleService.getPuestos().subscribe(puestos => {
+                const selectedPuesto = puestos.find(p => p.idPuesto === workData.idPuesto);
+                if (selectedPuesto) {
+                  // Actualiza los valores de sueldo bruto y neto en el formulario
+                  this.workInfoForm.get('sueldoBruto')!.setValue(selectedPuesto.sueldoBruto);
+                  this.workInfoForm.get('sueldoNeto')!.setValue(selectedPuesto.sueldoNeto);
+                }
+              });
+            });
           });
         },
         error => {
@@ -733,6 +796,11 @@ export class EditPersonDialogComponent implements OnInit {
             text: 'Dirección laboral guardada exitosamente.',
             icon: 'success',
             confirmButtonText: 'OK'
+          }).then(() => {
+            // Recarga los datos de la dirección laboral después de guardar
+            this.peopleService.getWorkAddress(idPersonaUsuario).subscribe(workAddressData => {
+              this.workAddressForm.patchValue(workAddressData); // Actualiza el formulario con los datos
+            });
           });
         },
         error => {

@@ -214,6 +214,16 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>SUELDO BRUTO</mat-label>
+                <textarea matInput formControlName="sueldoBruto" readonly></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
+                <mat-label>SUELDO NETO</mat-label>
+                <textarea matInput formControlName="sueldoNeto" readonly></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="userRole !== 3">
                 <mat-label>ASIGNACIÓN ADICIONAL</mat-label>
                 <textarea matInput formControlName="asignacionAdicional" type="number"></textarea>
             </mat-form-field>
