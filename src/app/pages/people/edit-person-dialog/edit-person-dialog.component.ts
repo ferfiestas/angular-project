@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -121,8 +121,8 @@ export class EditPersonDialogComponent implements OnInit {
         rfc: [''],
         curp: [''],
         referencia: [''],
-        telefono: [''],
-        telEmergencia: [''],
+        telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+        telEmergencia: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
         email: [''],
         idDependencia: [''],
         idEstudio: [''],

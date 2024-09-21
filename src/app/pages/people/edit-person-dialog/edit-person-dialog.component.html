@@ -29,11 +29,21 @@
             <mat-form-field appearance="fill">
                 <mat-label>TELÉFONO</mat-label>
                 <textarea matInput formControlName="telefono"></textarea>
+                <mat-error *ngIf="personalInfoForm.get('telefono')?.hasError('required')">Este campo es
+                    obligatorio</mat-error>
+                <mat-error *ngIf="personalInfoForm.get('telefono')?.hasError('pattern')">
+                    El teléfono debe contener exactamente 10 dígitos numéricos.
+                </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>TELÉFONO EMERGENCIA</mat-label>
                 <textarea matInput formControlName="telEmergencia"></textarea>
+                <mat-error *ngIf="personalInfoForm.get('telEmergencia')?.hasError('required')">Este campo es
+                    obligatorio</mat-error>
+                <mat-error *ngIf="personalInfoForm.get('telEmergencia')?.hasError('pattern')">
+                    El teléfono de emergencia debe contener exactamente 10 dígitos numéricos.
+                </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
@@ -45,9 +55,11 @@
                 <mat-label>DEPENDENCIA</mat-label>
                 <mat-select formControlName="idDependencia">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="dependenciaFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="dependenciaFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
-                    <mat-option *ngFor="let dependencia of filteredDependencias | async" [value]="dependencia.idDependencia">
+                    <mat-option *ngFor="let dependencia of filteredDependencias | async"
+                        [value]="dependencia.idDependencia">
                         {{ dependencia.descripcion }}
                     </mat-option>
                 </mat-select>
@@ -57,7 +69,8 @@
                 <mat-label>GRADO ESTUDIO</mat-label>
                 <mat-select formControlName="idEstudio">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="estudioFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="estudioFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let gradoEstudio of filteredEstudios | async" [value]="gradoEstudio.idEstudio">
                         {{ gradoEstudio.descripcion }}
@@ -74,7 +87,8 @@
                 <mat-label>ESTATUS</mat-label>
                 <mat-select formControlName="idEstatus">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="estatusFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="estatusFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let estatus of filteredEstatus | async" [value]="estatus.idEstatus">
                         {{ estatus.descripcion }}
@@ -89,7 +103,8 @@
 
             <button mat-raised-button color="primary" type="submit" class="submit-button">Guardar</button>
 
-            <button mat-raised-button color="accent" type="button" (click)="resetPassword()" class="reset-button" *ngIf="userRole !== 3">Restablecer Contraseña</button>
+            <button mat-raised-button color="accent" type="button" (click)="resetPassword()" class="reset-button"
+                *ngIf="userRole !== 3">Restablecer Contraseña</button>
         </form>
     </mat-tab>
 
@@ -109,7 +124,8 @@
                 <mat-label>ESTADO</mat-label>
                 <mat-select formControlName="idEstado">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="estadoFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="estadoFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let estado of filteredEstados | async" [value]="estado.idEstado">
                         {{ estado.descripcion }}
@@ -121,7 +137,8 @@
                 <mat-label>MUNICIPIO</mat-label>
                 <mat-select formControlName="idMunicipio">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="municipioFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="municipioFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let municipio of filteredMunicipios | async" [value]="municipio.idMunicipio">
                         {{ municipio.nombre }}
@@ -164,9 +181,11 @@
                 <mat-label>CONTRATACION</mat-label>
                 <mat-select formControlName="idTipoContratacion">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="contratoFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="contratoFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
-                    <mat-option *ngFor="let contratacion of filteredContratos | async" [value]="contratacion.idTipoContratacion">
+                    <mat-option *ngFor="let contratacion of filteredContratos | async"
+                        [value]="contratacion.idTipoContratacion">
                         {{ contratacion.descripcion }}
                     </mat-option>
                 </mat-select>
@@ -176,7 +195,8 @@
                 <mat-label>ÁREA</mat-label>
                 <mat-select formControlName="idArea">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="areaFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="areaFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let area of filteredAreas | async" [value]="area.idArea">
                         {{ area.clave }}
@@ -193,9 +213,11 @@
                 <mat-label>SUBÁREA</mat-label>
                 <mat-select formControlName="idSubArea">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="subareaFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="subareaFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
-                    <mat-option *ngFor="let subAreaDescripcion of filteredSubAreas | async" [value]="subAreaDescripcion.idSubArea">
+                    <mat-option *ngFor="let subAreaDescripcion of filteredSubAreas | async"
+                        [value]="subAreaDescripcion.idSubArea">
                         {{ subAreaDescripcion.descripcion }}
                     </mat-option>
                 </mat-select>
@@ -205,7 +227,8 @@
                 <mat-label>PUESTO</mat-label>
                 <mat-select formControlName="idPuesto">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="puestoFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="puestoFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let puesto of filteredPuestos | async" [value]="puesto.idPuesto">
                         {{ puesto.nombre }}
@@ -253,7 +276,8 @@
                 <mat-label>ESTADO</mat-label>
                 <mat-select formControlName="idEstado">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="estadoFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="estadoFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let estado of filteredEstados | async" [value]="estado.idEstado">
                         {{ estado.descripcion }}
@@ -265,7 +289,8 @@
                 <mat-label>MUNICIPIO</mat-label>
                 <mat-select formControlName="idMunicipio">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="municipioFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="municipioFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let municipio of filteredMunicipios | async" [value]="municipio.idMunicipio">
                         {{ municipio.nombre }}
@@ -277,9 +302,11 @@
                 <mat-label>CUADRANTE</mat-label>
                 <mat-select formControlName="idCuadrante">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="cuadranteFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="cuadranteFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
-                    <mat-option *ngFor="let idCuadrante of filteredCuadrantes | async" [value]="idCuadrante.idCuadrante">
+                    <mat-option *ngFor="let idCuadrante of filteredCuadrantes | async"
+                        [value]="idCuadrante.idCuadrante">
                         {{ idCuadrante.descripcion }}
                     </mat-option>
                 </mat-select>
@@ -289,7 +316,8 @@
                 <mat-label>DIVISION</mat-label>
                 <mat-select formControlName="idDivision">
                     <mat-option>
-                        <ngx-mat-select-search [formControl]="divisionFilterCtrl" placeholderLabel="Buscar..." noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+                        <ngx-mat-select-search [formControl]="divisionFilterCtrl" placeholderLabel="Buscar..."
+                            noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let idDivision of filteredDivisiones | async" [value]="idDivision.idDivision">
                         {{ idDivision.descripcion }}
