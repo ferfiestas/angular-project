@@ -51,9 +51,8 @@ export class LoginComponent {
       .subscribe({
         next: () => {
           // Lógica para el caso de éxito
-          this.router.navigate(['/main']); // Redirige al usuario después de un login exitoso
-
-          // Verificar si se debe mostrar el pop-up de notificación
+          // No es necesario redirigir manualmente aquí, ya que el servicio de autenticación maneja la redirección
+          // Solo mostramos la notificación si corresponde
           if (this.popupNotificationService.shouldShowNotification()) {
             Swal.fire({
               title: '¡Aviso importante!',
