@@ -56,9 +56,8 @@ export class LoginComponent {
           if (this.popupNotificationService.shouldShowNotification()) {
             Swal.fire({
               title: '¡Aviso importante!',
-              text: 'Compañero, recuerda que el próximo 16 de septiembre no pasaremos lista! Disfruta tu día feriado en conmemoración del inicio de nuestra Independencia. Felices fiestas patrias!!',
               imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-              imageHeight: 200,
+              imageHeight: 400,
               imageAlt: 'Notificación de Feriado',
               confirmButtonText: 'Aceptar'
             });
