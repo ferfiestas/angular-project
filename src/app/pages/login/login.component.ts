@@ -53,19 +53,35 @@ export class LoginComponent {
     this.accessService.login(usuario1, password)
       .subscribe({
         next: () => {
-          // Llamamos al servicio para verificar si debemos mostrar la notificación
+          // Verificar si debe aparecer el pop-up de notificación
           if (this.popupNotificationService.shouldShowNotification()) {
-            this.dialog.open(NotificationDialogComponent, {
+            // Abrimos el diálogo de notificación
+            const dialogRef = this.dialog.open(NotificationDialogComponent, {
               data: {
                 title: '¡Aviso importante!',
                 imageUrl: this.popupNotificationService.getNotificationImageUrl(),
                 imageAlt: 'Notificación de Feriado'
               }
             });
+  
+            // Forzamos un redibujo del diálogo en iOS cerrándolo y reabriéndolo
+            setTimeout(() => {
+              dialogRef.close();
+              setTimeout(() => {
+                this.dialog.open(NotificationDialogComponent, {
+                  data: {
+                    title: '¡Aviso importante!',
+                    imageUrl: this.popupNotificationService.getNotificationImageUrl(),
+                    imageAlt: 'Notificación de Feriado'
+                  }
+                });
+              }, 50); // Espera breve para reabrir el diálogo
+            }, 0);
           }
         },
         error: (message) => {
-          this.dialog.open(NotificationDialogComponent, {
+          // Mostrar el mensaje de error en un diálogo
+          const dialogRef = this.dialog.open(NotificationDialogComponent, {
             data: {
               title: 'Error',
               imageUrl: '',
@@ -73,6 +89,21 @@ export class LoginComponent {
               description: message
             }
           });
+  
+          // Forzamos un redibujo del diálogo de error en iOS
+          setTimeout(() => {
+            dialogRef.close();
+            setTimeout(() => {
+              this.dialog.open(NotificationDialogComponent, {
+                data: {
+                  title: 'Error',
+                  imageUrl: '',
+                  imageAlt: '',
+                  description: message
+                }
+              });
+            }, 50);
+          }, 0);
         }
       });
   }
