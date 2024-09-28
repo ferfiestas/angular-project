@@ -3,19 +3,20 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import Swal from 'sweetalert2';
 
 import { AttendanceService } from '../../services/attendance.service';
 import { MessageDialogComponent } from '../checkin/message-dialog/message-dialog.component';
 import { PopupNotificationService } from '../../services/popup-notification.service';
-import { NotificationDialogComponent } from '../login/notification-dialog/notification-dialog.component';
+import { OverlayRefService } from '../../services/overlay-ref.service';
 
 
 @Component({
   selector: 'app-checkin',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, OverlayModule],
   templateUrl: './checkin.component.html',
   styleUrls: ['./checkin.component.css']
 })
@@ -25,7 +26,8 @@ export class CheckinComponent implements OnInit {
   constructor(
     private attendanceService: AttendanceService,
     private popupNotificationService: PopupNotificationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private overlayRefService: OverlayRefService
   ) { }
 
   async ngOnInit() {
@@ -49,18 +51,21 @@ export class CheckinComponent implements OnInit {
   
       // Después de mostrar el mensaje, verificar si debe aparecer el pop-up de notificación
       if (this.popupNotificationService.shouldShowNotification()) {
-        // Abrimos NotificationDialogComponent sin parámetros de tamaño
-        this.dialog.open(NotificationDialogComponent, {
-          data: {
-            title: '¡Aviso importante!',
-            imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-            imageAlt: 'Notificación de Feriado'
-          }
+        this.overlayRefService.openNotificationDialog({
+          title: '¡Aviso importante!',
+          imageUrl: this.popupNotificationService.getNotificationImageUrl(),
+          imageAlt: 'Notificación de Feriado'
         });
       }
   
     } catch (error) {
-      this.message = typeof error === 'string' ? error : 'Error desconocido al registrar la asistencia';
+      // Mostrar el mensaje de error usando Swal.fire
+      Swal.fire({
+        title: 'Error al registrar asistencia',
+        text: typeof error === 'string' ? error : 'Error desconocido al registrar la asistencia',
+        icon: 'error',
+        confirmButtonText: 'Cerrar'
+      });
     }
   }
 }

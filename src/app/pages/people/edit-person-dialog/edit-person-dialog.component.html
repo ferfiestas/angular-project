@@ -199,14 +199,9 @@
                             noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let area of filteredAreas | async" [value]="area.idArea">
-                        {{ area.clave }}
+                        {{ area.descripcion }}
                     </mat-option>
                 </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>DESCRIPCIÓN DE ÁREA</mat-label>
-                <textarea matInput formControlName="areaDescripcion" readonly></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="fill">

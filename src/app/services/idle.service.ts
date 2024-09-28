@@ -1,34 +1,42 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable, NgZone } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IdleService {
   private idleTimeout: any;
-  private timeoutDuration = 30 * 60 * 1000; // 30 minutos en milisegundos
+  private timeoutDuration = 5 * 60 * 1000; // 5 minutos en milisegundos
 
-  constructor(private router: Router) {}
+  constructor(private ngZone: NgZone) {}
 
   startWatching() {
-    window.addEventListener('mousemove', () => this.resetTimeout());
-    window.addEventListener('click', () => this.resetTimeout());
-    window.addEventListener('keypress', () => this.resetTimeout());
-    this.resetTimeout();
+    // Usamos NgZone para asegurarnos de que no haya problemas de rendimiento en Angular al usar eventos globales
+    this.ngZone.runOutsideAngular(() => {
+      window.addEventListener('mousemove', () => this.resetTimeout());
+      window.addEventListener('click', () => this.resetTimeout());
+      window.addEventListener('keypress', () => this.resetTimeout());
+      this.resetTimeout();
+    });
   }
 
   resetTimeout() {
-    clearTimeout(this.idleTimeout);
-    this.idleTimeout = setTimeout(() => this.logout(), this.timeoutDuration);
+    // Cancelamos cualquier timeout anterior y empezamos uno nuevo
+    if (this.idleTimeout) {
+      clearTimeout(this.idleTimeout);
+    }
+    this.idleTimeout = setTimeout(() => this.ngZone.run(() => this.logout()), this.timeoutDuration);
   }
 
   logout() {
-    localStorage.clear(); // Limpia el localStorage
-    window.location.href = 'http://auditoriainterna.com.mx/auditoriainterna'; // Redirige a la página especificada
+    localStorage.clear(); // Limpiamos el localStorage al cerrar sesión por inactividad
+    window.location.href = 'http://auditoriainterna.com.mx/auditoriainterna'; // Redirigir al sitio especificado
   }
 
   stopWatching() {
-    clearTimeout(this.idleTimeout);
+    if (this.idleTimeout) {
+      clearTimeout(this.idleTimeout);
+    }
+    // Remover eventos para detener el monitoreo de inactividad
     window.removeEventListener('mousemove', this.resetTimeout);
     window.removeEventListener('click', this.resetTimeout);
     window.removeEventListener('keypress', this.resetTimeout);

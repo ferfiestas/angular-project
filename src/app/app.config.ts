@@ -24,6 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -44,6 +45,7 @@ import { CoursesComponent } from './pages/courses/courses.component';
 import { SafeUrlPipe } from './components/pipes/safe-url.pipe';
 import { ValidationReportComponent } from './pages/reports/validation-report/validation-report.component';
 import { provideServiceWorker } from '@angular/service-worker';
+
 
 
 
@@ -89,7 +91,8 @@ import { provideServiceWorker } from '@angular/service-worker';
     MatSelectModule,
     YouTubePlayerModule,
     NgxMatSelectSearchModule,
-    MatExpansionModule
+    MatExpansionModule,
+    OverlayModule
   ],
   providers: [AccessService, AttendanceService],
 })

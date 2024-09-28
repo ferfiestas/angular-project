@@ -80,7 +80,7 @@ export class PeopleService {
   private loadAreas(): void {
     this.http.get<any[]>(`${this.apiUrl}/api/area`, this.httpOptions).pipe(
       catchError(this.handleError<any[]>('loadAreas', []))
-    ).subscribe(areaClave => this.areasList = areaClave);
+    ).subscribe(areaDescripcion => this.areasList = areaDescripcion);
   }
 
   private loadPuestos(): void {
@@ -286,13 +286,13 @@ export class PeopleService {
     return this.http.get(`${this.apiUrl}/api/empleado/${id}`, this.httpOptions).pipe(
       map((work: any) => {
         const contratacion = this.contratosList.find(c => c.descripcion === work.contratacion);
-        const areaClave = this.areasList.find(a => a.clave === work.areaClave);
+        const areaDescripcion = this.areasList.find(a => a.descripcion === work.areaDescripcion);
         const puesto = this.puestosList.find(p => p.nombre === work.puesto);
         const subAreaDescripcion = this.subareasList.find(s => s.descripcion === work.subAreaDescripcion);
         return {
           ...work,
           idTipoContratacion: contratacion ? contratacion.idTipoContratacion : null,
-          idArea: areaClave ? areaClave.idArea : null,
+          idArea: areaDescripcion ? areaDescripcion.idArea : null,
           idPuesto: puesto ? puesto.idPuesto : null,
           idSubArea: subAreaDescripcion ? subAreaDescripcion.idSubArea : null,
         };

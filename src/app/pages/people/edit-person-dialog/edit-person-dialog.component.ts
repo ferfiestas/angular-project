@@ -147,11 +147,10 @@ export class EditPersonDialogComponent implements OnInit {
         idTipoContratacion: [''],
         idArea: [''],
         idSubArea: [''],
-        areaDescripcion: [{ value: '', disabled: true }],
         idPuesto: [''],
         asignacionAdicional: [''],
         fechaContratacion: [''],
-        sueldoBruto: [{ value: '', disabled: true }],  // Campo de solo lectura
+        sueldoBruto: [{ value: '', disabled: true }],
         sueldoNeto: [{ value: '', disabled: true }]
       });
 
@@ -182,22 +181,6 @@ export class EditPersonDialogComponent implements OnInit {
                 // Actualizamos los valores de sueldo bruto y sueldo neto
                 this.workInfoForm.get('sueldoBruto')!.setValue(selectedPuesto.sueldoBruto);
                 this.workInfoForm.get('sueldoNeto')!.setValue(selectedPuesto.sueldoNeto);
-              }
-            });
-          }
-        });
-
-      // Escuchar los cambios en el área y actualizar la descripción
-      this.workInfoForm.get('idArea')!.valueChanges
-        .pipe(takeUntil(this.onDestroy))
-        .subscribe(areaId => {
-          if (areaId) {
-            // Cuando se cambia el área, buscamos la descripción del área seleccionada
-            this.peopleService.getAreas().subscribe(areas => {
-              const selectedArea = areas.find(a => a.idArea === areaId);
-              if (selectedArea) {
-                // Actualizamos el valor de areaDescripcion
-                this.workInfoForm.get('areaDescripcion')!.setValue(selectedArea.descripcion);
               }
             });
           }
@@ -343,7 +326,7 @@ export class EditPersonDialogComponent implements OnInit {
     }
     search = search.toLowerCase();
     this.filteredAreas.next(
-      this.areas.filter(areaClave => areaClave.clave.toLowerCase().indexOf(search) > -1)
+      this.areas.filter(areaDescripcion => areaDescripcion.descripcion.toLowerCase().indexOf(search) > -1)
     );
   }
 
@@ -527,7 +510,7 @@ export class EditPersonDialogComponent implements OnInit {
 
       this.peopleService.getAreas().subscribe(areas => {
         this.areas = areas;
-        const selectedAreas = this.areas.find(a => a.clave === data.areaClave);
+        const selectedAreas = this.areas.find(a => a.descripcion === data.areaDescripcion);
         if (selectedAreas) {
           this.workInfoForm.get('idArea')!.setValue(selectedAreas.idArea);
         }

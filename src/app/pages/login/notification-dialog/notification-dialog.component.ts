@@ -1,15 +1,14 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-notification-dialog',
   template: `
-    <h1 mat-dialog-title class="dialog-title">{{ data.title }}</h1>
-    <div mat-dialog-content class="dialog-content">
-      <img [src]="data.imageUrl" [alt]="data.imageAlt" class="notification-image">
+    <h1 class="dialog-title">{{ data?.title }}</h1>
+    <div class="dialog-content" style="width: 100%; height: auto; min-height: 200px;">
+    <img [src]="data?.imageUrl || 'default-placeholder.jpg'" [alt]="data?.imageAlt || 'No Image Available'" class="notification-image" style="max-width: 100%; max-height: 400px; min-height: 200px;">
     </div>
-    <div mat-dialog-actions class="dialog-actions">
-      <button mat-button (click)="closeDialog()" class="close-button">Cerrar</button>
+    <div class="dialog-actions">
+    <button (click)="closeDialog()" class="close-button">Cerrar</button>
     </div>
   `,
   styles: [`
@@ -48,13 +47,14 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
     }
   `]
 })
-export class NotificationDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<NotificationDialogComponent>, // Inyectamos MatDialogRef
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+export class NotificationDialogComponent implements OnInit {
+  data: any; // Recibe los datos pasados desde el servicio
 
-  closeDialog(): void {
-    this.dialogRef.close(); // Cerramos el diálogo cuando se hace clic en el botón
+  closeDialog: () => void = () => { };
+
+  constructor() { }
+
+  ngOnInit(): void {
+    
   }
 }
