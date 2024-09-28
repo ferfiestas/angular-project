@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { AttendanceService } from '../../services/attendance.service';
 import { MessageDialogComponent } from '../checkin/message-dialog/message-dialog.component';
 import { PopupNotificationService } from '../../services/popup-notification.service';
+import { NotificationDialogComponent } from '../login/notification-dialog/notification-dialog.component';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class CheckinComponent implements OnInit {
   async registerAttendance() {
     try {
       const result = await this.attendanceService.saveAttendanceRecord().toPromise();
+  
       // Mostrar el mensaje del servidor en un diálogo
       this.dialog.open(MessageDialogComponent, {
         data: { message: result },
@@ -44,17 +46,19 @@ export class CheckinComponent implements OnInit {
         maxHeight: '90vh', // Altura máxima para evitar ocultamiento detrás del sidenav
         panelClass: 'responsive-dialog' // Clase CSS personalizada para el diálogo
       });
-      // Después de mostrar el diálogo, verificar si debe aparecer el pop-up
+  
+      // Después de mostrar el mensaje, verificar si debe aparecer el pop-up de notificación
       if (this.popupNotificationService.shouldShowNotification()) {
-        Swal.fire({
-          title: '¡Aviso importante!',
-          imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-          imageHeight: 400,
-          imageAlt: 'Notificación de Feriado',
-          confirmButtonText: 'Aceptar'
+        // Abrimos NotificationDialogComponent sin parámetros de tamaño
+        this.dialog.open(NotificationDialogComponent, {
+          data: {
+            title: '¡Aviso importante!',
+            imageUrl: this.popupNotificationService.getNotificationImageUrl(),
+            imageAlt: 'Notificación de Feriado'
+          }
         });
       }
-
+  
     } catch (error) {
       this.message = typeof error === 'string' ? error : 'Error desconocido al registrar la asistencia';
     }
