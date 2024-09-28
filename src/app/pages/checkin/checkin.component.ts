@@ -40,14 +40,14 @@ export class CheckinComponent implements OnInit {
       // Mostrar el mensaje del servidor en un diálogo
       this.dialog.open(MessageDialogComponent, {
         data: { message: result },
-        width: '45vw',  // Ancho del diálogo para pantallas grandes
-        maxWidth: '90vw', // Máximo ancho para pantallas pequeñas
-        maxHeight: '90vh', // Altura máxima para evitar ocultamiento detrás del sidenav
-        panelClass: 'responsive-dialog' // Clase CSS personalizada para el diálogo
+        width: '45vw',  
+        maxWidth: '90vw', 
+        maxHeight: '90vh', 
+        panelClass: 'responsive-dialog' 
       });
   
-      // Usamos setTimeout para evitar posibles problemas en dispositivos móviles
-      setTimeout(() => {
+      // Desencadenar el pop-up basado en un evento explícito del usuario
+      document.body.addEventListener('click', () => {
         if (this.popupNotificationService.shouldShowNotification()) {
           Swal.fire({
             title: '¡Aviso importante!',
@@ -55,14 +55,13 @@ export class CheckinComponent implements OnInit {
             imageHeight: 400,
             imageAlt: 'Notificación de Feriado',
             confirmButtonText: 'Aceptar',
-            allowOutsideClick: false, // Evitar que se cierre accidentalmente en móviles
-            allowEscapeKey: false     // Evitar cierre accidental en móviles
+            allowOutsideClick: false, 
+            allowEscapeKey: false
           });
         }
-      }, 100); // Retraso breve para asegurar que el pop-up funcione bien en dispositivos móviles
+      }, { once: true });  // Solo ejecuta el evento una vez
   
     } catch (error) {
-      // Manejo de errores
       const errorMessage = typeof error === 'string' ? error : 'Error desconocido al registrar la asistencia';
       Swal.fire('Error', errorMessage, 'error');
     }

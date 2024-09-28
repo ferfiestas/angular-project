@@ -50,19 +50,24 @@ export class LoginComponent {
     this.accessService.login(usuario1, password)
       .subscribe({
         next: () => {
-          if (this.popupNotificationService.shouldShowNotification()) {
-            setTimeout(() => {
+          // Manejamos la notificación dentro de un evento click explícito del usuario
+          document.body.addEventListener('click', () => {
+            if (this.popupNotificationService.shouldShowNotification()) {
               Swal.fire({
                 title: '¡Aviso importante!',
                 imageUrl: this.popupNotificationService.getNotificationImageUrl(),
                 imageHeight: 400,
                 imageAlt: 'Notificación de Feriado',
                 confirmButtonText: 'Aceptar',
-                allowOutsideClick: false, // Evitar que se cierre accidentalmente en móviles
-                allowEscapeKey: false     // Evitar cierre accidental en móviles
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              }).then(() => {
+                // Forzar redibujar en iOS después de cerrar el popup
+                window.dispatchEvent(new Event('resize'));
               });
-            }, 100); // Esperamos un breve instante para asegurar que se procese correctamente en dispositivos móviles
-          }
+            }
+          }, { once: true }); // El evento click solo se ejecutará una vez
+  
         },
         error: (message) => {
           Swal.fire('Error', message, 'error');
