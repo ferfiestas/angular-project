@@ -50,24 +50,10 @@ export class LoginComponent {
     this.accessService.login(usuario1, password)
       .subscribe({
         next: () => {
-          // Manejamos la notificación dentro de un evento click explícito del usuario
-          document.body.addEventListener('click', () => {
-            if (this.popupNotificationService.shouldShowNotification()) {
-              Swal.fire({
-                title: '¡Aviso importante!',
-                imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-                imageHeight: 400,
-                imageAlt: 'Notificación de Feriado',
-                confirmButtonText: 'Aceptar',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-              }).then(() => {
-                // Forzar redibujar en iOS después de cerrar el popup
-                window.dispatchEvent(new Event('resize'));
-              });
-            }
-          }, { once: true }); // El evento click solo se ejecutará una vez
-  
+          if (this.popupNotificationService.shouldShowNotification()) {
+            // Usamos una alerta nativa como prueba
+            alert('¡Aviso importante! Esto es solo una prueba de alerta.');
+          }
         },
         error: (message) => {
           Swal.fire('Error', message, 'error');
