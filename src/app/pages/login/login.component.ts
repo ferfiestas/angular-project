@@ -57,18 +57,28 @@ export class LoginComponent {
             const isIOS = /iPad|iPhone|iPod/i.test(navigator.userAgent);
   
             if (isIOS) {
-              // Si es un dispositivo iOS, usamos un evento touchstart para asegurarnos de que se muestre el popup
-              document.addEventListener('touchstart', () => {
-                Swal.fire({
-                  title: '¡Aviso importante!',
-                  imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-                  imageHeight: 400,
-                  imageAlt: 'Notificación de Feriado',
-                  confirmButtonText: 'Aceptar',
-                  allowOutsideClick: false,
-                  allowEscapeKey: false
-                });
-              }, { once: true });
+              // Mostrar una ventana que pide confirmación al usuario para mostrar la notificación
+              Swal.fire({
+                title: 'Permitir Notificación',
+                text: 'Para ver el aviso importante, por favor acepta mostrar la notificación.',
+                icon: 'info',
+                confirmButtonText: 'Mostrar Notificación',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // Ahora mostramos el pop-up real
+                  Swal.fire({
+                    title: '¡Aviso importante!',
+                    imageUrl: this.popupNotificationService.getNotificationImageUrl(),
+                    imageHeight: 400,
+                    imageAlt: 'Notificación de Feriado',
+                    confirmButtonText: 'Aceptar',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  });
+                }
+              });
             } else {
               // Para otros dispositivos (PC y Android), usar directamente Swal.fire
               Swal.fire({
