@@ -36,6 +36,7 @@ export class CheckinComponent implements OnInit {
   async registerAttendance() {
     try {
       const result = await this.attendanceService.saveAttendanceRecord().toPromise();
+  
       // Mostrar el mensaje del servidor en un diálogo
       this.dialog.open(MessageDialogComponent, {
         data: { message: result },
@@ -44,19 +45,26 @@ export class CheckinComponent implements OnInit {
         maxHeight: '90vh', // Altura máxima para evitar ocultamiento detrás del sidenav
         panelClass: 'responsive-dialog' // Clase CSS personalizada para el diálogo
       });
-      // Después de mostrar el diálogo, verificar si debe aparecer el pop-up
-      if (this.popupNotificationService.shouldShowNotification()) {
-        Swal.fire({
-          title: '¡Aviso importante!',
-          imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-          imageHeight: 400,
-          imageAlt: 'Notificación de Feriado',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-
+  
+      // Usamos setTimeout para evitar posibles problemas en dispositivos móviles
+      setTimeout(() => {
+        if (this.popupNotificationService.shouldShowNotification()) {
+          Swal.fire({
+            title: '¡Aviso importante!',
+            imageUrl: this.popupNotificationService.getNotificationImageUrl(),
+            imageHeight: 400,
+            imageAlt: 'Notificación de Feriado',
+            confirmButtonText: 'Aceptar',
+            allowOutsideClick: false, // Evitar que se cierre accidentalmente en móviles
+            allowEscapeKey: false     // Evitar cierre accidental en móviles
+          });
+        }
+      }, 100); // Retraso breve para asegurar que el pop-up funcione bien en dispositivos móviles
+  
     } catch (error) {
-      this.message = typeof error === 'string' ? error : 'Error desconocido al registrar la asistencia';
+      // Manejo de errores
+      const errorMessage = typeof error === 'string' ? error : 'Error desconocido al registrar la asistencia';
+      Swal.fire('Error', errorMessage, 'error');
     }
   }
 }

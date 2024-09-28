@@ -50,17 +50,18 @@ export class LoginComponent {
     this.accessService.login(usuario1, password)
       .subscribe({
         next: () => {
-          // Lógica para el caso de éxito
-          // No es necesario redirigir manualmente aquí, ya que el servicio de autenticación maneja la redirección
-          // Solo mostramos la notificación si corresponde
           if (this.popupNotificationService.shouldShowNotification()) {
-            Swal.fire({
-              title: '¡Aviso importante!',
-              imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-              imageHeight: 400,
-              imageAlt: 'Notificación de Feriado',
-              confirmButtonText: 'Aceptar'
-            });
+            setTimeout(() => {
+              Swal.fire({
+                title: '¡Aviso importante!',
+                imageUrl: this.popupNotificationService.getNotificationImageUrl(),
+                imageHeight: 400,
+                imageAlt: 'Notificación de Feriado',
+                confirmButtonText: 'Aceptar',
+                allowOutsideClick: false, // Evitar que se cierre accidentalmente en móviles
+                allowEscapeKey: false     // Evitar cierre accidental en móviles
+              });
+            }, 100); // Esperamos un breve instante para asegurar que se procese correctamente en dispositivos móviles
           }
         },
         error: (message) => {
