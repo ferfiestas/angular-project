@@ -10,11 +10,11 @@ export class IdleService {
   constructor(private ngZone: NgZone) {}
 
   startWatching() {
-    // Usamos NgZone para asegurarnos de que no haya problemas de rendimiento en Angular al usar eventos globales
     this.ngZone.runOutsideAngular(() => {
-      window.addEventListener('mousemove', () => this.resetTimeout());
-      window.addEventListener('click', () => this.resetTimeout());
-      window.addEventListener('keypress', () => this.resetTimeout());
+      const reset = this.resetTimeout.bind(this); // Crear una referencia a la función ligada a `this`
+      window.addEventListener('mousemove', reset);
+      window.addEventListener('click', reset);
+      window.addEventListener('keypress', reset);
       this.resetTimeout();
     });
   }
@@ -33,12 +33,12 @@ export class IdleService {
   }
 
   stopWatching() {
+    const reset = this.resetTimeout.bind(this); // Usar la misma referencia para remover los eventos
     if (this.idleTimeout) {
       clearTimeout(this.idleTimeout);
     }
-    // Remover eventos para detener el monitoreo de inactividad
-    window.removeEventListener('mousemove', this.resetTimeout);
-    window.removeEventListener('click', this.resetTimeout);
-    window.removeEventListener('keypress', this.resetTimeout);
+    window.removeEventListener('mousemove', reset);
+    window.removeEventListener('click', reset);
+    window.removeEventListener('keypress', reset);
   }
 }
