@@ -36,11 +36,13 @@ export class ValidationReportComponent {
           { header: 'Dirección Estatal', key: 'direccionestatal', width: 30 },
           { header: 'Subdirección', key: 'subdireccion', width: 25 },
           { header: 'Nombre', key: 'nombre', width: 30 },
+          { header: 'Tipo de Contratación', key: 'tipocontratacion', width: 20 },
           { header: 'Puesto', key: 'puesto', width: 25 },
           { header: 'Sueldo Bruto', key: 'sueldobruto', width: 15 },
           { header: 'ISR', key: 'isr', width: 15 },
           { header: 'IMSS', key: 'imss', width: 15 },
           { header: 'Sueldo Neto', key: 'sueldoneto', width: 15 },
+          { header: 'Asignación Adicional', key: 'asignacionadicional', width: 20 },
           { header: 'Prima', key: 'prima', width: 15 },
           { header: 'Aguinaldo', key: 'aguinaldo', width: 15 },
           { header: 'Fecha Contratación', key: 'fechacontratacion', width: 20 },
@@ -55,7 +57,7 @@ export class ValidationReportComponent {
           { header: 'Correo', key: 'correo', width: 25 },
           { header: 'Estudios', key: 'estudios', width: 15 },
           { header: 'Dependencia', key: 'dependencia', width: 15 },
-          { header: 'Estatus', key: 'estatus', width: 15 },
+          { header: 'Estatus', key: 'estatus', width: 15 }
         ];
 
         // Añadir los datos del grupo correspondiente a la hoja
