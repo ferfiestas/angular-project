@@ -15,8 +15,6 @@
 .custom-overlay-panel {
     position: fixed;
     z-index: 1050;
-    transform: translate(-50%, -50%);
-    /* Centra el overlay */
 }
 
 .cdk-overlay-dark-backdrop {
@@ -42,7 +40,7 @@
 
     /* Estilos específicos para Safari en iOS */
     .custom-overlay-panel {
-        z-index: 10000;
+        z-index: 30000;
         position: fixed;
     }
 }

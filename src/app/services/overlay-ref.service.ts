@@ -10,7 +10,7 @@ import { NotificationDialogComponent } from '../pages/login/notification-dialog/
 export class OverlayRefService {
   private overlayRef: OverlayRef | null = null;
 
-  constructor(private overlay: Overlay) {}
+  constructor(private overlay: Overlay) { }
 
   openNotificationDialog(data: any) {
     if (this.overlayRef) {
@@ -19,8 +19,8 @@ export class OverlayRefService {
 
     const overlayConfig = this.overlay.position()
       .global()
-      .left('50%')
-      .top('50%'); // Posicionamos en el centro de la pantalla
+      .centerHorizontally()
+      .centerVertically();
 
     this.overlayRef = this.overlay.create({
       hasBackdrop: true,
