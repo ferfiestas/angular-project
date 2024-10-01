@@ -19,28 +19,26 @@ export class OverlayRefService {
 
     const overlayConfig = this.overlay.position()
       .global()
-      .centerHorizontally()
-      .top('10px');
+      .left('50%')
+      .top('50%'); // Posicionamos en el centro de la pantalla
 
     this.overlayRef = this.overlay.create({
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-dark-backdrop',
       positionStrategy: overlayConfig,
-      panelClass: 'custom-overlay-panel',
-      scrollStrategy: this.overlay.scrollStrategies.block()
+      panelClass: 'custom-overlay-panel', // Clase personalizada para manejar estilos
     });
 
     const portal = new ComponentPortal(NotificationDialogComponent);
     const componentRef = this.overlayRef.attach(portal);
 
     // Inyectar los datos manualmente en el componente
-    componentRef.instance.data = data; // Asegurarse de pasar los datos al componente
+    componentRef.instance.data = data;
 
-    // Inyectar la lógica de cierre para que el componente pueda cerrar el overlay
+    // Lógica para cerrar el overlay
     componentRef.instance.closeDialog = () => this.close();
 
     this.overlayRef.backdropClick().subscribe(() => this.close());
-
   }
 
   close() {

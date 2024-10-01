@@ -1,6 +1,7 @@
 .popup-overlay {
     position: fixed;
-    z-index: 99999; /* Aumentar este valor */
+    z-index: 99999;
+    /* Aumentar este valor */
     top: 0;
     left: 0;
     width: 100%;
@@ -9,6 +10,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.custom-overlay-panel {
+    position: fixed;
+    z-index: 1050;
+    transform: translate(-50%, -50%);
+    /* Centra el overlay */
+}
+
+.cdk-overlay-dark-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo oscuro con transparencia */
+    z-index: 1040;
+    /* Fondo debajo del contenido del pop-up */
 }
 
 .popup-content {
@@ -21,4 +36,13 @@
 .popup-content img {
     max-width: 100%;
     height: auto;
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) {
+
+    /* Estilos específicos para Safari en iOS */
+    .custom-overlay-panel {
+        z-index: 10000;
+        position: fixed;
+    }
 }
