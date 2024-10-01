@@ -1,5 +1,6 @@
 .popup-overlay {
     position: fixed;
+    z-index: 99999; /* Aumentar este valor */
     top: 0;
     left: 0;
     width: 100%;

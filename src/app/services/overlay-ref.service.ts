@@ -20,13 +20,14 @@ export class OverlayRefService {
     const overlayConfig = this.overlay.position()
       .global()
       .centerHorizontally()
-      .centerVertically();
+      .top('10px');
 
     this.overlayRef = this.overlay.create({
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-dark-backdrop',
       positionStrategy: overlayConfig,
       panelClass: 'custom-overlay-panel',
+      scrollStrategy: this.overlay.scrollStrategies.block()
     });
 
     const portal = new ComponentPortal(NotificationDialogComponent);
