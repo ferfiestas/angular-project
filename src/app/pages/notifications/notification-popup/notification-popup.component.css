@@ -1,7 +1,6 @@
 .popup-overlay {
     position: fixed;
-    z-index: 99999;
-    /* Aumentar este valor */
+    z-index: 100000; /* Valor muy alto para estar sobre el sidenav */
     top: 0;
     left: 0;
     width: 100%;
@@ -10,17 +9,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    isolation: isolate; /* Crear un nuevo contexto de apilamiento */
 }
 
 .custom-overlay-panel {
     position: fixed;
-    z-index: 1050;
+    z-index: 100001;
 }
 
 .cdk-overlay-dark-backdrop {
     background-color: rgba(0, 0, 0, 0.5);
     /* Fondo oscuro con transparencia */
-    z-index: 1040;
+    z-index: 100000;
     /* Fondo debajo del contenido del pop-up */
 }
 
@@ -40,7 +40,7 @@
 
     /* Estilos específicos para Safari en iOS */
     .custom-overlay-panel {
-        z-index: 30000;
+        z-index: 100001;
         position: fixed;
     }
 }
