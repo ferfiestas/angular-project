@@ -49,22 +49,23 @@ export class LoginComponent {
 
   LogIn() {
     const { usuario1, password } = this.formLogin.value;
-  
+
     this.accessService.login(usuario1, password)
       .subscribe({
         next: () => {
           if (this.popupNotificationService.shouldShowNotification()) {
-            
-            this.overlayRefService.openNotificationDialog({
+            // Mostrar solo el título, imagen, altura de la imagen, alt de la imagen y botón de confirmación
+            Swal.fire({
               title: '¡Aviso importante!',
               imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-              imageAlt: 'Notificación de Feriado'
+              imageHeight: 400, // Altura de la imagen
+              imageAlt: 'Notificación de Feriado', // Texto alternativo de la imagen
+              confirmButtonText: 'Aceptar' // Texto del botón
             });
           }
         },
         error: (_message) => {
-          
-          // Uso de Swal.fire para mostrar el error de usuario o contraseña
+          // Manejar el error de credenciales
           Swal.fire({
             icon: 'error',
             title: 'Error de Usuario o Contraseña',

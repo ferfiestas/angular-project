@@ -59,6 +59,7 @@ export class AccessService {
         localStorage.setItem('userRole', usuario.idRol.toString());
         localStorage.setItem('usuario1', usuario.usuario1.toString());
         localStorage.setItem('idUsuario', usuario.idUsuario.toString());
+        localStorage.setItem('idPuesto', usuario.idPuesto.toString());
 
         if (loginRequired === true) {
           this.router.navigate(['change-password']);
@@ -87,7 +88,8 @@ export class AccessService {
       idRol: parseInt(localStorage.getItem('userRole')!, 10),
       usuario1: '', // Este valor no se obtiene de localStorage, podrías ajustar según lo necesites
       activo: true, // Ajustar si es necesario
-      login: false
+      login: false,
+      idPuesto: 0
     };
 
     this._currentUser.set(user);
@@ -108,6 +110,7 @@ export class AccessService {
     localStorage.removeItem('idUsuario');
     localStorage.removeItem('idPersonaUsuario');
     localStorage.removeItem('idPerUsuario');
+    localStorage.removeItem('idPuesto');
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
   }

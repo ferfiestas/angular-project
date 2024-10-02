@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class PopupNotificationService {
 
   private notificationStart: Date = new Date(2024, 8, 26); // Fecha de inicio
-  private notificationEnd: Date = new Date(2024, 9, 1); // Fecha de fin
+  private notificationEnd: Date = new Date(2024, 9, 2); // Fecha de fin
   private notificationImageUrl: string = 'http://auditoriainterna.com.mx/notification_popup/asueto.jpg';
 
   constructor() { }

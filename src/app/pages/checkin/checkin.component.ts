@@ -39,7 +39,7 @@ export class CheckinComponent implements OnInit {
   async registerAttendance() {
     try {
       const result = await this.attendanceService.saveAttendanceRecord().toPromise();
-  
+
       // Mostrar el mensaje del servidor en un diálogo
       this.dialog.open(MessageDialogComponent, {
         data: { message: result },
@@ -48,16 +48,19 @@ export class CheckinComponent implements OnInit {
         maxHeight: '90vh', // Altura máxima para evitar ocultamiento detrás del sidenav
         panelClass: 'responsive-dialog' // Clase CSS personalizada para el diálogo
       });
-  
+
       // Después de mostrar el mensaje, verificar si debe aparecer el pop-up de notificación
       if (this.popupNotificationService.shouldShowNotification()) {
-        this.overlayRefService.openNotificationDialog({
+        // Reemplazamos el overlay por Swal.fire para mostrar la notificación
+        Swal.fire({
           title: '¡Aviso importante!',
           imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-          imageAlt: 'Notificación de Feriado'
+          imageHeight: 400, // Altura de la imagen
+          imageAlt: 'Notificación de Feriado',
+          confirmButtonText: 'Aceptar'
         });
       }
-  
+
     } catch (error) {
       // Mostrar el mensaje de error usando Swal.fire
       Swal.fire({

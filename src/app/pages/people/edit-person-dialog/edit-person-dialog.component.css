@@ -54,7 +54,7 @@
 ::ng-deep .mat-tab-header-pagination {
     visibility: visible !important;
     pointer-events: auto !important;
-    aria-hidden: false !important; /* Eliminar si se aplica por CSS */
+    /* aria-hidden: false !important; */ /* Eliminar si se aplica por CSS */
 }
 
 /* Contenedor principal */
