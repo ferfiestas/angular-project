@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dev:ssr": "ng run SEP:serve-ssr",
+    "build:ssr": "ng build && ng run SEP:server",
+    "serve:ssr": "node dist/SEP/server/main.js"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +26,6 @@
     "@angular/router": "^18.2.6",
     "@angular/service-worker": "^18.2.6",
     "@angular/youtube-player": "^18.2.6",
-    "@nguniversal/express-engine": "^16.2.0",
     "bootstrap": "^5.3.3",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
