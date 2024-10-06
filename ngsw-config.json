@@ -4,7 +4,7 @@
   "assetGroups": [
     {
       "name": "app",
-      "installMode": "lazy",
+      "installMode": "prefetch",
       "updateMode": "prefetch",
       "resources": {
         "files": [
@@ -36,6 +36,18 @@
         "maxSize": 100,
         "maxAge": "1d",
         "timeout": "10s",
+        "strategy": "freshness"
+      }
+    },
+    {
+      "name": "login-cache",
+      "urls": [
+        "http://internapiaudit.xyz:8080/api/usuario/login"
+      ],
+      "cacheConfig": {
+        "maxSize": 50,
+        "maxAge": "1h",
+        "timeout": "5s",
         "strategy": "freshness"
       }
     }
