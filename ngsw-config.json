@@ -30,7 +30,7 @@
     {
       "name": "api-cache",
       "urls": [
-        "http://internapiaudit.xyz:8080/**"
+        "http://209.38.48.98:8080/**"
       ],
       "cacheConfig": {
         "maxSize": 100,
