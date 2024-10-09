@@ -1,6 +1,6 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
-        <img [height]="profilePicSize()" [width]="profilePicSize()" style="max-width: 100%;" src="http://auditoriainterna.com.mx/photo_upload/SICP.jpg" (click)="toggleCollapse()"/>
+        <img [height]="profilePicSize()" [width]="profilePicSize()" style="max-width: 100%;" src="https://auditoriainterna.com.mx/photo_upload/SICP.jpg" (click)="toggleCollapse()"/>
         <div *ngIf="collapsed" class="logo-text" @fadeInOut></div>
         <button *ngIf="collapsed" class="btn-close" @rotate (click)="closeSidenav()">
             <i class="fal fa-times close-icon"></i>

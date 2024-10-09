@@ -42,7 +42,7 @@ export class profileComponent implements OnInit {
 
   loadUserData(): void {
     const idUsuario = localStorage.getItem('usuario1');
-    const defaultImageUrl = 'http://auditoriainterna.com.mx/photo_upload/img00000.jpg';
+    const defaultImageUrl = 'https://auditoriainterna.com.mx/photo_upload/img00000.jpg';
     
     if (idUsuario) {
       const possibleExtensions = ['jpg', 'png', 'jpeg'];
@@ -71,7 +71,7 @@ export class profileComponent implements OnInit {
   
   private async checkMultipleImageExtensions(idUsuario: string, extensions: string[]): Promise<string | null> {
     for (const ext of extensions) {
-      const imageUrl = `http://auditoriainterna.com.mx/photo_upload/${idUsuario}.${ext}`;
+      const imageUrl = `https://auditoriainterna.com.mx/photo_upload/${idUsuario}.${ext}`;
       const exists = await this.checkImageExists(imageUrl);
       if (exists) {
         return imageUrl; // Si se encuentra una imagen válida, retorna su URL

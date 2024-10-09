@@ -30,7 +30,7 @@
     {
       "name": "api-cache",
       "urls": [
-        "http://209.38.48.98:8080/**"
+        "https://auditoriainterna.xyz/**"
       ],
       "cacheConfig": {
         "maxSize": 100,
