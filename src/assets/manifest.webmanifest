@@ -5,11 +5,16 @@
     "background_color": "#fafafa",
     "display": "standalone",
     "scope": "/",
-    "start_url": "/",
+    "start_url": "/auditoriainterna/",
     "icons": [
         {
             "src": "icons/icon-72x72.png",
             "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/icons/icon-180x180.png",
+            "sizes": "180x180",
             "type": "image/png"
         },
         {
