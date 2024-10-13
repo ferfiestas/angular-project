@@ -10,9 +10,8 @@
     transition: width 0.3s;
     display: flex;
     flex-direction: column;
-    /* Ajuste para que el contenido se distribuya de arriba hacia abajo */
     justify-content: space-between;
-    /* Esto deja el footer abajo */
+    overflow-y: auto; /* Permite el desplazamiento del contenido del sidenav */
 
     .logo-container {
         display: flex;
@@ -167,7 +166,7 @@
 .scrollwrap {
     overflow-y: auto;
     flex-grow: 1;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px); /* Ajusta la altura */
     visibility: visible;
     padding-bottom: 20px;
     /* Agrega un pequeño margen inferior */
@@ -175,8 +174,7 @@
 
 .sidenav-collapsed .scrollwrap {
     overflow-y: auto;
-    height: calc(100vh - 100px);
-    /* Asegura que el scroll funcione en estado colapsado */
+    height: calc(100vh - 100px); /* Ajusta la altura disponible en estado colapsado */
 }
 
 .sidenav-nav,
