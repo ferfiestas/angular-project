@@ -224,7 +224,7 @@
 }
 
 .sidenav-footer {
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     font-size: 12px;
     /* Reducir tamaño en móviles */
@@ -238,7 +238,7 @@
 
 /* Estilos para la versión colapsada */
 .sidenav-collapsed .scrollwrap {
-    max-height: calc(100vh - 80px);
+    max-height: calc(100vh - 90px);
     /* Ajustar el alto disponible cuando está expandido */
 }
 
@@ -261,7 +261,7 @@
     }
 
     .scrollwrap {
-        max-height: calc(100vh - 60px);
+        max-height: calc(100vh - 90px);
         /* Asegura espacio suficiente en pantallas pequeñas */
     }
 }
@@ -282,7 +282,7 @@
         }
 
         .scrollwrap {
-            max-height: calc(100vh - 60px);
+            max-height: calc(100vh - 90px);
             /* Asegura que el scrollwrap se ajuste a pantallas pequeñas */
         }
     }
