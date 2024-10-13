@@ -29,7 +29,7 @@ export class IdleService {
 
   logout() {
     localStorage.clear(); // Limpiamos el localStorage al cerrar sesión por inactividad
-    window.location.href = 'https://auditoriainterna.com.mx/auditoriainterna'; // Redirigir al sitio especificado
+    window.location.href = 'https://auditoriainterna.com.mx'; // Redirigir al sitio especificado
   }
 
   stopWatching() {

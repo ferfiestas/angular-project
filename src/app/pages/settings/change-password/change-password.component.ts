@@ -90,7 +90,7 @@ export class ChangePasswordComponent {
               icon: 'success',
               confirmButtonText: 'OK'
             }).then(() => {
-              window.location.href = 'https://auditoriainterna.com.mx/auditoriainterna';
+              window.location.href = 'https://auditoriainterna.com.mx';
             });
           },
           _error => {
