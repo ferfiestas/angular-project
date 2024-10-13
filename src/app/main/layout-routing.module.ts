@@ -15,6 +15,7 @@ import { AdminNotificationComponent } from '../pages/notifications/admin-notific
 import { NotificationsComponent } from '../pages/notifications/notifications.component';
 import { RoleGuard } from '../components/guards/role.guard';
 import { ValidationReportComponent } from '../pages/reports/validation-report/validation-report.component';
+import { PrivacyPolicyComponent } from '../pages/privacy-policy/privacy-policy.component';
 
 
 
@@ -36,7 +37,7 @@ const routes: Routes = [
       {path: 'attendance', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 5] }, component: AttendanceComponent},
       {path: 'validations', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 5] }, component: ValidationReportComponent},
       {path: 'passwordreset', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: passwordComponent},
-
+      {path: 'privacy', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: PrivacyPolicyComponent},
     ]
   }
 ];

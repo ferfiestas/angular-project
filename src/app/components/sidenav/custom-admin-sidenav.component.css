@@ -8,6 +8,9 @@
     height: 100vh;
     box-shadow: 1.008px 0 20px 0 #8690a3;
     transition: width 0.3s;
+    display: flex;
+    flex-direction: column; /* Ajuste para que el contenido se distribuya de arriba hacia abajo */
+    justify-content: space-between; /* Esto deja el footer abajo */
 
     .logo-container {
         display: flex;
@@ -161,6 +164,7 @@
 
 .scrollwrap {
     overflow-y: auto;
+    flex-grow: 1;
     height: calc(100% - 58.4px);
     visibility: visible;
     padding-bottom: 20px;
@@ -217,4 +221,29 @@
 
 .overflow-hidden {
     overflow: hidden;
+}
+
+.sidenav-footer {
+    padding: 10px;
+    text-align: center;
+    font-size: 12px; /* Reducir tamaño en móviles */
+    color: #ffffff;
+    white-space: normal; /* Permite que el texto salte a la siguiente línea */
+    flex-shrink: 0; /* Asegura que el footer no se reduzca */
+}
+
+.sidenav-footer .privacy-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sidenav-footer .privacy-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .sidenav-footer {
+        font-size: 8px; /* Aún más pequeño en pantallas móviles */
+    }
 }

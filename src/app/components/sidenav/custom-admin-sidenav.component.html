@@ -1,6 +1,7 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
-        <img [height]="profilePicSize()" [width]="profilePicSize()" style="max-width: 100%;" src="https://auditoriainterna.com.mx/photo_upload/SICP.jpg" (click)="toggleCollapse()"/>
+        <img [height]="profilePicSize()" [width]="profilePicSize()" style="max-width: 100%;"
+            src="https://auditoriainterna.com.mx/photo_upload/SICP.jpg" (click)="toggleCollapse()" />
         <div *ngIf="collapsed" class="logo-text" @fadeInOut></div>
         <button *ngIf="collapsed" class="btn-close" @rotate (click)="closeSidenav()">
             <i class="fal fa-times close-icon"></i>
@@ -8,32 +9,31 @@
     </div>
     <div class="scrollwrap scrollwrap_delayed">
         <ul class="sidenav-nav">
-            <li *ngFor="let data of filteredNavData; trackBy: trackByLabel" class="sidenav-nav-item">            
-                <a class="sidenav-nav-link" (click)="handleClick(data)"
-                    *ngIf="data.items && data.items.length > 0"
-                    [ngClass]="getActiveClass(data)">                    
+            <li *ngFor="let data of filteredNavData; trackBy: trackByLabel" class="sidenav-nav-item">
+                <a class="sidenav-nav-link" (click)="handleClick(data)" *ngIf="data.items && data.items.length > 0"
+                    [ngClass]="getActiveClass(data)">
                     <i class="sidenav-link-icon" [class]="data.icon"></i>
                     <span *ngIf="collapsed" class="sidenav-link-text" @fadeInOut>{{data.Label}}</span>
                     <i *ngIf="data.items && collapsed" class="menu-collapse-icon"
                         [ngClass]="!data.expanded ? 'fal fa-angle-right' : 'fal fa-angle-down'"></i>
                 </a>
-                <a class="sidenav-nav-link"
-                    *ngIf="!data.items || (data.items && data.items.length === 0)"
-                    [routerLink]="[data.routeLink]"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}">
+                <a class="sidenav-nav-link" *ngIf="!data.items || (data.items && data.items.length === 0)"
+                    [routerLink]="[data.routeLink]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidenav-link-icon" [class]="data.icon"></i>
                     <span *ngIf="collapsed" class="sidenav-link-text" @fadeInOut>{{data.Label}}</span>
                 </a>
                 <div *ngIf="collapsed && data.items && data.items.length > 0">
-                    <app-sublevel-menu
-                        [data]="data"
-                        [collapsed]="collapsed"
-                        [multiple]="multiple"
+                    <app-sublevel-menu [data]="data" [collapsed]="collapsed" [multiple]="multiple"
                         [expanded]="data.expanded">
                     </app-sublevel-menu>
                 </div>
             </li>
         </ul>
+    </div>
+    <!-- Footer with Privacy Notice -->
+    <div class="sidenav-footer">
+        <span>©2024 Sistema Integral de Control de Personal</span>
+        <br />
+        <a [routerLink]="['/main/privacy']" class="privacy-link">Aviso de Privacidad</a>
     </div>
 </div>
