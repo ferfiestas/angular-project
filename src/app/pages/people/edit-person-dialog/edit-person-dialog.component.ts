@@ -65,6 +65,9 @@ export class EditPersonDialogComponent implements OnInit {
 
   private onDestroy = new Subject<void>();
 
+  // Variable to store the valid image URL or the default one
+  validImageUrl: string = 'https://encompletadisonancia.com.mx/photo_upload/img00000.jpg';  // Imagen por defecto
+
   constructor(
     private fb: FormBuilder,
     private peopleService: PeopleService,
@@ -131,6 +134,8 @@ export class EditPersonDialogComponent implements OnInit {
         urlImagen: ['']
       });
 
+      this.loadImageWithExtensions();  // Cargar la imagen con las extensiones posibles
+
       this.personalAddressForm = this.fb.group({
         idPersonaDomicilio: [''],
         idPersona: [''],
@@ -189,6 +194,7 @@ export class EditPersonDialogComponent implements OnInit {
 
     this.initFilterListeners();
   }
+
 
   initFilterListeners(): void {
     this.dependenciaFilterCtrl.valueChanges
@@ -454,6 +460,9 @@ export class EditPersonDialogComponent implements OnInit {
   loadPersonData(idPersona: string): void {
     this.peopleService.getPersonalInfo(idPersona).subscribe(data => {
       this.personalInfoForm.patchValue(data);
+      if (this.personalInfoForm.get('urlImagen')?.value) {
+        this.loadImageWithExtensions();
+      }
       this.peopleService.getDependencias().subscribe(dependencias => {
         this.dependencias = dependencias;
         const selectedDependencia = this.dependencias.find(d => d.descripcion === data.dependencia);
@@ -572,6 +581,34 @@ export class EditPersonDialogComponent implements OnInit {
 
     });
   }
+
+  async loadImageWithExtensions(): Promise<void> {
+    const userImageUrl = this.personalInfoForm.get('urlImagen')?.value;
+    const baseUrl = 'https://encompletadisonancia.com.mx/photo_upload/';
+    const extensions = ['jpg', 'png', 'jpeg'];
+
+    if (userImageUrl) {
+      for (const ext of extensions) {
+        const imageUrl = `${baseUrl}${userImageUrl}.${ext}`;
+        const imageExists = await this.checkImage(imageUrl);
+        if (imageExists) {
+          this.validImageUrl = imageUrl;
+          return;  // Exit once a valid image is found
+        }
+      }
+    }
+  }
+
+  // Verifica si la imagen existe
+  checkImage(url: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => resolve(true);  // Si la imagen se carga correctamente
+      img.onerror = () => resolve(false);  // Si hay error al cargar la imagen
+    });
+  }
+
 
   savePersonalInfo(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
@@ -815,6 +852,7 @@ export class EditPersonDialogComponent implements OnInit {
       });
     }
   }
+
 
   closeDialog(): void {
     localStorage.removeItem('idPersonaUsuario');

@@ -1,16 +1,22 @@
 /* Contenedor principal del diálogo */
 .mat-dialog-container {
-    z-index: 2000 !important; /* Asegura que el diálogo esté sobre el sidenav */
-    position: relative; /* Asegura que el z-index se aplique correctamente */
-    max-height: 90vh; /* Limita la altura del diálogo */
-    overflow-y: auto; /* Permite desplazamiento si es necesario */
+    z-index: 2000 !important;
+    /* Asegura que el diálogo esté sobre el sidenav */
+    position: relative;
+    /* Asegura que el z-index se aplique correctamente */
+    max-height: 90vh;
+    /* Limita la altura del diálogo */
+    overflow-y: auto;
+    /* Permite desplazamiento si es necesario */
 }
 
 /* Estilos personalizados para el tab group */
 .custom-tab-group {
-    z-index: 1101 !important; /* Asegura que las pestañas del diálogo estén por encima */
+    z-index: 1101 !important;
+    /* Asegura que las pestañas del diálogo estén por encima */
     position: relative;
-    color: #621132; /* Color de las pestañas */
+    color: #621132;
+    /* Color de las pestañas */
 }
 
 /* Estilo del grupo de pestañas */
@@ -54,7 +60,8 @@
 ::ng-deep .mat-tab-header-pagination {
     visibility: visible !important;
     pointer-events: auto !important;
-    /* aria-hidden: false !important; */ /* Eliminar si se aplica por CSS */
+    /* aria-hidden: false !important; */
+    /* Eliminar si se aplica por CSS */
 }
 
 /* Contenedor principal */
@@ -101,61 +108,127 @@ input.mat-input-element,
     line-height: 1.4em;
 }
 
+/* Contenedor para la imagen */
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+    max-width: 100%; /* Asegura que el contenedor no sea más grande que su padre */
+}
+
+/* Imagen responsiva en píxeles */
+.responsive-image {
+    max-width: 300px; /* Ancho máximo de la imagen */
+    height: auto;
+    /* Mantiene la proporción de la imagen */
+    border-radius: 8px;
+    /* Puedes ajustar el radio para esquinas redondeadas */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera para la imagen */
+}
+
 /* Responsividad y organización para pantallas grandes */
 @media (min-width: 800px) {
     .form-container {
         grid-template-columns: 1fr 1fr;
         gap: 16px;
     }
+
     .form-section {
         grid-column: span 1;
         padding: 16px;
         background-color: #f9f9f9;
         border-radius: 8px;
     }
+
+    /* Imagen en pantallas grandes */
+    .responsive-image {
+        max-width: 300px; /* Imagen más grande en pantallas grandes */
+    }
 }
 
 /* Reducción del tamaño de fuente para pantallas medianas */
 @media (max-width: 800px) {
-    .mat-form-field, textarea.mat-input-element, input.mat-input-element, .mat-form-field-wrapper {
+
+    .mat-form-field,
+    textarea.mat-input-element,
+    input.mat-input-element,
+    .mat-form-field-wrapper {
         font-size: 0.85em !important;
         line-height: 1.2em !important;
     }
+
     .mat-tab-label {
         font-size: 0.85em !important;
+    }
+
+    /* Imagen en pantallas medianas */
+    .responsive-image {
+        max-width: 250px; /* Ajusta la imagen a un tamaño más pequeño en pantallas medianas */
     }
 }
 
 /* Reducción del tamaño de fuente para pantallas pequeñas */
 @media (max-width: 500px) {
-    .mat-form-field, textarea.mat-input-element, input.mat-input-element, .mat-form-field-wrapper {
+
+    .mat-form-field,
+    textarea.mat-input-element,
+    input.mat-input-element,
+    .mat-form-field-wrapper {
         font-size: 0.75em !important;
         line-height: 1.1em !important;
     }
+
     .mat-tab-label {
         font-size: 0.75em !important;
+    }
+
+    /* Imagen en pantallas pequeñas */
+    .responsive-image {
+        max-width: 220px; /* Imagen más pequeña en pantallas pequeñas */
     }
 }
 
 /* Reducción del tamaño de fuente para pantallas muy pequeñas */
 @media (max-width: 400px) {
-    .mat-form-field, textarea.mat-input-element, input.mat-input-element, .mat-form-field-wrapper {
+
+    .mat-form-field,
+    textarea.mat-input-element,
+    input.mat-input-element,
+    .mat-form-field-wrapper {
         font-size: 0.7em !important;
         line-height: 1em !important;
     }
+
     .mat-tab-label {
         font-size: 0.7em !important;
+    }
+
+    /* Imagen en pantallas muy pequeñas */
+    .responsive-image {
+        max-width: 200px; /* Imagen aún más pequeña en pantallas muy pequeñas */
     }
 }
 
 /* Reducción del tamaño de fuente para pantallas demasiado pequeñas */
 @media (max-width: 300px) {
-    .mat-form-field, textarea.mat-input-element, input.mat-input-element, .mat-form-field-wrapper {
+
+    .mat-form-field,
+    textarea.mat-input-element,
+    input.mat-input-element,
+    .mat-form-field-wrapper {
         font-size: 0.65em !important;
         line-height: 1em !important;
     }
+
     .mat-tab-label {
         font-size: 0.65em !important;
+    }
+
+    /* Imagen en pantallas extremadamente pequeñas */
+    .responsive-image {
+        max-width: 150px; /* Imagen muy pequeña en pantallas extremadamente pequeñas */
     }
 }
 
@@ -164,7 +237,9 @@ input.mat-input-element,
     .form-container {
         grid-template-columns: 1fr;
     }
-    .form-container, .mat-form-field {
+
+    .form-container,
+    .mat-form-field {
         max-width: 90vw;
     }
 }
@@ -174,7 +249,9 @@ input.mat-input-element,
         grid-template-columns: 1fr;
         padding: 8px;
     }
-    .form-container, .mat-form-field {
+
+    .form-container,
+    .mat-form-field {
         max-width: 85vw;
     }
 }
@@ -184,7 +261,9 @@ input.mat-input-element,
         grid-template-columns: 1fr;
         padding: 4px;
     }
-    .form-container, .mat-form-field {
+
+    .form-container,
+    .mat-form-field {
         max-width: 80vw;
     }
 }
@@ -194,7 +273,9 @@ input.mat-input-element,
         grid-template-columns: 1fr;
         padding: 2px;
     }
-    .form-container, .mat-form-field {
+
+    .form-container,
+    .mat-form-field {
         max-width: 75vw;
     }
 }
@@ -204,7 +285,9 @@ input.mat-input-element,
         grid-template-columns: 1fr;
         padding: 1px;
     }
-    .form-container, .mat-form-field {
+
+    .form-container,
+    .mat-form-field {
         max-width: 70vw;
     }
 }

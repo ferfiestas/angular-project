@@ -101,6 +101,10 @@
                 <textarea matInput formControlName="urlImagen"></textarea>
             </mat-form-field>
 
+            <div class="image-container" *ngIf="validImageUrl">
+                <img [src]="validImageUrl" alt="User Image" class="responsive-image" />
+            </div>
+
             <button mat-raised-button color="primary" type="submit" class="submit-button">Guardar</button>
 
             <button mat-raised-button color="accent" type="button" (click)="resetPassword()" class="reset-button"
