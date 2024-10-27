@@ -1,0 +1,85 @@
+/* Estilos principales */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Aumentar la separación entre tarjetas */
+    max-width: 800px;
+    margin: auto;
+}
+
+.new-course-card, .course-item {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px; /* Espacio adicional entre las tarjetas */
+}
+
+/* Efecto hover en tarjetas */
+.new-course-card:hover, .course-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+}
+
+/* Estilo para los botones de acción */
+button.mat-button {
+    background-color: #621132;
+    color: #ffffff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button.mat-button:hover {
+    background-color: #9D2449;
+    transform: scale(1.05); /* Efecto de agrandamiento suave */
+}
+
+/* Estilo para el botón "Guardar Curso" */
+button.mat-raised-button {
+    background-color: #9D2449;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+button.mat-raised-button:hover {
+    background-color: #621132;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Bordes y colores de los campos de entrada */
+mat-form-field {
+    width: 100%;
+}
+
+mat-form-field.mat-focused .mat-form-field-outline-thick {
+    border-color: #621132; /* Borde de los campos al enfocarse */
+}
+
+mat-form-field.mat-form-field-outline .mat-form-field-outline-thick {
+    border-color: #9D2449; /* Borde principal */
+}
+
+.mat-form-field-underline {
+    background-color: #9D2449;
+}
+
+.mat-form-field-ripple {
+    background-color: #621132;
+}
+
+.mat-select:hover, .mat-input-element:hover {
+    border-color: #621132;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Aumenta el espacio entre las tarjetas */
+.course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Aumenta el espacio entre tarjetas */
+}

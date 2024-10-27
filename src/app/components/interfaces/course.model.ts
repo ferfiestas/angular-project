@@ -1,4 +1,6 @@
 export interface Course {
+    subtitulo: string;
+    puesto: any;
     id: number;          // Un identificador único para el curso
     title: string;       // El título del curso
     description: string; // Una breve descripción del curso

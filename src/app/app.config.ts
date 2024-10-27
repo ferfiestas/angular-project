@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { provideServiceWorker } from '@angular/service-worker';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -44,7 +45,8 @@ import { ChangePasswordComponent } from './pages/settings/change-password/change
 import { CoursesComponent } from './pages/courses/courses.component';
 import { SafeUrlPipe } from './components/pipes/safe-url.pipe';
 import { ValidationReportComponent } from './pages/reports/validation-report/validation-report.component';
-import { provideServiceWorker } from '@angular/service-worker';
+import { CourseManagementComponent } from './pages/courses/courses-admin/course-management/course-management.component';
+import { CourseEditDialogComponent } from './pages/courses/courses-admin/course-edit-dialog/course-edit-dialog/course-edit-dialog/course-edit-dialog.component';
 
 
 
@@ -66,6 +68,8 @@ import { provideServiceWorker } from '@angular/service-worker';
     ChangePasswordComponent,
     CoursesComponent,
     SafeUrlPipe,
+    CourseManagementComponent,
+    CourseEditDialogComponent,
     ValidationReportComponent
   ],
   imports: [

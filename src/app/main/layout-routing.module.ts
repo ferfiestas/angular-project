@@ -16,6 +16,7 @@ import { NotificationsComponent } from '../pages/notifications/notifications.com
 import { RoleGuard } from '../components/guards/role.guard';
 import { ValidationReportComponent } from '../pages/reports/validation-report/validation-report.component';
 import { PrivacyPolicyComponent } from '../pages/privacy-policy/privacy-policy.component';
+import { CourseManagementComponent } from '../pages/courses/courses-admin/course-management/course-management.component';
 
 
 
@@ -29,6 +30,7 @@ const routes: Routes = [
       {path: 'profile', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: profileComponent},
       {path: 'people', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3] }, component: PeopleComponent},
       {path: 'courses', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: CoursesComponent},
+      {path: 'cursos', canActivate: [RoleGuard], data: { expectedRole: [1] }, component: CourseManagementComponent},
       {path: 'news', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: NotificationsComponent},
       {path: 'ticker', canActivate: [RoleGuard], data: { expectedRole: [1] }, component: TickerAdminComponent},
       {path: 'adminnews', canActivate: [RoleGuard], data: { expectedRole: [1] }, component: AdminNotificationComponent},

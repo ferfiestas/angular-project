@@ -1,11 +1,8 @@
 <div class="courses-container">
-    <div *ngFor="let course of courses" class="course-item">
+    <div *ngFor="let course of filteredCourses" class="course-item">
         <h3>{{ course.title }}</h3>
         <p>{{ course.description }}</p>
-        <ng-container *ngIf="course.type === 'document'">
-            <a [href]="course.url" target="_blank">Ver Documento</a>
-        </ng-container>
-        <ng-container *ngIf="course.type === 'video'">
+        <ng-container *ngIf="true">
             <div class="video-container">
                 <iframe [src]="'https://www.youtube.com/embed/' + course.url | safeUrl" allowfullscreen></iframe>
             </div>

@@ -1,0 +1,169 @@
+/* Estilo general del diálogo */
+mat-dialog-content {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fefefe;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 700px; /* Limitar la altura en pantallas pequeñas */
+    overflow-y: auto; /* Habilitar el desplazamiento en pantallas pequeñas */
+    font-size: 16px; /* Tamaño de letra por defecto */
+}
+
+/* Estilo para botones dentro del diálogo */
+button.mat-button {
+    background-color: #621132;
+    color: #ffffff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 14px; /* Tamaño de letra por defecto */
+}
+
+button.mat-button:hover {
+    background-color: #9D2449;
+    transform: scale(1.05);
+}
+
+button.mat-raised-button {
+    background-color: #9D2449;
+    color: #ffffff;
+    font-size: 14px; /* Tamaño de letra por defecto */
+}
+
+button.mat-raised-button:hover {
+    background-color: #621132;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Colores de los bordes de los campos */
+.mat-form-field.mat-focused .mat-form-field-outline-thick {
+    border-color: #621132;
+}
+
+.mat-form-field-outline .mat-form-field-outline-thick {
+    border-color: #9D2449;
+}
+
+.mat-form-field-underline {
+    background-color: #9D2449;
+}
+
+.mat-form-field-ripple {
+    background-color: #621132;
+}
+
+.mat-select:hover, .mat-input-element:hover {
+    border-color: #621132;
+}
+
+.mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 14px; /* Tamaño de letra por defecto */
+}
+
+/* --- Responsividad para Grid Layout basado en diferentes tamaños --- */
+
+/* Pantallas grandes (mayor a 800px) */
+@media (min-width: 800px) {
+    mat-dialog-content form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Dos columnas iguales */
+        gap: 20px; /* Espacio entre los elementos */
+    }
+
+    mat-form-field {
+        width: 100%; /* Asegura que cada campo ocupe toda la columna */
+    }
+
+    .mat-dialog-actions {
+        grid-column: span 2; /* Los botones abarcan ambas columnas */
+    }
+}
+
+/* Pantallas medianas (500px - 800px) */
+@media (max-width: 800px) and (min-width: 501px) {
+    mat-dialog-content form {
+        display: grid;
+        grid-template-columns: 1fr; /* Una sola columna */
+        gap: 15px; /* Menor espacio entre los campos */
+    }
+
+    mat-form-field {
+        width: 100%; /* Los campos ocupan todo el ancho disponible */
+    }
+    
+    .mat-dialog-actions {
+        justify-content: space-between;
+    }
+}
+
+/* Pantallas pequeñas (400px - 500px) */
+@media (max-width: 500px) and (min-width: 401px) {
+    mat-dialog-content {
+        width: 100%; /* Ocupa el 100% del ancho disponible */
+        font-size: 14px; /* Reducir ligeramente el tamaño de la fuente */
+    }
+
+    mat-dialog-content form {
+        display: grid;
+        grid-template-columns: 1fr; /* Una columna */
+        gap: 10px; /* Espacio entre los campos */
+    }
+
+    button.mat-button, button.mat-raised-button {
+        font-size: 12px;
+    }
+
+    mat-form-field {
+        width: 100%;
+        font-size: 13px; /* Tamaño de fuente de los campos */
+    }
+}
+
+/* Pantallas muy pequeñas (300px - 400px) */
+@media (max-width: 400px) and (min-width: 301px) {
+    mat-dialog-content {
+        width: 100%;
+        padding: 8px;
+        font-size: 13px; /* Reducir más el tamaño del texto */
+    }
+
+    mat-dialog-content form {
+        display: grid;
+        grid-template-columns: 1fr; /* Una columna */
+        gap: 8px; /* Menor espacio entre los campos */
+    }
+
+    button.mat-button, button.mat-raised-button {
+        font-size: 11px;
+    }
+
+    mat-form-field {
+        width: 100%;
+        font-size: 12px; /* Tamaño de letra de los campos */
+    }
+}
+
+/* Pantallas extremadamente pequeñas (menos de 300px) */
+@media (max-width: 300px) {
+    mat-dialog-content {
+        width: 100%;
+        padding: 5px;
+        font-size: 12px; /* Texto aún más pequeño */
+    }
+
+    mat-dialog-content form {
+        display: grid;
+        grid-template-columns: 1fr; /* Una columna */
+        gap: 5px;
+    }
+
+    button.mat-button, button.mat-raised-button {
+        font-size: 10px;
+    }
+
+    mat-form-field {
+        width: 100%;
+        font-size: 11px; /* Reducir tamaño del texto */
+    }
+}

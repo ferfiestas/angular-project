@@ -1,0 +1,75 @@
+<div class="container">
+    <!-- Card para crear un nuevo curso -->
+    <mat-card class="new-course-card">
+        <mat-card-header>
+            <mat-card-title>Crear Nuevo Curso</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Título</mat-label>
+                    <input matInput formControlName="titulo" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Subtítulo</mat-label>
+                    <input matInput formControlName="subtitulo" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput formControlName="descripcion"></textarea>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Nota</mat-label>
+                    <input matInput formControlName="nota" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Ruta de la imagen</mat-label>
+                    <input matInput formControlName="rutaImagen" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Liga de YouTube</mat-label>
+                    <input matInput formControlName="liga" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Puesto</mat-label>
+                    <mat-select formControlName="idpuesto">
+                        <mat-option *ngFor="let puesto of puestos" [value]="puesto.idPuesto">{{ puesto.nombre
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="actions">
+                    <button mat-raised-button color="primary" type="submit">Guardar Curso</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <!-- Listado de cursos -->
+    <div class="course-list">
+        <mat-card *ngFor="let course of courses" class="course-item">
+            <mat-card-header>
+                <mat-card-title>{{ course.title }}</mat-card-title>
+                <mat-card-subtitle>{{ course.subtitulo }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+                <p>{{ course.description }}</p>
+                <p><strong>Nota:</strong> {{ course.type }}</p>
+                <p><strong>Puesto:</strong> {{ course.puesto }}</p>
+            </mat-card-content>
+
+            <mat-card-actions>
+                <button mat-button color="accent" (click)="editCourse(course)">Editar</button>
+                <button mat-button color="warn" (click)="deleteCourse(course.id)">Eliminar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

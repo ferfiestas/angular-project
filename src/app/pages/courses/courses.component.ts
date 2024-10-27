@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CourseService } from '../../services/course.service';
 import { Course } from '../../components/interfaces/course.model';
 
 @Component({
@@ -8,15 +9,37 @@ import { Course } from '../../components/interfaces/course.model';
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
+  filteredCourses: Course[] = [];
+
+  constructor(private courseService: CourseService) { }
 
   ngOnInit() {
     this.loadCourses();
   }
 
   loadCourses() {
-    this.courses = [
-      /* { id: 1, title: 'Curso 1', description: 'Descripción del curso 1', type: 'document', url: 'assets/documento1.pdf' }, */
-      { id: 2, title: 'CURSO BÁSICO DE EXCEL', description: 'En este curso básico de Excel aprenderemos  paso a paso desde cero a Utilizar Excel 2020 para principiantes.', type: 'video', url: 'v_R5SaMTlug' } // Solo el ID del vídeo
-    ];
+    const userRole = localStorage.getItem('userRole');
+    const idPuesto = localStorage.getItem('idPuesto');
+
+    this.courseService.getCourses().subscribe(
+      (courses: Course[]) => {
+        if (userRole === '1') {
+          // Si userRole es 1, mostrar todos los videos
+          this.filteredCourses = courses;
+        } else {
+          // Obtener el nombre del puesto basado en el idPuesto
+          this.courseService.getPuesto(Number(idPuesto)).subscribe(
+            (puestoData: any) => {
+              const puestoNombre = puestoData.nombre;
+
+              // Filtrar los cursos que coincidan con el puesto
+              this.filteredCourses = courses.filter(course => course.puesto === puestoNombre);
+            },
+            (error) => console.error('Error al obtener el puesto', error)
+          );
+        }
+      },
+      (error) => console.error('Error al cargar los cursos', error)
+    );
   }
 }

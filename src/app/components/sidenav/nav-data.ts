@@ -29,6 +29,12 @@ export const navbarData: INavbarData[] = [
         allowedRoles: [1, 2, 3, 4, 5],
       },
       {
+        icon: 'fal fa-bookmark',
+        Label: 'Cursos Admin',
+        routeLink: 'cursos',
+        allowedRoles: [1, 2],
+      },
+      {
         icon: 'fal fa-envelope',
         Label: 'Notificaciones',
         routeLink: 'news',
