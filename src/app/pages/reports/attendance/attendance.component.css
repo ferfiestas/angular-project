@@ -1,0 +1,15 @@
+.attendance-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 800px;
+    margin: auto;
+
+    mat-form-field {
+        width: 100%;
+    }
+
+    button {
+        align-self: flex-start;
+    }
+}

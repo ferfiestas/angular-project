@@ -26,6 +26,9 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { provideServiceWorker } from '@angular/service-worker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -47,6 +50,7 @@ import { SafeUrlPipe } from './components/pipes/safe-url.pipe';
 import { ValidationReportComponent } from './pages/reports/validation-report/validation-report.component';
 import { CourseManagementComponent } from './pages/courses/courses-admin/course-management/course-management.component';
 import { CourseEditDialogComponent } from './pages/courses/courses-admin/course-edit-dialog/course-edit-dialog/course-edit-dialog/course-edit-dialog.component';
+import { AttendanceComponent } from './pages/reports/attendance/attendance.component';
 
 
 
@@ -70,6 +74,7 @@ import { CourseEditDialogComponent } from './pages/courses/courses-admin/course-
     SafeUrlPipe,
     CourseManagementComponent,
     CourseEditDialogComponent,
+    AttendanceComponent,
     ValidationReportComponent
   ],
   imports: [
@@ -93,31 +98,27 @@ import { CourseEditDialogComponent } from './pages/courses/courses-admin/course-
     MatPaginatorModule,
     MatTabsModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     YouTubePlayerModule,
     NgxMatSelectSearchModule,
     MatExpansionModule,
     OverlayModule
   ],
-  providers: [AccessService, AttendanceService],
+  providers: [AccessService, { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }, AttendanceService],
 })
 export class AppModule { }
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync(), provideAnimations(), importProvidersFrom(HttpClientModule), provideAnimationsAsync(), provideAnimationsAsync(), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          })]
+  providers: [
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideAnimations(),
+    importProvidersFrom(HttpClientModule),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
+  ],
 };
 
