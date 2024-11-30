@@ -28,6 +28,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { provideServiceWorker } from '@angular/service-worker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -100,6 +101,7 @@ import { AttendanceComponent } from './pages/reports/attendance/attendance.compo
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMomentDateModule,
     YouTubePlayerModule,
     NgxMatSelectSearchModule,
     MatExpansionModule,
