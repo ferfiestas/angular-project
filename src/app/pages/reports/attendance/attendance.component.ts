@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AttendanceService } from '../../../services/attendance-report.service';
 import * as ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-attendance',
@@ -11,9 +12,11 @@ import { saveAs } from 'file-saver';
 export class AttendanceComponent implements OnInit {
   consultaType = '';
   personas: any[] = [];
+  usuariosFiltrados: any[] = [];
+  usuarioFiltro: string = ''; // Filtro para el buscador dentro del dropdown
   selectedPersona: any;
-  fechaInicio: any;
-  fechaFin: any;
+  fechaInicio: string | null = null;
+  fechaFin: string | null = null;
   resultadoConsulta: any[] = [];
   excelDataAvailable = false;
 
@@ -29,7 +32,18 @@ export class AttendanceComponent implements OnInit {
         id: persona.idPersona,
         nombre: `${persona.urlImagen} - ${persona.nombreCompleto}`,
       }));
+      this.usuariosFiltrados = [...this.personas];
     });
+  }
+
+  filtrarUsuarios() {
+    if (this.usuarioFiltro.trim()) {
+      this.usuariosFiltrados = this.personas.filter((persona) =>
+        persona.nombre.toLowerCase().includes(this.usuarioFiltro.toLowerCase())
+      );
+    } else {
+      this.usuariosFiltrados = [...this.personas];
+    }
   }
 
   buscar() {
@@ -37,7 +51,7 @@ export class AttendanceComponent implements OnInit {
       alert('Por favor, selecciona un tipo de consulta.');
       return;
     }
-  
+
     if (
       (this.consultaType === '1' || this.consultaType === '4') &&
       !this.selectedPersona
@@ -45,7 +59,7 @@ export class AttendanceComponent implements OnInit {
       alert('Por favor, selecciona un usuario.');
       return;
     }
-  
+
     if (
       (this.consultaType === '2' || this.consultaType === '3' || this.consultaType === '4') &&
       !this.fechaInicio
@@ -53,7 +67,7 @@ export class AttendanceComponent implements OnInit {
       alert('Por favor, selecciona la fecha de inicio.');
       return;
     }
-  
+
     if (
       (this.consultaType === '3' || this.consultaType === '4') &&
       !this.fechaFin
@@ -61,51 +75,62 @@ export class AttendanceComponent implements OnInit {
       alert('Por favor, selecciona la fecha de fin.');
       return;
     }
-  
-    // Lógica existente para realizar la búsqueda
+
     let payload: any = {};
-    const formatFecha = (fecha: Date | null) =>
-      fecha ? fecha.toISOString().split('T')[0] : ''; 
-  
+
     switch (this.consultaType) {
-      case '1': // Búsqueda por empleado
+      case '1':
         payload = {
           tipoConsulta: '1',
           idEmpleado: this.selectedPersona?.id,
           fechas: [''],
         };
         break;
-      case '2': // Buscar por comienzo de una fecha en específico
+      case '2':
         payload = {
           tipoConsulta: '2',
-          fechas: [formatFecha(this.fechaInicio)],
+          fechas: [this.fechaInicio],
         };
         break;
-      case '3': // Búsqueda por rango de fechas
+      case '3':
         payload = {
           tipoConsulta: '3',
-          fechas: [formatFecha(this.fechaInicio), formatFecha(this.fechaFin)],
+          fechas: [this.fechaInicio, this.fechaFin],
         };
         break;
-      case '4': // Búsqueda por empleado y rango de fechas
+      case '4':
         payload = {
           tipoConsulta: '4',
           idEmpleado: this.selectedPersona?.id,
-          fechas: [formatFecha(this.fechaInicio), formatFecha(this.fechaFin)],
+          fechas: [this.fechaInicio, this.fechaFin],
         };
         break;
       default:
         return;
     }
-  
+
+    // Mostrar mensaje de espera con Swal
+    Swal.fire({
+      title: 'Espera en lo que se recopila la información',
+      text: 'Procesando datos...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(); // Mostrar animación de carga
+      },
+    });
+
     this.attendanceService.postConsulta(payload).subscribe({
       next: (response: any[]) => {
         this.resultadoConsulta = response;
         this.excelDataAvailable = true;
+
+        // Cerrar el mensaje de espera
+        Swal.close();
       },
       error: (err) => {
         console.error('Error en la consulta:', err);
-        alert('Ocurrió un error al realizar la búsqueda. Por favor, verifica los datos ingresados.');
+        Swal.close(); // Cerrar el mensaje de espera en caso de error
+        Swal.fire('Error', 'Ocurrió un error al realizar la búsqueda.', 'error');
       },
     });
   }
@@ -132,6 +157,18 @@ export class AttendanceComponent implements OnInit {
     workbook.xlsx.writeBuffer().then((data) => {
       const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       saveAs(blob, 'Asistencias.xlsx');
+
+      // Limpiar los campos
+      this.resetForm();
     });
+  }
+
+  resetForm() {
+    this.consultaType = '';
+    this.selectedPersona = null;
+    this.usuarioFiltro = '';
+    this.fechaInicio = null;
+    this.fechaFin = null;
+    this.excelDataAvailable = false;
   }
 }

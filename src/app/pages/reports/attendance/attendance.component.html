@@ -1,19 +1,23 @@
 <div class="attendance-container">
-    <mat-form-field appearance="fill">
-        <mat-label>Tipo de Consulta</mat-label>
-        <mat-select [(value)]="consultaType">
-            <mat-option value="1">Búsqueda por empleado</mat-option>
-            <mat-option value="2">Buscar por comienzo de una fecha en específico</mat-option>
-            <mat-option value="3">Búsqueda por rango de fechas</mat-option>
-            <mat-option value="4">Búsqueda por empleado y rango de fechas</mat-option>
-        </mat-select>
-    </mat-form-field>
+    <div>
+        <label for="consultaType">Tipo de Consulta:</label>
+        <select id="consultaType" [(ngModel)]="consultaType">
+            <option value="1">Búsqueda por empleado</option>
+            <option value="2">Buscar por comienzo de una fecha en específico</option>
+            <option value="3">Búsqueda por rango de fechas</option>
+            <option value="4">Búsqueda por empleado y rango de fechas</option>
+        </select>
+    </div>
 
     <div *ngIf="consultaType === '1' || consultaType === '4'">
         <mat-form-field appearance="fill">
             <mat-label>Usuario</mat-label>
             <mat-select [(value)]="selectedPersona">
-                <mat-option *ngFor="let persona of personas" [value]="persona">
+                <!-- Campo de búsqueda dentro del dropdown -->
+                <ngx-mat-select-search [placeholderLabel]="'Buscar usuario...'"
+                    [noEntriesFoundLabel]="'No se encontraron usuarios'" [(ngModel)]="usuarioFiltro"
+                    (ngModelChange)="filtrarUsuarios()"></ngx-mat-select-search>
+                <mat-option *ngFor="let persona of usuariosFiltrados" [value]="persona">
                     {{ persona.nombre }}
                 </mat-option>
             </mat-select>
@@ -21,26 +25,19 @@
     </div>
 
     <div *ngIf="consultaType === '2' || consultaType === '3' || consultaType === '4'">
-        <mat-form-field appearance="fill">
-            <mat-label>Fecha Inicio</mat-label>
-            <input matInput [matDatepicker]="picker1" [(ngModel)]="fechaInicio" />
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
+        <label for="fechaInicio">Fecha Inicio:</label>
+        <input id="fechaInicio" type="date" [(ngModel)]="fechaInicio" />
     </div>
 
     <div *ngIf="consultaType === '3' || consultaType === '4'">
-        <mat-form-field appearance="fill">
-            <mat-label>Fecha Fin</mat-label>
-            <input matInput [matDatepicker]="picker2" [(ngModel)]="fechaFin" />
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
+        <label for="fechaFin">Fecha Fin:</label>
+        <input id="fechaFin" type="date" [(ngModel)]="fechaFin" />
     </div>
 
-    <button mat-raised-button color="primary" (click)="buscar()">Buscar</button>
+    <button (click)="buscar()">Buscar</button>
+    <button (click)="resetForm()">Limpiar</button>
 
     <div *ngIf="excelDataAvailable">
-        <button mat-raised-button color="accent" (click)="descargarExcel()">Descargar Información</button>
+        <button (click)="descargarExcel()">Descargar Información</button>
     </div>
 </div>

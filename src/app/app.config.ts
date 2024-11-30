@@ -30,6 +30,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { IntlService } from './services/intl-service.service';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -107,7 +108,16 @@ import { AttendanceComponent } from './pages/reports/attendance/attendance.compo
     MatExpansionModule,
     OverlayModule
   ],
-  providers: [AccessService, { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }, AttendanceService],
+  providers: [
+    AccessService, 
+    { 
+      provide: MAT_DATE_LOCALE, 
+      useValue: 'es-ES',
+      useFactory: (intlService: IntlService) => intlService.currentLocale,
+      deps: [IntlService],
+    }, 
+    AttendanceService
+  ],
 })
 export class AppModule { }
 
