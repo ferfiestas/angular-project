@@ -1,0 +1,114 @@
+<form [formGroup]="createPersonForm" (ngSubmit)="createUser()" class="form-container">
+    <h2>Información Personal</h2>
+    <mat-form-field appearance="fill">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput formControlName="nombreCompleto">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>RFC</mat-label>
+        <input matInput formControlName="rfc">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>CURP</mat-label>
+        <input matInput formControlName="curp">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Teléfono de Emergencia</mat-label>
+        <input matInput formControlName="telefonodeemergencia">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Domicilio</mat-label>
+        <input matInput formControlName="domicilio">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="correO_ELECTRONICO">
+    </mat-form-field>
+
+    <!-- Estudio con filtro de búsqueda -->
+    <mat-form-field appearance="fill">
+        <mat-label>Estudio</mat-label>
+        <mat-select formControlName="idEstudio">
+            <ngx-mat-select-search [formControl]="estudioFilterCtrl"
+                placeholderLabel="Buscar..."
+                noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+            <mat-option *ngFor="let estudio of filteredEstudios | async" [value]="estudio.idEstudio">
+                {{ estudio.descripcion }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <h2>Información de Trabajo</h2>
+    <mat-form-field appearance="fill">
+        <mat-label>Número Interno</mat-label>
+        <input matInput formControlName="idInterno">
+    </mat-form-field>
+
+    <!-- Dependencia con filtro de búsqueda -->
+    <mat-form-field appearance="fill">
+        <mat-label>Dependencia</mat-label>
+        <mat-select formControlName="idDependencia">
+            <ngx-mat-select-search [formControl]="dependenciaFilterCtrl"
+                placeholderLabel="Buscar..."
+                noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+            <mat-option *ngFor="let dep of filteredDependencias | async" [value]="dep.idDependencia">
+                {{ dep.descripcion }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- Área con filtro de búsqueda -->
+    <mat-form-field appearance="fill">
+        <mat-label>Área</mat-label>
+        <mat-select formControlName="idArea">
+            <ngx-mat-select-search [formControl]="areaFilterCtrl" 
+                placeholderLabel="Buscar..."
+                noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+            <mat-option *ngFor="let area of filteredAreas | async" [value]="area.idArea">
+                {{ area.descripcion }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- Puesto con filtro de búsqueda -->
+    <mat-form-field appearance="fill">
+        <mat-label>Puesto</mat-label>
+        <mat-select formControlName="idPuesto">
+            <ngx-mat-select-search [formControl]="puestoFilterCtrl"
+                placeholderLabel="Buscar..."
+                noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+            <mat-option *ngFor="let puesto of filteredPuestos | async" [value]="puesto.idPuesto">
+                {{ puesto.nombre }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- Tipo de Contrato con filtro de búsqueda -->
+    <mat-form-field appearance="fill">
+        <mat-label>Tipo de Contrato</mat-label>
+        <mat-select formControlName="idTipoContratacion">
+            <ngx-mat-select-search [formControl]="contratoFilterCtrl"
+                placeholderLabel="Buscar..."
+                noEntriesFoundLabel="No se encontraron resultados"></ngx-mat-select-search>
+            <mat-option *ngFor="let contrato of filteredContratos | async" [value]="contrato.idTipoContratacion">
+                {{ contrato.descripcion }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field><mat-label>Sueldo Bruto</mat-label>
+        <input matInput formControlName="sueldobruto" readonly>
+    </mat-form-field>
+    <mat-form-field><mat-label>Sueldo Neto</mat-label>
+        <input matInput formControlName="sueldoneto" readonly>
+    </mat-form-field>
+
+    <div class="button-container">
+        <button mat-raised-button color="primary" type="submit">Crear Usuario</button>
+        <button mat-raised-button color="warn" type="button" (click)="resetForm()">Limpiar</button>
+    </div>
+</form>

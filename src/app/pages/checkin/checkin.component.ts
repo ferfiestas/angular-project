@@ -50,16 +50,16 @@ export class CheckinComponent implements OnInit {
       });
 
       // Después de mostrar el mensaje, verificar si debe aparecer el pop-up de notificación
-      if (this.popupNotificationService.shouldShowNotification()) {
+      /* if (this.popupNotificationService.shouldShowNotification()) { */
         // Reemplazamos el overlay por Swal.fire para mostrar la notificación
-        Swal.fire({
+        /* Swal.fire({
           title: '¡Aviso importante!',
           imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-          imageHeight: 400, // Altura de la imagen
-          imageAlt: 'Notificación de Feriado',
+          imageHeight: 400, */ // Altura de la imagen
+          /* imageAlt: 'Notificación de Feriado',
           confirmButtonText: 'Aceptar'
-        });
-      }
+        }); */
+      /* } */
 
     } catch (error) {
       // Mostrar el mensaje de error usando Swal.fire

@@ -456,4 +456,12 @@ export class PeopleService {
       return of(result as T);
     };
   }
+
+  createPerson(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/Persona`, data, this.httpOptions).pipe(
+      catchError(this.handleError<any>('createPerson'))
+    );
+  }
+
+
 }

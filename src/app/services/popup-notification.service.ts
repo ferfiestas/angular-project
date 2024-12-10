@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class PopupNotificationService {
 
-  private notificationStart: Date = new Date(2024, 10, 21); // Fecha de inicio
-  private notificationEnd: Date = new Date(2024, 10, 30); // Fecha de fin
-  private notificationImageUrl: string = 'https://encompletadisonancia.com.mx/notification_popup/elchido.png';
+  private notificationStart: Date = new Date(2024, 11, 10); // Fecha de inicio
+  private notificationEnd: Date = new Date(2024, 24, 30); // Fecha de fin
+  private notificationImageUrl: string = 'https://encompletadisonancia.com.mx/notification_popup/msjok.png';
 
   constructor() { }
 

@@ -20,7 +20,21 @@ export const navbarData: INavbarData[] = [
         icon: 'fal fa-users',
         Label: 'Empleados',
         routeLink: 'people',
-        allowedRoles: [1, 2, 3],
+        allowedRoles: [1, 2, 3, 5],
+        items: [
+          {
+            routeLink: 'people',
+            Label: 'Editar Usuario',
+            icon: 'fal fa-pencil',
+            allowedRoles: [1, 2, 3],
+          },
+          {
+            routeLink: 'newpeople',
+            Label: 'Crear Usuario',
+            icon: 'fal fa-user-plus',
+            allowedRoles: [1, 2, 5],
+          }
+        ]
       },
       {
         icon: 'fal fa-graduation-cap',

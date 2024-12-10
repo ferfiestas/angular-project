@@ -53,6 +53,7 @@ import { ValidationReportComponent } from './pages/reports/validation-report/val
 import { CourseManagementComponent } from './pages/courses/courses-admin/course-management/course-management.component';
 import { CourseEditDialogComponent } from './pages/courses/courses-admin/course-edit-dialog/course-edit-dialog/course-edit-dialog/course-edit-dialog.component';
 import { AttendanceComponent } from './pages/reports/attendance/attendance.component';
+import { CreatePersonComponent } from './pages/people/create-person/create-person.component';
 
 
 
@@ -77,6 +78,7 @@ import { AttendanceComponent } from './pages/reports/attendance/attendance.compo
     CourseManagementComponent,
     CourseEditDialogComponent,
     AttendanceComponent,
+    CreatePersonComponent,
     ValidationReportComponent
   ],
   imports: [
