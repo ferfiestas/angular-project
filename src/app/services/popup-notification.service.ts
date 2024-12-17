@@ -1,22 +1,38 @@
 import { Injectable } from '@angular/core';
 
+interface Notification {
+  start: Date;
+  end: Date;
+  imageUrl: string;
+  alt: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class PopupNotificationService {
 
-  private notificationStart: Date = new Date(2024, 11, 10); // Fecha de inicio
-  private notificationEnd: Date = new Date(2024, 24, 30); // Fecha de fin
-  private notificationImageUrl: string = 'https://encompletadisonancia.com.mx/notification_popup/msjok.png';
+  private notifications: Notification[] = [
+    {
+      start: new Date(2024, 11, 10), // 10 de diciembre 2024
+      end: new Date(2024, 11, 24),   // 24 de diciembre 2024
+      imageUrl: 'https://encompletadisonancia.com.mx/notification_popup/msjok.png',
+      alt: 'Notificación de Feriado'
+    },
+    {
+      start: new Date(2024, 11, 10), // 25 de diciembre 2024
+      end: new Date(2025, 0, 8),     // 8 de enero 2025
+      imageUrl: 'https://encompletadisonancia.com.mx/notification_popup/vacaciones.png',
+      alt: 'Notificación de Navidad'
+    }
+  ];
 
   constructor() { }
 
-  shouldShowNotification(): boolean {
+  getActiveNotifications(): Notification[] {
     const today = new Date();
-    return today >= this.notificationStart && today <= this.notificationEnd;
-  }
-
-  getNotificationImageUrl(): string {
-    return `${this.notificationImageUrl}?timestamp=${new Date().getTime()}`;
+    return this.notifications.filter(
+      notification => today >= notification.start && today <= notification.end
+    );
   }
 }

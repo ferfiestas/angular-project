@@ -49,20 +49,13 @@ export class LoginComponent {
 
   LogIn() {
     const { usuario1, password } = this.formLogin.value;
-
+  
     this.accessService.login(usuario1, password)
       .subscribe({
         next: () => {
-          if (this.popupNotificationService.shouldShowNotification()) {
-            // Mostrar solo el título, imagen, altura de la imagen, alt de la imagen y botón de confirmación
-            Swal.fire({
-              title: '¡Aviso importante!',
-              imageUrl: this.popupNotificationService.getNotificationImageUrl(),
-              imageHeight: 400, // Altura de la imagen
-              imageAlt: 'Notificación de Feriado', // Texto alternativo de la imagen
-              confirmButtonText: 'Aceptar' // Texto del botón
-            });
-          }
+          const activeNotifications = this.popupNotificationService.getActiveNotifications();
+  
+          this.showNotificationsSequentially(activeNotifications);
         },
         error: (_message) => {
           // Manejar el error de credenciales
@@ -74,5 +67,24 @@ export class LoginComponent {
           });
         }
       });
+  }
+  
+  // Método para mostrar notificaciones secuencialmente
+  showNotificationsSequentially(notifications: any[]) {
+    const showNext = (index: number) => {
+      if (index >= notifications.length) return;
+  
+      const notification = notifications[index];
+  
+      Swal.fire({
+        title: '¡Aviso importante!',
+        imageUrl: `${notification.imageUrl}?timestamp=${new Date().getTime()}`,
+        imageHeight: 400,
+        imageAlt: notification.alt,
+        confirmButtonText: 'Aceptar'
+      }).then(() => showNext(index + 1));
+    };
+  
+    showNext(0);
   }
 }
