@@ -14,8 +14,8 @@ export class PopupNotificationService {
 
   private notifications: Notification[] = [
     {
-      start: new Date(2024, 11, 10), // 10 de diciembre 2024
-      end: new Date(2024, 11, 24),   // 24 de diciembre 2024
+      start: new Date(2025, 0, 21), // 21 de Enero 2025
+      end: new Date(2025, 0, 28),   // 28 de Enero 2025
       imageUrl: 'https://encompletadisonancia.com.mx/notification_popup/nss.png',
       alt: 'Notificación Interna'
     },
