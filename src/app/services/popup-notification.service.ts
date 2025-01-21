@@ -16,8 +16,8 @@ export class PopupNotificationService {
     {
       start: new Date(2024, 11, 10), // 10 de diciembre 2024
       end: new Date(2024, 11, 24),   // 24 de diciembre 2024
-      imageUrl: 'https://encompletadisonancia.com.mx/notification_popup/msjok.png',
-      alt: 'Notificación de Feriado'
+      imageUrl: 'https://encompletadisonancia.com.mx/notification_popup/nss.png',
+      alt: 'Notificación Interna'
     },
     {
       start: new Date(2024, 11, 10), // 25 de diciembre 2024
