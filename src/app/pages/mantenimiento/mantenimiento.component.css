@@ -1,0 +1,91 @@
+/* Estilos generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.login-background {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    flex-direction: row;
+}
+
+/* Modificamos la izquierda para mostrar la imagen */
+.left-half {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 2rem;
+}
+
+/* Imagen de mantenimiento */
+.mantto-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Parte derecha */
+.right-half {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-half {
+    flex: 1;
+    background-color: #6eacbb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centered-text {
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.2;
+    font-size: 2.5rem; /* Aumenta el tamaño del texto */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.bottom-half {
+    flex: 1;
+    background-color: #5bbfc1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.login-image {
+    width: 80%;
+    max-width: 360px;
+}
+
+/* Estilos Responsivos */
+@media (max-width: 800px) {
+    .login-background {
+        flex-direction: column;
+    }
+
+    .left-half {
+        flex: 1;
+        padding: 1rem;
+    }
+
+    .right-half {
+        display: none; /* Ocultamos la parte derecha en móviles */
+    }
+
+    .mantto-image {
+        width: 100%;
+        max-height: 90vh;
+    }
+}

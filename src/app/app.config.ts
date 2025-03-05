@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, InjectionToken } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -6,8 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -27,14 +26,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { provideServiceWorker } from '@angular/service-worker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { IntlService } from './services/intl-service.service';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
 import { routes } from './app.routes';
+
 import { profileComponent } from './pages/profile/profile.component';
 import { passwordComponent } from './pages/settings/passwordreset/password.component';
 import { AccessService } from './services/access.service';
@@ -55,10 +53,8 @@ import { CourseEditDialogComponent } from './pages/courses/courses-admin/course-
 import { AttendanceComponent } from './pages/reports/attendance/attendance.component';
 import { CreatePersonComponent } from './pages/people/create-person/create-person.component';
 
-
-
-
-
+/** Creación del Token para el modo mantenimiento */
+export const MANTENIMIENTO_MODE = new InjectionToken<boolean>('MANTENIMIENTO_MODE');
 
 @NgModule({
   declarations: [
@@ -133,6 +129,7 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    /** Configuración de mantenimiento */
+    { provide: MANTENIMIENTO_MODE, useValue: true } // Cambia a true para activar la página de mantenimiento
   ],
 };
-
