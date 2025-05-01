@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +25,7 @@ import Swal from 'sweetalert2';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   private accessService = inject(AccessService);
   private formBuild = inject(FormBuilder);
@@ -39,6 +39,13 @@ export class LoginComponent {
 
   isKeyboardVisible: boolean = false;
 
+  ngOnInit(): void {
+    const activeNotifications = this.popupNotificationService.getActiveNotifications();
+    if (activeNotifications.length > 0) {
+      this.showNotificationsSequentially(activeNotifications);
+    }
+  }
+
   onFocus(): void {
     this.isKeyboardVisible = true;
   }
@@ -49,12 +56,11 @@ export class LoginComponent {
 
   LogIn() {
     const { usuario1, password } = this.formLogin.value;
-  
+
     this.accessService.login(usuario1, password)
       .subscribe({
         next: () => {
           const activeNotifications = this.popupNotificationService.getActiveNotifications();
-  
           this.showNotificationsSequentially(activeNotifications);
         },
         error: (_message) => {
@@ -68,14 +74,14 @@ export class LoginComponent {
         }
       });
   }
-  
+
   // Método para mostrar notificaciones secuencialmente
   showNotificationsSequentially(notifications: any[]) {
     const showNext = (index: number) => {
       if (index >= notifications.length) return;
-  
+
       const notification = notifications[index];
-  
+
       Swal.fire({
         title: '¡Aviso importante!',
         imageUrl: `${notification.imageUrl}?timestamp=${new Date().getTime()}`,
@@ -84,7 +90,7 @@ export class LoginComponent {
         confirmButtonText: 'Aceptar'
       }).then(() => showNext(index + 1));
     };
-  
+
     showNext(0);
   }
 }
