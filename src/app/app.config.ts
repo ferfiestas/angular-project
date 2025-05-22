@@ -29,6 +29,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { IntlService } from './services/intl-service.service';
+import { CdkMenuModule } from '@angular/cdk/menu';
+import { RouterModule } from '@angular/router';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { routes } from './app.routes';
@@ -104,6 +106,8 @@ export const MANTENIMIENTO_MODE = new InjectionToken<boolean>('MANTENIMIENTO_MOD
     YouTubePlayerModule,
     NgxMatSelectSearchModule,
     MatExpansionModule,
+    CdkMenuModule,
+    RouterModule,
     OverlayModule
   ],
   providers: [

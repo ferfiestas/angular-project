@@ -10,17 +10,16 @@ import { NotificationService, Notification } from '../../services/notification.s
 import { AccessService } from '../../services/access.service';
 import { TickerupdateService } from '../../services/tickerupdate.service';
 
-
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, OverlayModule, CdkMenuModule, RouterModule, RouterOutlet],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
   headerImageUrl: string = '';
+
 
   @Input() collapsed = false;
   @Input() screenWidth = 0;
@@ -33,15 +32,16 @@ export class HeaderComponent implements OnInit {
   public notifications: Notification[] = [];
   public unreadNotificationsCount: number = 0;
 
-  tickerWidth: string = '100'; 
+  tickerWidth: string = '100';
   messages: { idTicker: number; descripcion: string }[] = [];
 
+
   constructor(
-    private tickerService: TickerService, 
+    private tickerService: TickerService,
     private notificationService: NotificationService,
     public accessService: AccessService,
-    private messageService: TickerupdateService
-  ) {}
+    private messageService: TickerupdateService,
+  ) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(_event: any) {
@@ -61,12 +61,12 @@ export class HeaderComponent implements OnInit {
 
   loadMessages(): void {
     this.tickerService.getMessages().subscribe(
-        (messages) => {
-          this.messages = messages;
-        },
-        (error) => {
-          console.error('Error fetching messages:', error);
-        }
+      (messages) => {
+        this.messages = messages;
+      },
+      (error) => {
+        console.error('Error fetching messages:', error);
+      }
     );
   }
 
@@ -78,7 +78,7 @@ export class HeaderComponent implements OnInit {
     this.notificationService.getNotifications().subscribe(
       (notifications) => {
         this.notifications = notifications;
-        this.unreadNotificationsCount = this.notifications.filter(n => !n.read).length; // Calcular notificaciones no leídas
+        this.unreadNotificationsCount = this.notifications.filter(n => !n.read).length;
       },
       (error) => {
         console.error('Error fetching notifications:', error);
@@ -92,10 +92,9 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-
   getHeadClass(): string {
     let styleClass = '';
-    if(this.collapsed && this.screenWidth > 768) {
+    if (this.collapsed && this.screenWidth > 768) {
       styleClass = 'head-trimmed';
     } else {
       styleClass = 'head-md-screen';
@@ -105,34 +104,28 @@ export class HeaderComponent implements OnInit {
 
   gettrickerClass(): string {
     let styleClass = '';
-  
+
     if (this.screenWidth > 1080) {
-      // Pantallas grandes
       styleClass = this.collapsed ? 'ticker-trimmed-lg' : 'ticker-md-screen-lg';
     } else if (this.screenWidth > 800) {
-      // Pantallas medianas
       styleClass = this.collapsed ? 'ticker-trimmed-md' : 'ticker-md-screen-md';
     } else if (this.screenWidth > 500) {
-      // Pantallas pequeñas
       styleClass = this.collapsed ? 'ticker-trimmed-sm' : 'ticker-md-screen-sm';
     } else if (this.screenWidth > 400) {
-      // Pantallas muy pequeñas
       styleClass = this.collapsed ? 'ticker-trimmed-xs' : 'ticker-md-screen-xs';
     } else if (this.screenWidth > 300) {
-      // Pantallas demasiado pequeñas
       styleClass = this.collapsed ? 'ticker-trimmed-xxs' : 'ticker-md-screen-xxs';
     } else {
-      // Pantallas extremadamente pequeñas
       styleClass = this.collapsed ? 'ticker-trimmed-xxx' : 'ticker-md-screen-xxx';
     }
-  
+
     return styleClass;
   }
 
   loadHeaderImage(): void {
     const idUsuario = localStorage.getItem('usuario1');
     const defaultImageUrl = 'https://encompletadisonancia.com.mx/photo_upload/img00000.jpg';
-    
+
     if (idUsuario) {
       const possibleExtensions = ['jpg', 'png', 'jpeg'];
       this.checkMultipleImageExtensions(idUsuario, possibleExtensions)
@@ -140,25 +133,24 @@ export class HeaderComponent implements OnInit {
           this.headerImageUrl = validImageUrl || defaultImageUrl;
         })
         .catch(() => {
-          // Si hay un error en la verificación, usa la imagen por defecto
           this.headerImageUrl = defaultImageUrl;
         });
     } else {
       this.headerImageUrl = defaultImageUrl;
     }
   }
-  
+
   private async checkMultipleImageExtensions(idUsuario: string, extensions: string[]): Promise<string | null> {
     for (const ext of extensions) {
       const imageUrl = `https://encompletadisonancia.com.mx/photo_upload/${idUsuario}.${ext}`;
       const exists = await this.checkImageExists(imageUrl);
       if (exists) {
-        return imageUrl; // Si se encuentra una imagen válida, retorna su URL
+        return imageUrl;
       }
     }
-    return null; // Si ninguna imagen es válida, retorna null
+    return null;
   }
-  
+
   private checkImageExists(url: string): Promise<boolean> {
     return new Promise((resolve) => {
       const img = new Image();
@@ -169,10 +161,12 @@ export class HeaderComponent implements OnInit {
   }
 
   checkCanShowSearchAsOverlay(innerWidth: number): void {
-    if(innerWidth < 845) {
+    if (innerWidth < 845) {
       this.canShowSearchAsOverlay = true;
     } else {
       this.canShowSearchAsOverlay = false;
     }
   }
+
+  
 }

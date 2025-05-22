@@ -1,0 +1,16 @@
+<div class="flipbook-controls">
+    <div class="nav-controls">
+        <button (click)="goToPrevPage()">⬅ Anterior</button>
+        <span id="page-info">Página {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="goToNextPage()">Siguiente ➡</button>
+    </div>
+
+    <div class="zoom-controls">
+        <button (click)="zoomOut()">🔍−</button>
+        <button (click)="zoomIn()">🔍+</button>
+        <button (click)="resetZoom()">🔄Resetear Zoom</button>
+        <button (click)="toggleFullscreen()">⛶ Pantalla Completa</button>
+    </div>
+</div>
+
+<div class="flipbook-container" #flipbookContainer></div>

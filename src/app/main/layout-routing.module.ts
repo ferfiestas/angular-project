@@ -18,6 +18,7 @@ import { ValidationReportComponent } from '../pages/reports/validation-report/va
 import { PrivacyPolicyComponent } from '../pages/privacy-policy/privacy-policy.component';
 import { CourseManagementComponent } from '../pages/courses/courses-admin/course-management/course-management.component';
 import { CreatePersonComponent } from '../pages/people/create-person/create-person.component';
+import { FlipbookComponent } from '../pages/flipbook/flipbook.component';
 
 
 
@@ -42,6 +43,7 @@ const routes: Routes = [
       {path: 'validations', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 5] }, component: ValidationReportComponent},
       {path: 'passwordreset', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: passwordComponent},
       {path: 'privacy', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: PrivacyPolicyComponent},
+      {path: 'flipbook', canActivate: [RoleGuard], data: { expectedRole: [1, 2, 3, 4, 5] }, component: FlipbookComponent},
     ]
   }
 ];

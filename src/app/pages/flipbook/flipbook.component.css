@@ -1,0 +1,155 @@
+/* Contenedor externo que centra y ajusta la vista */
+.flipbook-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flipbook-container {
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Página renderizada (canvas) */
+.page-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.page-wrapper canvas {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    transform-origin: center center;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* NUEVO contenedor para botones de navegación y zoom */
+.flipbook-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 20px auto;
+    font-size: 18px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.nav-controls,
+.zoom-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Botones de navegación */
+.flipbook-controls button {
+    padding: 8px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    background-color: #9d2448;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 11;
+    min-width: 40px;
+}
+
+.flipbook-controls button:hover {
+    background-color: #7a1c37;
+}
+
+/* Responsive para tablets y pantallas medianas */
+@media (max-width: 1080px) {
+    .flipbook-container {
+        aspect-ratio: 4 / 3;
+    }
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 800px) {
+    .flipbook-container {
+        max-width: 95%;
+        aspect-ratio: 3 / 4;
+    }
+
+    .flipbook-controls {
+        flex-direction: column;
+        font-size: 16px;
+        gap: 15px;
+    }
+
+    .nav-controls,
+    .zoom-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .flipbook-controls button {
+        font-size: 14px;
+        padding: 6px 14px;
+    }
+
+    #page-info {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 500px) {
+    .flipbook-container {
+        aspect-ratio: 2.5 / 4;
+    }
+
+    .flipbook-controls {
+        font-size: 14px;
+    }
+
+    .flipbook-controls button {
+        width: 100%;
+        max-width: 200px;
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
+/* Pantallas menores a 400px */
+@media (max-width: 400px) {
+    .flipbook-container {
+        aspect-ratio: 2 / 3.5;
+    }
+
+    .flipbook-controls {
+        font-size: 13px;
+        gap: 10px;
+    }
+
+    .flipbook-controls button {
+        font-size: 12px;
+    }
+}

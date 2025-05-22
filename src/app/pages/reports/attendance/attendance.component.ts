@@ -20,7 +20,7 @@ export class AttendanceComponent implements OnInit {
   resultadoConsulta: any[] = [];
   excelDataAvailable = false;
 
-  constructor(private attendanceService: AttendanceService) {}
+  constructor(private attendanceService: AttendanceService) { }
 
   ngOnInit(): void {
     this.loadPersonas();
@@ -109,13 +109,14 @@ export class AttendanceComponent implements OnInit {
         return;
     }
 
-    // Mostrar mensaje de espera con Swal
     Swal.fire({
       title: 'Espera en lo que se recopila la información',
       text: 'Procesando datos...',
       allowOutsideClick: false,
       didOpen: () => {
-        Swal.showLoading(); // Mostrar animación de carga
+        // Selecciona un botón de reemplazo para la animación de carga
+        const buttonToReplace = document.querySelector('#loadingButton') as HTMLButtonElement;
+        Swal.showLoading(buttonToReplace);  // Mostrar animación de carga
       },
     });
 

@@ -1,0 +1,10 @@
+{
+    "/flipbook": {
+        "target": "https://encompletadisonancia.com.mx",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/flipbook": "/flipbook"
+        }
+    }
+}

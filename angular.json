@@ -16,7 +16,12 @@
             "outputPath": "dist/sep",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "allowedCommonJsDependencies": ["sweetalert2", "file-saver", "exceljs", "moment"],
+            "allowedCommonJsDependencies": [
+              "sweetalert2",
+              "file-saver",
+              "exceljs",
+              "moment"
+            ],
             "polyfills": [
               "zone.js"
             ],
@@ -29,7 +34,9 @@
               "src/custom-theme.scss",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/libs/page-flip.browser.js"
+            ]
           },
           "configurations": {
             "production": {
