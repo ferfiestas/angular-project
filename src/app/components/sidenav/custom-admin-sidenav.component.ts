@@ -1,6 +1,6 @@
-import { Component, EventEmitter, HostListener, OnInit, Output, computed, inject} from '@angular/core';
+import { Component, EventEmitter, HostListener, HostBinding, OnInit, Output, computed, inject } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { style, transition, trigger, animate, keyframes } from '@angular/animations';
 import { NgModule } from '@angular/core';
@@ -11,7 +11,7 @@ import { navbarData } from './nav-data';
 import { SublevelMenuComponent } from './sublevel-menu.component';
 import { INavbarData, fadeInOut } from './helper';
 import { AccessService } from '../../services/access.service';
-
+import { FullscreenService } from '../../services/fullscreen.service';
 
 @NgModule({
   imports: [BrowserModule, BrowserAnimationsModule],
@@ -19,9 +19,6 @@ import { AccessService } from '../../services/access.service';
   bootstrap: [],
 })
 export class AppModule {}
-
-
-
 
 interface SideNavToggle {
   screenWidth: number;
@@ -40,16 +37,14 @@ interface SideNavToggle {
       transition(':enter', [
         animate('1000ms',
           keyframes([
-            style({transform: 'rotate(0deg)', offset: '0'}),
-            style({transform: 'rotate(2turn)', offset: '1'})
+            style({ transform: 'rotate(0deg)', offset: '0' }),
+            style({ transform: 'rotate(2turn)', offset: '1' })
           ])
         )
       ])
     ])
   ]
-
 })
-
 export class CustomAdminSidenavComponent implements OnInit {
 
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
@@ -59,44 +54,49 @@ export class CustomAdminSidenavComponent implements OnInit {
   filteredNavData = navbarData;
   multiple: boolean = false;
 
-  private accessService = inject(AccessService);  
+  private accessService = inject(AccessService);
+  private fullscreenService = inject(FullscreenService);
 
+  @HostBinding('class.hidden')
+  get isHidden(): boolean {
+    return this.fullscreenService.isFullscreen();
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(_event: any) {
     this.screenWidth = window.innerWidth;
-    if(this.screenWidth <= 768 ) {
+    if (this.screenWidth <= 768) {
       this.collapsed = false;
-      this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+      this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
     }
   }
 
   constructor(public router: Router) {}
 
   ngOnInit(): void {
-      this.screenWidth = window.innerWidth;
-      this.filterMenuByRole();
+    this.screenWidth = window.innerWidth;
+    this.filterMenuByRole();
   }
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;
-    this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+    this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
 
   closeSidenav(): void {
-    this.collapsed = false
-    this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+    this.collapsed = false;
+    this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
 
   handleClick(data: INavbarData): void {
     if (!this.multiple) {
-      for(let modelItem of this.navData) {
+      for (let modelItem of this.navData) {
         if (data !== modelItem && modelItem.expanded) {
           modelItem.expanded = false;
         }
       }
     }
-    data.expanded = !data.expanded
+    data.expanded = !data.expanded;
   }
 
   getActiveClass(data: INavbarData): string {

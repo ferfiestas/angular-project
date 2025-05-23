@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { RouterModule, RouterOutlet } from '@angular/router';
@@ -9,6 +9,7 @@ import { TickerService } from '../../services/ticker.service';
 import { NotificationService, Notification } from '../../services/notification.service';
 import { AccessService } from '../../services/access.service';
 import { TickerupdateService } from '../../services/tickerupdate.service';
+import { FullscreenService } from '../../services/fullscreen.service';
 
 @Component({
   selector: 'app-header',
@@ -20,9 +21,9 @@ import { TickerupdateService } from '../../services/tickerupdate.service';
 export class HeaderComponent implements OnInit {
   headerImageUrl: string = '';
 
-
   @Input() collapsed = false;
   @Input() screenWidth = 0;
+  @HostBinding('class.hidden') isHidden = false;
 
   canShowSearchAsOverlay = false;
   selectedLanguage: any;
@@ -35,12 +36,12 @@ export class HeaderComponent implements OnInit {
   tickerWidth: string = '100';
   messages: { idTicker: number; descripcion: string }[] = [];
 
-
   constructor(
     private tickerService: TickerService,
     private notificationService: NotificationService,
     public accessService: AccessService,
     private messageService: TickerupdateService,
+    private fullscreenService: FullscreenService
   ) { }
 
   @HostListener('window:resize', ['$event'])
@@ -57,6 +58,12 @@ export class HeaderComponent implements OnInit {
     });
     this.loadNotifications();
     this.loadHeaderImage();
+
+    this.fullscreenService.fullscreen$.subscribe((active) => {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                    (/Macintosh/.test(navigator.userAgent) && 'ontouchend' in document);
+      this.isHidden = isIOS && active;
+    });
   }
 
   loadMessages(): void {
@@ -168,5 +175,4 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  
 }

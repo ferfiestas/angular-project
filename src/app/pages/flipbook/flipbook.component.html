@@ -13,4 +13,9 @@
     </div>
 </div>
 
+<!-- NUEVO BOTÓN DE SALIDA FULLSCREEN SIMULADO -->
+<button *ngIf="fullscreenService.isFullscreen()" class="exit-fullscreen-btn" (click)="toggleFullscreen()">
+    &times;
+</button>
+
 <div class="flipbook-container" #flipbookContainer></div>

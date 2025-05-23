@@ -153,3 +153,88 @@
         font-size: 12px;
     }
 }
+
+/* --- iOS fullscreen simulation --- */
+.fullscreen-simulated {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 9999;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.fullscreen-simulated .page-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.fullscreen-simulated canvas {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.fullscreen-simulated .flipbook-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    z-index: 10000;
+    backdrop-filter: blur(8px);
+}
+
+.fullscreen-simulated .flipbook-controls button {
+    background-color: #ffffff22;
+    color: white;
+    border: 1px solid white;
+}
+
+.fullscreen-simulated .flipbook-controls button:hover {
+    background-color: #ffffff55;
+}
+
+/* Ocultar header y sidenav en modo fullscreen simulado */
+body.fullscreen-active .header,
+body.fullscreen-active .sidenav {
+    display: none !important;
+}
+
+body.fullscreen-active {
+    overflow: hidden;
+}
+
+.exit-fullscreen-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 10001;
+    font-size: 28px;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.exit-fullscreen-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}

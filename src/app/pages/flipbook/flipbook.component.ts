@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlipbookService } from '../../services/flipbook.service';
+import { FullscreenService } from '../../services/fullscreen.service';
 import * as pdfjsLib from 'pdfjs-dist';
 
 @Component({
@@ -25,7 +26,10 @@ export class FlipbookComponent implements OnInit, AfterViewInit {
   private readonly maxZoom = 2;
   private flipSound!: HTMLAudioElement;
 
-  constructor(private flipbookService: FlipbookService) { }
+  constructor(
+    private flipbookService: FlipbookService,
+    public fullscreenService: FullscreenService
+  ) { }
 
   async ngOnInit() {
     await this.loadPageFlipScript();
@@ -53,20 +57,12 @@ export class FlipbookComponent implements OnInit, AfterViewInit {
 
   private getResponsiveSettings() {
     const width = window.innerWidth;
-
-    if (width > 1080) {
-      return { width: 1200, height: 1500, singlePage: false };
-    } else if (width > 800) {
-      return { width: 1000, height: 1300, singlePage: false };
-    } else if (width > 500) {
-      return { width: 450, height: 800, singlePage: true };
-    } else if (width > 400) {
-      return { width: 380, height: 700, singlePage: true };
-    } else if (width > 300) {
-      return { width: 320, height: 500, singlePage: true };
-    } else {
-      return { width: 280, height: 460, singlePage: true };
-    }
+    if (width > 1080) return { width: 1200, height: 1500, singlePage: false };
+    else if (width > 800) return { width: 1000, height: 1300, singlePage: false };
+    else if (width > 500) return { width: 450, height: 800, singlePage: true };
+    else if (width > 400) return { width: 380, height: 700, singlePage: true };
+    else if (width > 300) return { width: 320, height: 500, singlePage: true };
+    else return { width: 280, height: 460, singlePage: true };
   }
 
   private async initFlipbook() {
@@ -79,7 +75,6 @@ export class FlipbookComponent implements OnInit, AfterViewInit {
     this.totalPages = this.pdfDoc.numPages;
 
     const pages: HTMLElement[] = [];
-
     for (let i = 1; i <= this.totalPages; i++) {
       const canvas = await this.flipbookService.renderPage(this.pdfDoc, i);
       const wrapper = document.createElement('div');
@@ -114,11 +109,8 @@ export class FlipbookComponent implements OnInit, AfterViewInit {
       this.currentPage = e.data + 1;
     });
 
-    // Add event listeners for pointerdown and touchstart to the container
     ['pointerdown', 'touchstart'].forEach(eventType => {
-      container.addEventListener(eventType, () => {
-        this.playFlipSound();
-      }, { passive: true });
+      container.addEventListener(eventType, () => this.playFlipSound(), { passive: true });
     });
   }
 
@@ -174,11 +166,40 @@ export class FlipbookComponent implements OnInit, AfterViewInit {
   }
 
   toggleFullscreen() {
-    const elem = this.flipbookContainerRef.nativeElement;
-    if (!document.fullscreenElement) {
-      elem.requestFullscreen?.();
+    const container = this.flipbookContainerRef.nativeElement;
+
+    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+    const isIOS = /iPad|iPhone|iPod/.test(userAgent) || (/Macintosh/.test(userAgent) && 'ontouchend' in document);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+
+    if (isIOS && isSafari) {
+      const isSimulated = container.classList.toggle('fullscreen-simulated');
+      document.body.classList.toggle('fullscreen-active', isSimulated);
+      if (isSimulated) {
+        this.fullscreenService.enterFullscreen();
+      } else {
+        this.fullscreenService.exitFullscreen();
+      }
     } else {
-      document.exitFullscreen?.();
+      const request = container.requestFullscreen ||
+        (container as any).webkitRequestFullscreen ||
+        (container as any).msRequestFullscreen;
+
+      const exit = document.exitFullscreen ||
+        (document as any).webkitExitFullscreen ||
+        (document as any).msExitFullscreen;
+
+      const isFullscreen = document.fullscreenElement ||
+        (document as any).webkitFullscreenElement ||
+        (document as any).msFullscreenElement;
+
+      if (!isFullscreen && request) {
+        request.call(container);
+        this.fullscreenService.enterFullscreen();
+      } else if (isFullscreen && exit) {
+        exit.call(document);
+        this.fullscreenService.exitFullscreen();
+      }
     }
   }
 

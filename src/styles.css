@@ -6,10 +6,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
 }
 
-html, body {
+html,
+body {
     position: relative;
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -17,8 +18,19 @@ html, body {
 
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.hidden {
+    display: none !important;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /* .cdk-global-overlay-wrapper {
     z-index: 100000; 
