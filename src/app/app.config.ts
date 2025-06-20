@@ -134,6 +134,6 @@ export const appConfig: ApplicationConfig = {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     /** Configuración de mantenimiento */
-    { provide: MANTENIMIENTO_MODE, useValue: true } // Cambia a true para activar la página de mantenimiento
+    { provide: MANTENIMIENTO_MODE, useValue: false } // Cambia a true para activar la página de mantenimiento
   ],
 };
