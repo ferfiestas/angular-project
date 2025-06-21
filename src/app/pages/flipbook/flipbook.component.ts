@@ -18,7 +18,7 @@ export class FlipbookComponent implements OnInit, AfterViewInit {
   pageFlip: any = null;
   totalPages = 0;
   currentPage = 1;
-  pdfUrl = '/assets/flipbook/junio.pdf';
+  pdfUrl = '/assets/flipbook/julio.pdf';
 
   private currentZoom = 1;
   private readonly zoomStep = 0.1;
