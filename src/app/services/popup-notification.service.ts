@@ -20,9 +20,9 @@ export class PopupNotificationService {
       alt: 'Notificación Interna'
     },
     {
-      start: new Date(2024, 11, 10), // 25 de diciembre 2024
-      end: new Date(2025, 0, 8),     // 8 de enero 2025
-      imageUrl: 'https://encompletadisonancia.com.mx/notification_popup/vacaciones.png',
+      start: new Date(2025, 6, 8), // 8 de Julio 2025
+      end: new Date(2025, 6, 14),     // 14 de Julio 2025
+      imageUrl: 'https://encompletadisonancia.com.mx/notification_popup/comunicado.png',
       alt: 'Notificación de Navidad'
     }
   ];
