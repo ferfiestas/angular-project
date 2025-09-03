@@ -131,7 +131,7 @@ export class HeaderComponent implements OnInit {
 
   loadHeaderImage(): void {
     const idUsuario = localStorage.getItem('usuario1');
-    const defaultImageUrl = 'https://encompletadisonancia.com.mx/photo_upload/img00000.jpg';
+    const defaultImageUrl = 'https://auditoriainterna.com.mx/photo_upload/img00000.jpg';
 
     if (idUsuario) {
       const possibleExtensions = ['jpg', 'png', 'jpeg'];
@@ -149,7 +149,7 @@ export class HeaderComponent implements OnInit {
 
   private async checkMultipleImageExtensions(idUsuario: string, extensions: string[]): Promise<string | null> {
     for (const ext of extensions) {
-      const imageUrl = `https://encompletadisonancia.com.mx/photo_upload/${idUsuario}.${ext}`;
+      const imageUrl = `https://auditoriainterna.com.mx/photo_upload/${idUsuario}.${ext}`;
       const exists = await this.checkImageExists(imageUrl);
       if (exists) {
         return imageUrl;

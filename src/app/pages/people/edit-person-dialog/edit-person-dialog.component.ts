@@ -66,7 +66,7 @@ export class EditPersonDialogComponent implements OnInit {
   private onDestroy = new Subject<void>();
 
   // Variable to store the valid image URL or the default one
-  validImageUrl: string = 'https://encompletadisonancia.com.mx/photo_upload/img00000.jpg';  // Imagen por defecto
+  validImageUrl: string = 'https://auditoriainterna.com.mx/photo_upload/img00000.jpg';  // Imagen por defecto
 
   constructor(
     private fb: FormBuilder,
@@ -584,7 +584,7 @@ export class EditPersonDialogComponent implements OnInit {
 
   async loadImageWithExtensions(): Promise<void> {
     const userImageUrl = this.personalInfoForm.get('urlImagen')?.value;
-    const baseUrl = 'https://encompletadisonancia.com.mx/photo_upload/';
+    const baseUrl = 'https://auditoriainterna.com.mx/photo_upload/';
     const extensions = ['jpg', 'png', 'jpeg'];
 
     if (userImageUrl) {

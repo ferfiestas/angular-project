@@ -1,6 +1,6 @@
 {
     "/flipbook": {
-        "target": "https://encompletadisonancia.com.mx",
+        "target": "https://auditoriainterna.com.mx",
         "secure": false,
         "changeOrigin": true,
         "pathRewrite": {
