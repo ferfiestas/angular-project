@@ -108,7 +108,7 @@
             <button mat-raised-button color="primary" type="submit" class="submit-button" *ngIf="idPersonaLocal !== 1584">Guardar</button>
 
             <button mat-raised-button color="accent" type="button" (click)="resetPassword()" class="reset-button"
-                *ngIf="userRole !== 3">Restablecer Contraseña</button>
+                *ngIf="userRole !== 3 && idPersonaLocal !== 1584">Restablecer Contraseña</button>
         </form>
     </mat-tab>
 
