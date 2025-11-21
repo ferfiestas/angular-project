@@ -24,6 +24,7 @@ export class EditPersonDialogComponent implements OnInit {
   workAddressForm!: FormGroup;
 
   userRole: number | undefined;
+  idPersonaLocal!: number | undefined;
 
   dependencias: any[] = [];
   estudios: any[] = [];
@@ -116,6 +117,7 @@ export class EditPersonDialogComponent implements OnInit {
   ngOnInit(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
     this.userRole = parseInt(localStorage.getItem('userRole') || '0', 10);
+    this.idPersonaLocal = parseInt(localStorage.getItem('idPersona') || '0', 10);
 
     if (idPersonaUsuario) {
       this.personalInfoForm = this.fb.group({

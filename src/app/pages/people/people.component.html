@@ -11,7 +11,7 @@
     <div *ngIf="paginatedPersons.length > 0" class="person-details">
         <div *ngFor="let person of paginatedPersons">
             <p><strong>Nombre Completo:</strong> {{ person.nombreCompleto }}</p>
-            <button mat-raised-button color="primary" (click)="openEditDialog(person)" class="edit-button">Editar</button>
+            <button mat-raised-button color="primary" (click)="openEditDialog(person)" class="edit-button">Consultar</button>
         </div>
     
         <div class="pagination-controls">

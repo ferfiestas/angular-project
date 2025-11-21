@@ -24,7 +24,7 @@ export const navbarData: INavbarData[] = [
         items: [
           {
             routeLink: 'people',
-            Label: 'Editar Usuario',
+            Label: 'Usuario',
             icon: 'fal fa-pencil',
             allowedRoles: [1, 2, 3],
           },
