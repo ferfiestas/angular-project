@@ -460,6 +460,7 @@ export class EditPersonDialogComponent implements OnInit {
   }
 
   loadPersonData(idPersona: string): void {
+    const idPerUsuario = localStorage.getItem('idPerUsuario');
     this.peopleService.getPersonalInfo(idPersona).subscribe(data => {
       this.personalInfoForm.patchValue(data);
       if (this.personalInfoForm.get('urlImagen')?.value) {
@@ -509,79 +510,85 @@ export class EditPersonDialogComponent implements OnInit {
       });
     });
 
-    this.peopleService.getWorkInfo(idPersona).subscribe(data => {
-      this.workInfoForm.patchValue(data);
-      this.peopleService.getContratos().subscribe(contratos => {
-        this.contratos = contratos;
-        const selectedContratos = this.contratos.find(c => c.descripcion === data.contratacion);
-        if (selectedContratos) {
-          this.workInfoForm.get('idTipoContratacion')!.setValue(selectedContratos.idTipoContratacion);
-        }
+    // --- Info Trabajo: usar idPerUsuario ---
+    if (idPerUsuario) {
+      this.peopleService.getWorkInfo(idPerUsuario).subscribe(data => {
+        this.workInfoForm.patchValue(data);
+
+        this.peopleService.getContratos().subscribe(contratos => {
+          this.contratos = contratos;
+          const selectedContratos = this.contratos.find(c => c.descripcion === data.contratacion);
+          if (selectedContratos) {
+            this.workInfoForm.get('idTipoContratacion')!.setValue(selectedContratos.idTipoContratacion);
+          }
+        });
+
+        this.peopleService.getAreas().subscribe(areas => {
+          this.areas = areas;
+          const selectedAreas = this.areas.find(a => a.descripcion === data.areaDescripcion);
+          if (selectedAreas) {
+            this.workInfoForm.get('idArea')!.setValue(selectedAreas.idArea);
+          }
+        });
+
+        this.peopleService.getSubArea().subscribe(subareas => {
+          this.subareas = subareas;
+          const selectedSubAreas = this.subareas.find(s => s.descripcion === data.subAreaDescripcion);
+          if (selectedSubAreas) {
+            this.workInfoForm.get('idSubArea')!.setValue(selectedSubAreas.idSubArea);
+          }
+        });
+
+        this.peopleService.getPuestos().subscribe(puestos => {
+          this.puestos = puestos;
+          const selectedPuestos = this.puestos.find(p => p.nombre === data.puesto);
+          if (selectedPuestos) {
+            this.workInfoForm.get('idPuesto')!.setValue(selectedPuestos.idPuesto);
+            this.workInfoForm.get('sueldoBruto')!.setValue(selectedPuestos.sueldoBruto);
+            this.workInfoForm.get('sueldoNeto')!.setValue(selectedPuestos.sueldoNeto);
+          }
+        });
       });
 
-      this.peopleService.getAreas().subscribe(areas => {
-        this.areas = areas;
-        const selectedAreas = this.areas.find(a => a.descripcion === data.areaDescripcion);
-        if (selectedAreas) {
-          this.workInfoForm.get('idArea')!.setValue(selectedAreas.idArea);
-        }
+      // --- Domicilio Trabajo: usar idPerUsuario ---
+      this.peopleService.getWorkAddress(idPerUsuario).subscribe(data => {
+        this.workAddressForm.patchValue(data);
+
+        this.peopleService.getCuadrantes().subscribe(cuadrantes => {
+          this.cuadrantes = cuadrantes;
+          const selectedCuadrantes = this.cuadrantes.find(c => c.descripcion === data.cuadrante);
+          if (selectedCuadrantes) {
+            this.workAddressForm.get('idCuadrante')!.setValue(selectedCuadrantes.idCuadrante);
+          }
+        });
+
+        this.peopleService.getEstados().subscribe(estados => {
+          this.estados = estados;
+          const selectedEstados = this.estados.find(e => e.descripcion === data.estado);
+          if (selectedEstados) {
+            this.workAddressForm.get('idEstado')!.setValue(selectedEstados.idEstado);
+          }
+        });
+
+        this.peopleService.getMunicipios().subscribe(municipios => {
+          this.municipios = municipios;
+          const selectedMunicipios = this.municipios.find(m => m.nombre === data.municipio);
+          if (selectedMunicipios) {
+            this.workAddressForm.get('idMunicipio')!.setValue(selectedMunicipios.idMunicipio);
+          }
+        });
+
+        this.peopleService.getDivisiones().subscribe(divisiones => {
+          this.divisiones = divisiones;
+          const selectedDivisiones = this.divisiones.find(d => d.descripcion === data.division);
+          if (selectedDivisiones) {
+            this.workAddressForm.get('idDivision')!.setValue(selectedDivisiones.idDivision);
+          }
+        });
       });
-
-      this.peopleService.getSubArea().subscribe(subareas => {
-        this.subareas = subareas;
-        const selectedSubAreas = this.subareas.find(s => s.descripcion === data.subAreaDescripcion);
-        if (selectedSubAreas) {
-          this.workInfoForm.get('idSubArea')!.setValue(selectedSubAreas.idSubArea);
-        }
-      });
-
-      this.peopleService.getPuestos().subscribe(puestos => {
-        this.puestos = puestos;
-        const selectedPuestos = this.puestos.find(p => p.nombre === data.puesto);
-        if (selectedPuestos) {
-          this.workInfoForm.get('idPuesto')!.setValue(selectedPuestos.idPuesto);
-          this.workInfoForm.get('sueldoBruto')!.setValue(selectedPuestos.sueldoBruto);
-          this.workInfoForm.get('sueldoNeto')!.setValue(selectedPuestos.sueldoNeto);
-        }
-      });
-
-    });
-
-    this.peopleService.getWorkAddress(idPersona).subscribe(data => {
-      this.workAddressForm.patchValue(data);
-      this.peopleService.getCuadrantes().subscribe(cuadrantes => {
-        this.cuadrantes = cuadrantes;
-        const selectedCuadrantes = this.cuadrantes.find(c => c.descripcion === data.cuadrante);
-        if (selectedCuadrantes) {
-          this.workAddressForm.get('idCuadrante')!.setValue(selectedCuadrantes.idCuadrante);
-        }
-      });
-
-      this.peopleService.getEstados().subscribe(estados => {
-        this.estados = estados;
-        const selectedEstados = this.estados.find(e => e.descripcion === data.estado);
-        if (selectedEstados) {
-          this.workAddressForm.get('idEstado')!.setValue(selectedEstados.idEstado);
-        }
-      });
-
-      this.peopleService.getMunicipios().subscribe(municipios => {
-        this.municipios = municipios;
-        const selectedMunicipios = this.municipios.find(m => m.nombre === data.municipio);
-        if (selectedMunicipios) {
-          this.workAddressForm.get('idMunicipio')!.setValue(selectedMunicipios.idMunicipio);
-        }
-      });
-
-      this.peopleService.getDivisiones().subscribe(divisiones => {
-        this.divisiones = divisiones;
-        const selectedDivisiones = this.divisiones.find(d => d.descripcion === data.division);
-        if (selectedDivisiones) {
-          this.workAddressForm.get('idDivision')!.setValue(selectedDivisiones.idDivision);
-        }
-      });
-
-    });
+    } else {
+      console.warn('idPerUsuario no encontrado en localStorage');
+    }
   }
 
   async loadImageWithExtensions(): Promise<void> {
@@ -747,6 +754,7 @@ export class EditPersonDialogComponent implements OnInit {
 
   saveWorkInfo(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
+    const idPerUsuario = localStorage.getItem('idPerUsuario');
     if (idPersonaUsuario) {
       const formData = this.workInfoForm.value;
       formData.idPersona = idPersonaUsuario;
@@ -760,7 +768,8 @@ export class EditPersonDialogComponent implements OnInit {
             confirmButtonText: 'OK'
           }).then(() => {
             // Recarga la información laboral después de guardar
-            this.peopleService.getWorkInfo(idPersonaUsuario).subscribe(workData => {
+            if (idPerUsuario) {
+            this.peopleService.getWorkInfo(idPerUsuario).subscribe(workData => {
               this.workInfoForm.patchValue(workData);
 
               // Recarga la información del puesto y sueldos después de guardar
@@ -773,6 +782,7 @@ export class EditPersonDialogComponent implements OnInit {
                 }
               });
             });
+            }
           });
         },
         error => {
@@ -807,6 +817,7 @@ export class EditPersonDialogComponent implements OnInit {
 
   saveWorkAddress(): void {
     const idPersonaUsuario = localStorage.getItem('idPersonaUsuario');
+    const idPerUsuario = localStorage.getItem('idPerUsuario');
     if (idPersonaUsuario) {
       const formData = this.workAddressForm.value;
       formData.idPersona = idPersonaUsuario;
@@ -820,9 +831,11 @@ export class EditPersonDialogComponent implements OnInit {
             confirmButtonText: 'OK'
           }).then(() => {
             // Recarga los datos de la dirección laboral después de guardar
-            this.peopleService.getWorkAddress(idPersonaUsuario).subscribe(workAddressData => {
+            if (idPerUsuario) {
+            this.peopleService.getWorkAddress(idPerUsuario).subscribe(workAddressData => {
               this.workAddressForm.patchValue(workAddressData); // Actualiza el formulario con los datos
             });
+            }
           });
         },
         error => {
