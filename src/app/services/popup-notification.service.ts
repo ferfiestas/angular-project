@@ -14,9 +14,9 @@ export class PopupNotificationService {
 
   private notifications: Notification[] = [
     {
-      start: new Date(2025, 6, 15), // 15 de Julio 2025
-      end: new Date(2025, 7, 30),   // 30 de Agosto 2025
-      imageUrl: 'https://auditoriainterna.com.mx/notification_popup/fincurso.png',
+      start: new Date(2025, 11, 22), // 22 de Diciembre 2025
+      end: new Date(2026, 0, 12),   // 12 de Enero 2026
+      imageUrl: 'https://auditoriainterna.com.mx/notification_popup/invernales.png',
       alt: 'Notificación Interna'
     },
     {
